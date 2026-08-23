@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr-MA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Démarrer votre projet — Digilago</title>
+<meta name="description" content="Répondez à quelques questions, recevez une démo gratuite de votre futur site, construite pour votre entreprise.">
+<link rel="canonical" href="https://digilago.ma/demarrer.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Digilago">
+<meta property="og:locale" content="fr_MA">
+<meta property="og:title" content="Démarrer votre projet — Digilago">
+<meta property="og:description" content="Répondez à quelques questions, recevez une démo gratuite de votre futur site, construite pour votre entreprise.">
+<meta property="og:url" content="https://digilago.ma/demarrer.html">
+<meta property="og:image" content="https://digilago.ma/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Démarrer votre projet — Digilago">
+<meta name="twitter:description" content="Répondez à quelques questions, recevez une démo gratuite de votre futur site, construite pour votre entreprise.">
+<meta name="twitter:image" content="https://digilago.ma/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://digilago.ma/#organization","name":"Digilago","image":"https://digilago.ma/og-image.png","logo":"https://digilago.ma/og-image.png","description":"Agence de création de sites web sur-mesure pour les entreprises d'El Jadida, Maroc. Sites codés à la main, ligne par ligne — sans thème WordPress ni template Shopify.","url":"https://digilago.ma/","telephone":"+212 6XX-XXXXXX","email":"contact@digilago.ma","address":{"@type":"PostalAddress","addressLocality":"El Jadida","addressRegion":"Casablanca-Settat","addressCountry":"MA"},"areaServed":{"@type":"City","name":"El Jadida"},"priceRange":"5999 MAD"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://digilago.ma/"},{"@type":"ListItem","position":2,"name":"Démarrer","item":"https://digilago.ma/demarrer.html"}]}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2316181D'/%3E%3Cpath d='M19 19h13a13 13 0 0 1 0 26H19z' fill='none' stroke='%23FFC72C' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="dm-body">
+
+<div class="dm-top">
+  <div class="wrap">
+    <a href="index.html" class="dm-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Retour au site
+    </a>
+    <a href="index.html" class="logo"><i>Digilago</i><em>.</em></a>
+    <span class="dm-step-count" id="stepCount"></span>
+  </div>
+</div>
+<div class="dm-progress"><i id="progressBar"></i></div>
+
+<main class="dm-main">
+  <div class="dm-stage">
+
+    <!-- ===== ÉCRAN 0 — INTRO ===== -->
+    <section class="dm-screen active" data-screen="intro">
+      <div class="dm-center">
+        <p class="dm-step-label">Nouveau projet</p>
+        <h1 class="dm-q">Voyons ce qu'il faut pour construire votre site.</h1>
+        <p class="dm-sub">Deux minutes, quelques questions simples. On construit ensuite votre démo gratuite — vous la voyez avant de décider quoi que ce soit.</p>
+        <button class="btn btn-sun" id="startBtn" style="padding:.95rem 2.2rem;">C'est parti →</button>
+      </div>
+    </section>
+
+    <!-- ===== ÉTAPE 1 — QUI ÊTES-VOUS ===== -->
+    <section class="dm-screen" data-screen="step" data-step="1">
+      <p class="dm-step-label">Étape 1 sur 5</p>
+      <h2 class="dm-q">Parlez-nous de votre entreprise.</h2>
+      <p class="dm-sub">Le strict nécessaire pour commencer.</p>
+
+      <div class="dm-field">
+        <label for="f_entreprise">Nom de votre entreprise</label>
+        <input type="text" id="f_entreprise" placeholder="Ex. École Al Amal">
+        <p class="dm-err" data-err="entreprise"></p>
+      </div>
+      <div class="dm-field">
+        <label for="f_nom">Votre nom</label>
+        <input type="text" id="f_nom" placeholder="Nom et prénom">
+        <p class="dm-err" data-err="nom"></p>
+      </div>
+      <div class="dm-field">
+        <label for="f_secteur">Secteur d'activité</label>
+        <select id="f_secteur">
+          <option value="">Choisissez...</option>
+          <option>École privée</option>
+          <option>Clinique / cabinet médical</option>
+          <option>Restaurant / café</option>
+          <option>Commerce / boutique</option>
+          <option>Industrie / usine</option>
+          <option>Hôtel / riad</option>
+          <option>Profession libérale</option>
+          <option>Autre</option>
+        </select>
+        <p class="dm-err" data-err="secteur"></p>
+      </div>
+
+      <div class="dm-nav">
+        <button class="dm-prev" data-prev>← Retour</button>
+        <button class="btn btn-ink dm-next" data-next>Continuer</button>
+      </div>
+    </section>
+
+    <!-- ===== ÉTAPE 2 — PRÉSENCE EN LIGNE ===== -->
+    <section class="dm-screen" data-screen="step" data-step="2">
+      <p class="dm-step-label">Étape 2 sur 5</p>
+      <h2 class="dm-q">Où en êtes-vous en ligne aujourd'hui&nbsp;?</h2>
+      <p class="dm-sub">Ça change complètement comment on construit votre démo.</p>
+
+      <div class="dm-cards" id="presenceCards">
+        <div class="dm-card-opt" data-val="site">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg></span>
+          <span class="dm-card-opt-txt"><h3>Oui, on a un site web</h3><p>Qu'il vous plaise ou non aujourd'hui</p></span>
+          <span class="dm-card-chk"></span>
+        </div>
+        <div class="dm-card-opt" data-val="social">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 3.9M15.4 6.6L8.6 10.5"/></svg></span>
+          <span class="dm-card-opt-txt"><h3>Une page Facebook ou LinkedIn</h3><p>Mais pas de vrai site</p></span>
+          <span class="dm-card-chk"></span>
+        </div>
+        <div class="dm-card-opt" data-val="rien">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1-6.3-4.5-6.3 4.5 2.3-7.1-6-4.4h7.6z"/></svg></span>
+          <span class="dm-card-opt-txt"><h3>Non, aucune présence en ligne</h3><p>On part d'une page blanche</p></span>
+          <span class="dm-card-chk"></span>
+        </div>
+      </div>
+
+      <div class="dm-reveal" id="revealSite">
+        <div class="dm-reveal-inner">
+          <div class="dm-field">
+            <label for="f_domaine">Quelle est l'adresse de votre site&nbsp;?</label>
+            <input type="text" id="f_domaine" placeholder="www.votresite.ma">
+          </div>
+          <label style="display:block;font-size:.82rem;font-weight:600;color:var(--ink-70);margin-bottom:.6rem;">Qu'est-ce qui ne va pas avec, si quelque chose vous gêne&nbsp;? <span style="font-weight:400;color:var(--ink-25);">(optionnel)</span></label>
+          <div class="dm-chips" id="chipsProbleme">
+            <span class="dm-chip" data-chip="Trop ancien">Trop ancien</span>
+            <span class="dm-chip" data-chip="Pas beau">Pas beau</span>
+            <span class="dm-chip" data-chip="Introuvable sur Google">Introuvable sur Google</span>
+            <span class="dm-chip" data-chip="Pas adapté au mobile">Pas adapté au mobile</span>
+            <span class="dm-chip" data-chip="Autre raison">Autre raison</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dm-reveal" id="revealSocial">
+        <div class="dm-reveal-inner">
+          <div class="dm-field">
+            <label for="f_lien_social">Le lien de votre page</label>
+            <input type="text" id="f_lien_social" placeholder="facebook.com/votre-page">
+          </div>
+        </div>
+      </div>
+
+      <div class="dm-reveal" id="revealRien">
+        <div class="dm-reveal-inner">
+          <p class="dm-hint">Parfait — souvent le cas le plus simple. On construit directement une identité qui vous ressemble, sans rien reprendre d'ancien.</p>
+        </div>
+      </div>
+
+      <p class="dm-err" data-err="presence"></p>
+
+      <div class="dm-nav">
+        <button class="dm-prev" data-prev>← Retour</button>
+        <button class="btn btn-ink dm-next" data-next>Continuer</button>
+      </div>
+    </section>
+
+    <!-- ===== ÉTAPE 3 — VOUS JOINDRE ===== -->
+    <section class="dm-screen" data-screen="step" data-step="3">
+      <p class="dm-step-label">Étape 3 sur 5</p>
+      <h2 class="dm-q">Comment on vous envoie la démo&nbsp;?</h2>
+      <p class="dm-sub">Juste de quoi vous montrer le résultat.</p>
+
+      <div class="dm-field">
+        <label for="f_email">Email</label>
+        <input type="email" id="f_email" placeholder="vous@exemple.ma">
+        <p class="dm-err" data-err="email"></p>
+      </div>
+      <div class="dm-field">
+        <label for="f_tel">Téléphone / WhatsApp</label>
+        <input type="tel" id="f_tel" placeholder="06XX-XXXXXX">
+        <p class="dm-err" data-err="tel"></p>
+      </div>
+
+      <div class="dm-nav">
+        <button class="dm-prev" data-prev>← Retour</button>
+        <button class="btn btn-ink dm-next" data-next>Continuer</button>
+      </div>
+    </section>
+
+    <!-- ===== ÉTAPE 4 — LE TON ===== -->
+    <section class="dm-screen" data-screen="step" data-step="4">
+      <p class="dm-step-label">Étape 4 sur 5</p>
+      <h2 class="dm-q">Quel ton pour votre marque&nbsp;?</h2>
+      <p class="dm-sub">Ça oriente tout le design de votre démo.</p>
+
+      <div class="dm-tone-grid" id="toneCards">
+        <div class="dm-tone-card" data-val="Professionnel et rassurant">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <h3>Professionnel</h3><p>Rassurant, sérieux</p>
+        </div>
+        <div class="dm-tone-card" data-val="Moderne et dynamique">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></span>
+          <h3>Moderne</h3><p>Dynamique, énergique</p>
+        </div>
+        <div class="dm-tone-card" data-val="Chaleureux et familial">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5.5 5.5 0 0 0-9.8-3.5 5.5 5.5 0 0 0-9 6.2c1.5 4 8 8.7 9 9.4 1-.7 6.7-4.9 8.8-8.6"/></svg></span>
+          <h3>Chaleureux</h3><p>Familial, accueillant</p>
+        </div>
+        <div class="dm-tone-card" data-val="Élégant et premium">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.1-6.3-4.5-6.3 4.5 2.3-7.1-6-4.4h7.6z"/></svg></span>
+          <h3>Élégant</h3><p>Premium, haut de gamme</p>
+        </div>
+        <div class="dm-tone-card" data-val="Simple et direct" style="grid-column:1/-1;">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg></span>
+          <h3>Simple &amp; direct</h3><p>Sans fioritures, à l'essentiel</p>
+        </div>
+      </div>
+      <p class="dm-err" data-err="ton"></p>
+
+      <div class="dm-nav">
+        <button class="dm-prev" data-prev>← Retour</button>
+        <button class="btn btn-ink dm-next" data-next>Continuer</button>
+      </div>
+    </section>
+
+    <!-- ===== ÉTAPE 5 — CE QUI VOUS REND UNIQUE ===== -->
+    <section class="dm-screen" data-screen="step" data-step="5">
+      <p class="dm-step-label">Étape 5 sur 5</p>
+      <h2 class="dm-q">Encore deux choses, et c'est tout.</h2>
+      <p class="dm-sub">Ça nous aide à construire une démo directement utile.</p>
+
+      <div class="dm-field">
+        <label for="f_unique">Qu'est-ce qui vous différencie&nbsp;? <span style="font-weight:400;color:var(--ink-25);">(optionnel)</span></label>
+        <textarea id="f_unique" placeholder="Ce que vous voulez que vos clients retiennent..."></textarea>
+      </div>
+
+      <label style="display:block;font-size:.82rem;font-weight:600;color:var(--ink-70);margin-bottom:.6rem;">Des fonctionnalités en tête&nbsp;? <span style="font-weight:400;color:var(--ink-25);">(optionnel)</span></label>
+      <div class="dm-chips" id="chipsFonc" style="margin-bottom:1rem;">
+        <span class="dm-chip" data-chip="Prise de rendez-vous">Prise de rendez-vous</span>
+        <span class="dm-chip" data-chip="Boutique en ligne">Boutique en ligne</span>
+        <span class="dm-chip" data-chip="Version arabe">Version arabe</span>
+        <span class="dm-chip" data-chip="Espace client">Espace client</span>
+        <span class="dm-chip" data-chip="Chat WhatsApp intégré">Chat WhatsApp intégré</span>
+        <span class="dm-chip" data-chip="Newsletter">Newsletter</span>
+      </div>
+
+      <div class="dm-nav">
+        <button class="dm-prev" data-prev>← Retour</button>
+        <button class="btn btn-ink dm-next" id="toRecapBtn">Voir le récapitulatif</button>
+      </div>
+    </section>
+
+    <!-- ===== RÉCAPITULATIF ===== -->
+    <section class="dm-screen" data-screen="recap">
+      <p class="dm-step-label">Dernière vérification</p>
+      <h2 class="dm-q">Tout est correct&nbsp;?</h2>
+      <p class="dm-sub">Un dernier coup d'œil avant l'envoi.</p>
+
+      <div class="dm-recap" id="recapBox"></div>
+
+      <div class="dm-nav">
+        <button class="dm-prev" data-prev>← Retour</button>
+        <button class="btn btn-sun dm-next" id="submitBtn">Recevoir ma démo gratuite →</button>
+      </div>
+    </section>
+
+    <!-- ===== CONFIRMATION ===== -->
+    <section class="dm-screen" data-screen="done">
+      <div class="dm-center">
+        <span class="dm-done-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <h2 class="dm-q">C'est envoyé.</h2>
+        <p class="dm-sub">Un membre de l'équipe Digilago vous répond en moins de 8h ouvrées pour la suite. Votre démo complète arrive sous 48h.</p>
+        <a href="index.html" class="btn btn-ink">Retour au site</a>
+        <div>
+          <a href="https://wa.me/2126XXXXXXXX" class="dm-whatsapp-fallback" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Une urgence&nbsp;? Écrivez sur WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script>
+/* ===================================================================
+   CONFIGURATION DES ÉTAPES
+   =================================================================== */
+const ORDER = ['intro','1','2','3','4','5','recap','done'];
+let current = 0;
+let lastDirection = 'fwd';
+const data = { presence:'', probleme:[], fonctionnalites:[] };
+
+const stage = document.querySelector('.dm-stage');
+const progressBar = document.getElementById('progressBar');
+const stepCount = document.getElementById('stepCount');
+
+function screenEl(name){
+  if (name === 'intro') return document.querySelector('[data-screen="intro"]');
+  if (name === 'recap') return document.querySelector('[data-screen="recap"]');
+  if (name === 'done') return document.querySelector('[data-screen="done"]');
+  return document.querySelector('[data-screen="step"][data-step="' + name + '"]');
+}
+
+function show(index, direction){
+  const name = ORDER[index];
+  document.querySelectorAll('.dm-screen').forEach(s => {
+    s.classList.remove('active','animate-in','animate-back');
+  });
+  const el = screenEl(name);
+  el.classList.add('active');
+  void el.offsetWidth; // forcer le reflow pour rejouer l'animation
+  el.classList.add(direction === 'back' ? 'animate-back' : 'animate-in');
+
+  const totalSteps = 5;
+  const stepNum = ['1','2','3','4','5'].indexOf(name) + 1;
+  if (stepNum > 0) {
+    progressBar.style.width = (stepNum / totalSteps * 100) + '%';
+    stepCount.textContent = 'Étape ' + stepNum + ' / ' + totalSteps;
+  } else if (name === 'recap' || name === 'done') {
+    progressBar.style.width = '100%';
+    stepCount.textContent = '';
+  } else {
+    progressBar.style.width = '0%';
+    stepCount.textContent = '';
+  }
+  if (name === 'recap') buildRecap();
+  current = index;
+
+  const firstInput = el.querySelector('input, textarea, select');
+  if (firstInput && name !== 'intro' && name !== 'done') setTimeout(() => firstInput.focus(), 260);
+}
+
+function goTo(index, direction){ show(index, direction || (index > current ? 'fwd' : 'back')); }
+function next(){ if (current < ORDER.length - 1) goTo(current + 1, 'fwd'); }
+function prev(){ if (current > 0) goTo(current - 1, 'back'); }
+
+/* ===================================================================
+   VALIDATION PAR ÉTAPE
+   =================================================================== */
+function clearErr(key){ const e = document.querySelector('[data-err="' + key + '"]'); if (e) e.textContent = ''; }
+function setErr(key, msg){ const e = document.querySelector('[data-err="' + key + '"]'); if (e) e.textContent = msg; }
+
+function validateCurrent(){
+  const name = ORDER[current];
+  if (name === '1') {
+    let ok = true;
+    if (!document.getElementById('f_entreprise').value.trim()) { setErr('entreprise', 'Ce champ est nécessaire pour continuer.'); ok = false; } else clearErr('entreprise');
+    if (!document.getElementById('f_nom').value.trim()) { setErr('nom', 'Ce champ est nécessaire pour continuer.'); ok = false; } else clearErr('nom');
+    if (!document.getElementById('f_secteur').value) { setErr('secteur', 'Choisissez un secteur.'); ok = false; } else clearErr('secteur');
+    return ok;
+  }
+  if (name === '2') {
+    if (!data.presence) { setErr('presence', 'Choisissez une option pour continuer.'); return false; }
+    clearErr('presence');
+    return true;
+  }
+  if (name === '3') {
+    let ok = true;
+    const email = document.getElementById('f_email').value.trim();
+    if (!email || !email.includes('@')) { setErr('email', 'Un email valide est nécessaire.'); ok = false; } else clearErr('email');
+    if (!document.getElementById('f_tel').value.trim()) { setErr('tel', 'Un numéro est nécessaire pour vous joindre.'); ok = false; } else clearErr('tel');
+    return ok;
+  }
+  if (name === '4') {
+    if (!data.ton) { setErr('ton', 'Choisissez le ton qui vous correspond le plus.'); return false; }
+    clearErr('ton');
+    return true;
+  }
+  return true;
+}
+
+/* ===================================================================
+   NAVIGATION
+   =================================================================== */
+document.getElementById('startBtn').addEventListener('click', next);
+document.querySelectorAll('[data-prev]').forEach(b => b.addEventListener('click', prev));
+document.querySelectorAll('[data-next]').forEach(b => b.addEventListener('click', () => { if (validateCurrent()) next(); }));
+document.getElementById('toRecapBtn').addEventListener('click', () => { if (validateCurrent()) next(); });
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const name = ORDER[current];
+  if (name === 'intro') { next(); return; }
+  if (['1','2','3','4','5'].includes(name)) {
+    if (e.target.tagName === 'TEXTAREA') return; // ne pas intercepter Entrée dans un long texte
+    e.preventDefault();
+    if (validateCurrent()) next();
+  }
+});
+
+/* ===================================================================
+   ÉTAPE 2 — CARTES DE PRÉSENCE EN LIGNE + RÉVÉLATIONS
+   =================================================================== */
+document.querySelectorAll('#presenceCards .dm-card-opt').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('#presenceCards .dm-card-opt').forEach(c => c.classList.remove('sel'));
+    card.classList.add('sel');
+    data.presence = card.dataset.val;
+    clearErr('presence');
+
+    document.getElementById('revealSite').classList.toggle('show', data.presence === 'site');
+    document.getElementById('revealSocial').classList.toggle('show', data.presence === 'social');
+    document.getElementById('revealRien').classList.toggle('show', data.presence === 'rien');
+  });
+});
+document.querySelectorAll('#chipsProbleme .dm-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('sel');
+    const v = chip.dataset.chip;
+    if (chip.classList.contains('sel')) data.probleme.push(v);
+    else data.probleme = data.probleme.filter(x => x !== v);
+  });
+});
+
+/* ===================================================================
+   ÉTAPE 4 — CARTES DE TON
+   =================================================================== */
+document.querySelectorAll('#toneCards .dm-tone-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('#toneCards .dm-tone-card').forEach(c => c.classList.remove('sel'));
+    card.classList.add('sel');
+    data.ton = card.dataset.val;
+    clearErr('ton');
+  });
+});
+
+/* ===================================================================
+   ÉTAPE 5 — FONCTIONNALITÉS (chips)
+   =================================================================== */
+document.querySelectorAll('#chipsFonc .dm-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.classList.toggle('sel');
+    const v = chip.dataset.chip;
+    if (chip.classList.contains('sel')) data.fonctionnalites.push(v);
+    else data.fonctionnalites = data.fonctionnalites.filter(x => x !== v);
+  });
+});
+
+/* ===================================================================
+   RÉCAPITULATIF
+   =================================================================== */
+function esc(s){ const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+function presenceLabel(){
+  if (data.presence === 'site') {
+    const dom = document.getElementById('f_domaine').value.trim();
+    let v = 'Site existant' + (dom ? ' — ' + esc(dom) : '');
+    if (data.probleme.length) v += '<br><span style="color:var(--ink-45);font-size:.82rem;">' + esc(data.probleme.join(', ')) + '</span>';
+    return v;
+  }
+  if (data.presence === 'social') {
+    const l = document.getElementById('f_lien_social').value.trim();
+    return 'Page Facebook / LinkedIn' + (l ? '<br><span style="color:var(--ink-45);font-size:.82rem;">' + esc(l) + '</span>' : '');
+  }
+  if (data.presence === 'rien') return 'Aucune présence en ligne';
+  return '—';
+}
+
+function buildRecap(){
+  const rows = [
+    ['Entreprise', esc(document.getElementById('f_entreprise').value) || '—', 1],
+    ['Votre nom', esc(document.getElementById('f_nom').value) || '—', 1],
+    ['Secteur', esc(document.getElementById('f_secteur').value) || '—', 1],
+    ['Présence en ligne', presenceLabel(), 2],
+    ['Email', esc(document.getElementById('f_email').value) || '—', 3],
+    ['Téléphone', esc(document.getElementById('f_tel').value) || '—', 3],
+    ['Ton souhaité', esc(data.ton) || '—', 4],
+    ['Fonctionnalités', data.fonctionnalites.length ? esc(data.fonctionnalites.join(', ')) : 'Aucune en particulier', 5]
+  ];
+  document.getElementById('recapBox').innerHTML = rows.map(([label, val, step]) => `
+    <div class="dm-recap-row">
+      <span class="dm-recap-label">${label}</span>
+      <span class="dm-recap-r"><span class="dm-recap-val">${val}</span><a href="#" class="dm-recap-edit" data-jump="${step}">Modifier</a></span>
+    </div>`).join('');
+  document.querySelectorAll('[data-jump]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      goTo(ORDER.indexOf(a.dataset.jump), 'back');
+    });
+  });
+}
+
+/* ===================================================================
+   ENVOI — vers un Google Form (silencieux), même mécanisme que le
+   formulaire de contact. Tant que GOOGLE_FORM_URL n'est pas rempli,
+   l'écran de confirmation s'affiche normalement sans rien envoyer.
+   =================================================================== */
+const GOOGLE_FORM_URL = ''; // ex: https://docs.google.com/forms/d/e/XXXXXXXX/formResponse
+const GOOGLE_FORM_FIELDS = {
+  entreprise:'', nom:'', secteur:'', presence:'', domaine:'', probleme:'',
+  lien_social:'', email:'', telephone:'', ton:'', unique:'', fonctionnalites:''
+}; // entry.XXXXXXXXX pour chaque
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  if (GOOGLE_FORM_URL) {
+    const payload = {
+      entreprise: document.getElementById('f_entreprise').value,
+      nom: document.getElementById('f_nom').value,
+      secteur: document.getElementById('f_secteur').value,
+      presence: data.presence,
+      domaine: document.getElementById('f_domaine').value,
+      probleme: data.probleme.join(', '),
+      lien_social: document.getElementById('f_lien_social').value,
+      email: document.getElementById('f_email').value,
+      telephone: document.getElementById('f_tel').value,
+      ton: data.ton || '',
+      unique: document.getElementById('f_unique').value,
+      fonctionnalites: data.fonctionnalites.join(', ')
+    };
+    const fd = new FormData();
+    Object.keys(GOOGLE_FORM_FIELDS).forEach(key => {
+      if (GOOGLE_FORM_FIELDS[key]) fd.append(GOOGLE_FORM_FIELDS[key], payload[key] || '');
+    });
+    fetch(GOOGLE_FORM_URL, { method:'POST', mode:'no-cors', body: fd }).catch(() => {});
+  }
+  next();
+});
+</script>
+</body>
+</html>

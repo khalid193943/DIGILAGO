@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin-console-89898zzx.html
+
+Sitemap: https://digilago.ma/sitemap.xml

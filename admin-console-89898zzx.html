@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr-MA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Console admin — Digilago</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%2316181D'/%3E%3Cpath d='M19 19h13a13 13 0 0 1 0 26H19z' fill='none' stroke='%23FFC72C' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ========== CONNEXION ========== -->
+<div class="adm-gate" id="gate">
+  <div class="adm-gate-card">
+    <div class="logo"><i>Digilago</i><em>.</em></div>
+    <p>Console privée — connectez-vous pour continuer.</p>
+    <input type="email" id="loginEmail" placeholder="Email" autocomplete="username">
+    <input type="password" id="loginPw" placeholder="Mot de passe" autocomplete="current-password">
+    <button class="btn btn-ink" id="loginBtn">Se connecter</button>
+    <p class="adm-gate-err" id="loginErr"></p>
+  </div>
+</div>
+
+<!-- ========== CONSOLE ========== -->
+<div class="adm-body" id="adminApp" hidden>
+  <header class="adm-hdr">
+    <div class="wrap">
+      <div style="display:flex;align-items:center;gap:.9rem;">
+        <span class="logo"><i>Digilago</i><em>.</em></span>
+        <span class="adm-hdr-tag">Console admin</span>
+      </div>
+      <div class="adm-hdr-r">
+        <button class="adm-icon-btn" id="refreshBtn" title="Actualiser" aria-label="Actualiser">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>
+        </button>
+        <button class="adm-icon-btn" id="logoutBtn" title="Déconnexion" aria-label="Déconnexion">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="adm-tabs">
+    <div class="wrap">
+      <button class="adm-tab on" data-tab="messages">Messages</button>
+      <button class="adm-tab" data-tab="projets">Projets</button>
+      <button class="adm-tab" data-tab="analytics">Analytics</button>
+    </div>
+  </nav>
+
+  <main class="adm-main">
+    <div class="wrap">
+
+      <!-- ===== ONGLET MESSAGES ===== -->
+      <section class="adm-panel" data-panel="messages">
+
+        <div class="adm-banner" id="msgDemoBanner" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span><b>Ceci sont des exemples.</b> Connectez votre Google Sheet ci-dessous pour voir vos vraies demandes.</span>
+        </div>
+        <div class="adm-banner adm-banner-err" id="msgErrBanner" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span id="msgErrText"></span>
+        </div>
+
+        <div class="adm-settings">
+          <h3>Source des messages</h3>
+          <p>Sheet relié au formulaire de contact, publié sur le web au format CSV.</p>
+          <div class="row">
+            <input type="text" id="msgCsvInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
+            <button class="btn btn-sun" id="msgSaveBtn">Enregistrer</button>
+          </div>
+        </div>
+
+        <div class="adm-stats">
+          <div class="adm-stat"><div class="n" id="msgStatTotal">–</div><div class="l">Demandes reçues</div></div>
+          <div class="adm-stat"><div class="n" id="msgStatWeek">–</div><div class="l">Cette semaine</div></div>
+          <div class="adm-stat"><div class="n" id="msgStatMonth">–</div><div class="l">Ce mois-ci</div></div>
+          <div class="adm-stat"><div class="n" id="msgStatSector">–</div><div class="l">Secteur le plus fréquent</div></div>
+        </div>
+
+        <div class="adm-toolbar">
+          <input type="search" id="msgSearch" placeholder="Rechercher un nom, une entreprise, un email...">
+          <select id="msgSectorFilter"><option value="">Tous les secteurs</option></select>
+        </div>
+
+        <div class="adm-list" id="msgList"></div>
+
+        <div class="adm-empty" id="msgEmpty" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h4"/></svg>
+          <p>Aucune demande ne correspond à votre recherche.</p>
+        </div>
+      </section>
+
+      <!-- ===== ONGLET PROJETS (parcours démarrer.html) ===== -->
+      <section class="adm-panel" data-panel="projets" hidden>
+
+        <div class="adm-banner" id="prDemoBanner" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span><b>Ceci sont des exemples.</b> Connectez le Sheet du parcours "démarrer" ci-dessous pour voir vos vraies demandes.</span>
+        </div>
+        <div class="adm-banner adm-banner-err" id="prErrBanner" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span id="prErrText"></span>
+        </div>
+
+        <div class="adm-settings">
+          <h3>Source des projets</h3>
+          <p>Sheet relié au Google Form du parcours <code>demarrer.html</code>, publié sur le web au format CSV.</p>
+          <div class="row">
+            <input type="text" id="prCsvInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
+            <button class="btn btn-sun" id="prSaveBtn">Enregistrer</button>
+          </div>
+        </div>
+
+        <div class="adm-stats">
+          <div class="adm-stat"><div class="n" id="prStatTotal">–</div><div class="l">Demandes reçues</div></div>
+          <div class="adm-stat"><div class="n" id="prStatWeek">–</div><div class="l">Cette semaine</div></div>
+          <div class="adm-stat"><div class="n" id="prStatSansSite">–</div><div class="l">Sans présence en ligne</div></div>
+          <div class="adm-stat"><div class="n" id="prStatTon">–</div><div class="l">Ton le plus demandé</div></div>
+        </div>
+
+        <div class="adm-toolbar">
+          <input type="search" id="prSearch" placeholder="Rechercher un nom, une entreprise, un email...">
+          <select id="prSecteurFilter"><option value="">Tous les secteurs</option></select>
+        </div>
+
+        <div class="adm-list" id="prList"></div>
+
+        <div class="adm-empty" id="prEmpty" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h4"/></svg>
+          <p>Aucune demande ne correspond à votre recherche.</p>
+        </div>
+      </section>
+
+      <!-- ===== ONGLET ANALYTICS ===== -->
+      <section class="adm-panel" data-panel="analytics" hidden>
+
+        <div class="adm-banner" id="anDemoBanner" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span><b>Ceci sont des exemples.</b> Connectez votre Sheet de suivi ci-dessous pour voir votre vrai trafic.</span>
+        </div>
+        <div class="adm-banner adm-banner-err" id="anErrBanner" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span id="anErrText"></span>
+        </div>
+
+        <div class="adm-settings">
+          <h3>Source du trafic</h3>
+          <p>Sheet alimenté par le suivi de pages, publié sur le web au format CSV.</p>
+          <div class="row">
+            <input type="text" id="anCsvInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
+            <button class="btn btn-sun" id="anSaveBtn">Enregistrer</button>
+          </div>
+        </div>
+
+        <div class="adm-stats">
+          <div class="adm-stat"><div class="n" id="anStatTotal">–</div><div class="l">Vues totales</div></div>
+          <div class="adm-stat"><div class="n" id="anStatWeek">–</div><div class="l">7 derniers jours</div></div>
+          <div class="adm-stat"><div class="n" id="anStatTop">–</div><div class="l">Page la plus visitée</div></div>
+          <div class="adm-stat"><div class="n" id="anStatDevice">–</div><div class="l">Appareil dominant</div></div>
+        </div>
+
+        <div class="adm-chart-card">
+          <h3>Vues des 14 derniers jours</h3>
+          <div class="adm-chart" id="anChart"></div>
+        </div>
+
+        <div class="adm-2col">
+          <div class="adm-card">
+            <h3>Pages les plus visitées</h3>
+            <div id="anTopPages"></div>
+          </div>
+          <div class="adm-card">
+            <h3>Répartition par appareil</h3>
+            <div id="anDevices"></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+/* ===================================================================
+   ACCÈS — email + mot de passe vérifiés côté client (hachage SHA-256).
+   Un site 100% statique ne peut pas faire d'authentification serveur ;
+   ceci empêche la lecture directe du mot de passe dans le code source,
+   mais reste un frein, pas un vrai coffre-fort. Ne rien y mettre de
+   sensible au-delà de ce que ces pages affichent déjà.
+   =================================================================== */
+const ADMIN_EMAIL = 'khalid.lagouiti93@gmail.com';
+const ADMIN_HASH  = '27f7cc1d4f92f79ede399ced6bf7cdbc35a7949f014914b2e0ad4042bf3f4f65';
+
+async function sha256(str){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+const gate = document.getElementById('gate');
+const app = document.getElementById('adminApp');
+
+function openApp(){
+  gate.style.display = 'none';
+  app.hidden = false;
+  loadMessages();
+  loadProjets();
+  loadAnalytics();
+}
+if (sessionStorage.getItem('dg_console_ok') === '1') openApp();
+
+document.getElementById('loginBtn').addEventListener('click', tryLogin);
+document.getElementById('loginPw').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+async function tryLogin(){
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pw = document.getElementById('loginPw').value;
+  const hash = await sha256(email + ':' + pw);
+  if (email === ADMIN_EMAIL.toLowerCase() && hash === ADMIN_HASH) {
+    sessionStorage.setItem('dg_console_ok', '1');
+    openApp();
+  } else {
+    document.getElementById('loginErr').textContent = 'Email ou mot de passe incorrect.';
+  }
+}
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  sessionStorage.removeItem('dg_console_ok');
+  location.reload();
+});
+
+/* ===================================================================
+   ONGLETS
+   =================================================================== */
+document.querySelectorAll('.adm-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.adm-tab').forEach(b => b.classList.toggle('on', b === btn));
+    document.querySelectorAll('.adm-panel').forEach(p => p.hidden = (p.dataset.panel !== btn.dataset.tab));
+  });
+});
+
+document.getElementById('refreshBtn').addEventListener('click', (e) => {
+  e.currentTarget.classList.add('spin');
+  Promise.all([loadMessages(), loadProjets(), loadAnalytics()]).then(() =>
+    setTimeout(() => e.currentTarget.classList.remove('spin'), 700));
+});
+
+/* ===================================================================
+   OUTILS PARTAGÉS
+   =================================================================== */
+function esc(s){ const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+function parseCsv(text){
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  for (let i = 0; i < text.length; i++){
+    const c = text[i], next = text[i + 1];
+    if (inQuotes){
+      if (c === '"' && next === '"'){ field += '"'; i++; }
+      else if (c === '"'){ inQuotes = false; }
+      else { field += c; }
+    } else {
+      if (c === '"'){ inQuotes = true; }
+      else if (c === ','){ row.push(field); field = ''; }
+      else if (c === '\r'){ /* ignoré */ }
+      else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += c; }
+    }
+  }
+  if (field.length || row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(c => c !== ''));
+}
+
+async function fetchCsv(url){
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return parseCsv(await res.text());
+}
+
+/* ===================================================================
+   ONGLET MESSAGES
+   =================================================================== */
+const MSG_LS_KEY = 'dg_console_msg_csv';
+let msgRows = [];
+
+const MSG_DEMO = [
+  { date:'2026-08-20 10:12', nom:'Yasmine El Amrani', entreprise:'École Al Amal', secteur:'École privée', telephone:'0661234567', email:'contact@alamal-ecole.ma', lien:'facebook.com/ecolealamal', message:"On a une page Facebook mais elle n'est plus à jour depuis longtemps. On veut surtout être trouvables sur Google avant la rentrée." },
+  { date:'2026-08-19 16:45', nom:'Karim Benjelloun', entreprise:'Clinique Dentaire Sourire', secteur:'Clinique / cabinet médical', telephone:'0662345678', email:'k.benjelloun@gmail.com', lien:'', message:'Besoin surtout d\u2019un système de prise de rendez-vous en ligne.' },
+  { date:'2026-08-19 09:03', nom:'Sanae Idrissi', entreprise:'Restaurant La Sqala', secteur:'Restaurant / café', telephone:'0663456789', email:'sanae.idrissi@outlook.com', lien:'facebook.com/lasqala.ej', message:'' },
+  { date:'2026-08-17 14:20', nom:'Omar Tazi', entreprise:'Boutique Tazi Textile', secteur:'Commerce / boutique', telephone:'0664567890', email:'omartazi@gmail.com', lien:'', message:'On vend surtout en boutique mais on aimerait montrer le catalogue en ligne.' },
+  { date:'2026-08-15 11:37', nom:'Hicham Alaoui', entreprise:'Riad Dar Doukkala', secteur:'Hôtel / riad', telephone:'0665678901', email:'contact@dardoukkala.ma', lien:'instagram.com/dardoukkala', message:"On reçoit beaucoup de réservations via Booking, on aimerait réduire la commission en captant plus de réservations directes." }
+];
+
+async function loadMessages(){
+  const url = localStorage.getItem(MSG_LS_KEY) || '';
+  document.getElementById('msgCsvInput').value = url;
+  document.getElementById('msgErrBanner').hidden = true;
+
+  if (!url) {
+    msgRows = MSG_DEMO;
+    document.getElementById('msgDemoBanner').hidden = false;
+    renderMessages();
+    return;
+  }
+  document.getElementById('msgDemoBanner').hidden = true;
+  try {
+    const data = await fetchCsv(url);
+    msgRows = messagesFromCsv(data);
+    renderMessages();
+  } catch (err) {
+    document.getElementById('msgErrText').textContent =
+      "Impossible de charger le Sheet (vérifiez qu'il est publié en CSV). Détail : " + err.message;
+    document.getElementById('msgErrBanner').hidden = false;
+    msgRows = MSG_DEMO;
+    document.getElementById('msgDemoBanner').hidden = false;
+    renderMessages();
+  }
+}
+
+function messagesFromCsv(data){
+  if (!data.length) return [];
+  const headers = data[0].map(h => (h || '').toLowerCase());
+  const find = (...keys) => headers.findIndex(h => keys.some(k => h.includes(k)));
+  const iDate = find('horodateur', 'date', 'timestamp');
+  const iNomEntreprise = find('entreprise');
+  const iNom = headers.findIndex((h, idx) => h.includes('nom') && idx !== iNomEntreprise);
+  const iSecteur = find('secteur');
+  const iTel = find('téléphone', 'telephone', 'whatsapp');
+  const iEmail = find('email', 'e-mail');
+  const iLien = find('facebook', 'lien', 'site');
+  const iMsg = find('préciser', 'precise', 'message');
+
+  return data.slice(1).filter(r => r.some(c => c && c.trim())).map(r => ({
+    date: iDate > -1 ? r[iDate] : '',
+    nom: iNom > -1 ? r[iNom] : '',
+    entreprise: iNomEntreprise > -1 ? r[iNomEntreprise] : '',
+    secteur: iSecteur > -1 ? r[iSecteur] : '',
+    telephone: iTel > -1 ? r[iTel] : '',
+    email: iEmail > -1 ? r[iEmail] : '',
+    lien: iLien > -1 ? r[iLien] : '',
+    message: iMsg > -1 ? r[iMsg] : ''
+  })).reverse();
+}
+
+function toWaLink(phone){
+  let d = (phone || '').replace(/\D/g, '');
+  if (!d) return '';
+  if (d.startsWith('0')) d = '212' + d.slice(1);
+  else if (!d.startsWith('212')) d = '212' + d;
+  return 'https://wa.me/' + d;
+}
+function toLink(url){ return !url ? '' : (/^https?:\/\//i.test(url) ? url : 'https://' + url); }
+function fmtDate(s){
+  const d = new Date(s);
+  if (isNaN(d)) return esc(s);
+  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' }) + ' · ' +
+         d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+}
+
+function populateSectorFilter(){
+  const sel = document.getElementById('msgSectorFilter');
+  const current = sel.value;
+  const sectors = [...new Set(msgRows.map(r => r.secteur).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="">Tous les secteurs</option>' +
+    sectors.map(s => `<option ${s === current ? 'selected' : ''}>${esc(s)}</option>`).join('');
+}
+
+function renderMessages(){
+  populateSectorFilter();
+  document.getElementById('msgStatTotal').textContent = msgRows.length;
+  const now = new Date(), weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
+  const monthAgo = new Date(now); monthAgo.setDate(now.getDate() - 30);
+  const withDate = msgRows.map(r => ({ ...r, _d: new Date(r.date) })).filter(r => !isNaN(r._d));
+  document.getElementById('msgStatWeek').textContent = withDate.filter(r => r._d >= weekAgo).length;
+  document.getElementById('msgStatMonth').textContent = withDate.filter(r => r._d >= monthAgo).length;
+  const counts = {};
+  msgRows.forEach(r => { if (r.secteur) counts[r.secteur] = (counts[r.secteur] || 0) + 1; });
+  const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  document.getElementById('msgStatSector').textContent = top ? top[0] : '—';
+  applyMsgFilters();
+}
+
+function applyMsgFilters(){
+  const q = document.getElementById('msgSearch').value.trim().toLowerCase();
+  const sector = document.getElementById('msgSectorFilter').value;
+  const filtered = msgRows.filter(r => {
+    if (sector && r.secteur !== sector) return false;
+    if (!q) return true;
+    return [r.nom, r.entreprise, r.email, r.telephone].some(v => (v || '').toLowerCase().includes(q));
+  });
+  document.getElementById('msgEmpty').hidden = filtered.length > 0;
+  document.getElementById('msgList').innerHTML = filtered.map(msgRowHtml).join('');
+}
+
+function msgRowHtml(r){
+  const wa = toWaLink(r.telephone);
+  const actions = [];
+  if (r.telephone) actions.push(`<a href="tel:${esc(r.telephone)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.8 2.1Z"/></svg>${esc(r.telephone)}</a>`);
+  if (wa) actions.push(`<a href="${wa}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>`);
+  if (r.email) actions.push(`<a href="mailto:${esc(r.email)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 8 8 5 8-5"/></svg>${esc(r.email)}</a>`);
+  if (r.lien) actions.push(`<a href="${esc(toLink(r.lien))}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>Lien</a>`);
+  return `
+    <article class="adm-row">
+      <div class="adm-row-top">
+        <div class="adm-row-id"><span class="adm-row-name">${esc(r.nom) || 'Sans nom'}</span><span class="adm-row-co">${esc(r.entreprise)}</span></div>
+        <span class="adm-row-date">${fmtDate(r.date)}</span>
+      </div>
+      ${r.secteur ? `<span class="adm-tag">${esc(r.secteur)}</span>` : ''}
+      <div class="adm-row-actions">${actions.join('')}</div>
+      ${r.message ? `<p class="adm-row-msg">${esc(r.message)}</p>` : ''}
+    </article>`;
+}
+
+document.getElementById('msgSearch').addEventListener('input', applyMsgFilters);
+document.getElementById('msgSectorFilter').addEventListener('change', applyMsgFilters);
+document.getElementById('msgSaveBtn').addEventListener('click', () => {
+  const url = document.getElementById('msgCsvInput').value.trim();
+  if (url) localStorage.setItem(MSG_LS_KEY, url); else localStorage.removeItem(MSG_LS_KEY);
+  loadMessages();
+});
+
+/* ===================================================================
+   ONGLET PROJETS (parcours démarrer.html)
+   =================================================================== */
+const PR_LS_KEY = 'dg_console_pr_csv';
+let prRows = [];
+
+const PR_DEMO = [
+  { date:'2026-08-21 15:40', entreprise:'Auto École Atlas', nom:'Rachid Amine', secteur:'Autre', presence:'site', domaine:'www.autoecoleatlas.ma', probleme:'Trop ancien, Introuvable sur Google', lien_social:'', email:'rachid.amine@gmail.com', telephone:'0633334444', ton:'Professionnel et rassurant', unique:'Seule auto-école du quartier avec simulateur de conduite.', fonctionnalites:'Prise de rendez-vous' },
+  { date:'2026-08-20 11:05', entreprise:'Boulangerie Nour', nom:'Fatima Zahra', secteur:'Commerce / boutique', presence:'social', domaine:'', probleme:'', lien_social:'facebook.com/boulangerienour', email:'nour@example.ma', telephone:'0611112222', ton:'Chaleureux et familial', unique:'Pain traditionnel au levain, cuit au feu de bois.', fonctionnalites:'' },
+  { date:'2026-08-19 09:30', entreprise:'Clinique Dentaire Sourire', nom:'Karim Benjelloun', secteur:'Clinique / cabinet médical', presence:'rien', domaine:'', probleme:'', lien_social:'', email:'k.benjelloun@gmail.com', telephone:'0662345678', ton:'Élégant et premium', unique:'', fonctionnalites:'Prise de rendez-vous, Espace client' },
+  { date:'2026-08-18 17:12', entreprise:'Riad Dar Doukkala', nom:'Hicham Alaoui', secteur:'Hôtel / riad', presence:'site', domaine:'www.dardoukkala.ma', probleme:'Pas adapté au mobile', lien_social:'', email:'contact@dardoukkala.ma', telephone:'0665678901', ton:'Élégant et premium', unique:'Vue sur les remparts, cuisine faite maison.', fonctionnalites:'Version arabe, Chat WhatsApp intégré' },
+  { date:'2026-08-17 08:50', entreprise:'École Al Amal', nom:'Yasmine El Amrani', secteur:'École privée', presence:'social', domaine:'', probleme:'', lien_social:'facebook.com/ecolealamal', email:'contact@alamal-ecole.ma', telephone:'0661234567', ton:'Professionnel et rassurant', unique:'Programme bilingue dès la maternelle.', fonctionnalites:'Espace client, Newsletter' }
+];
+
+function presenceInfo(r){
+  if (r.presence === 'site') {
+    let v = 'Site existant' + (r.domaine ? ' — ' + esc(r.domaine) : '');
+    if (r.probleme) v += `<div style="font-size:.78rem;color:var(--ink-45);margin-top:.15rem;">${esc(r.probleme)}</div>`;
+    return v;
+  }
+  if (r.presence === 'social') return 'Facebook / LinkedIn' + (r.lien_social ? ' — ' + esc(r.lien_social) : '');
+  if (r.presence === 'rien') return 'Aucune présence en ligne';
+  return esc(r.presence) || '—';
+}
+
+async function loadProjets(){
+  const url = localStorage.getItem(PR_LS_KEY) || '';
+  document.getElementById('prCsvInput').value = url;
+  document.getElementById('prErrBanner').hidden = true;
+
+  if (!url) {
+    prRows = PR_DEMO;
+    document.getElementById('prDemoBanner').hidden = false;
+    renderProjets();
+    return;
+  }
+  document.getElementById('prDemoBanner').hidden = true;
+  try {
+    const data = await fetchCsv(url);
+    prRows = projetsFromCsv(data);
+    renderProjets();
+  } catch (err) {
+    document.getElementById('prErrText').textContent =
+      "Impossible de charger le Sheet (vérifiez qu'il est publié en CSV). Détail : " + err.message;
+    document.getElementById('prErrBanner').hidden = false;
+    prRows = PR_DEMO;
+    document.getElementById('prDemoBanner').hidden = false;
+    renderProjets();
+  }
+}
+
+function projetsFromCsv(data){
+  if (!data.length) return [];
+  const headers = data[0].map(h => (h || '').toLowerCase());
+  const find = (...keys) => headers.findIndex(h => keys.some(k => h.includes(k)));
+  const iDate = find('horodateur', 'date', 'timestamp');
+  const iEntreprise = find('entreprise');
+  const iNom = headers.findIndex((h, idx) => h.includes('nom') && idx !== iEntreprise);
+  const iSecteur = find('secteur');
+  const iPresence = find('présence', 'presence', 'ligne aujourd');
+  const iDomaine = find('domaine', 'adresse');
+  const iProbleme = find('va pas', 'gêne', 'probl');
+  const iLienSocial = find('lien de votre page', 'facebook', 'linkedin');
+  const iEmail = find('email', 'e-mail');
+  const iTel = find('téléphone', 'telephone', 'whatsapp');
+  const iTon = find('ton');
+  const iUnique = find('différencie', 'unique');
+  const iFonc = find('fonctionnalité', 'fonctionnalite');
+
+  const presenceFromLabel = (v) => {
+    v = (v || '').toLowerCase();
+    if (v.includes('facebook') || v.includes('linkedin')) return 'social';
+    if (v.includes('aucune') || v.includes('non,')) return 'rien';
+    if (v.includes('site')) return 'site';
+    return v;
+  };
+
+  return data.slice(1).filter(r => r.some(c => c && c.trim())).map(r => ({
+    date: iDate > -1 ? r[iDate] : '',
+    entreprise: iEntreprise > -1 ? r[iEntreprise] : '',
+    nom: iNom > -1 ? r[iNom] : '',
+    secteur: iSecteur > -1 ? r[iSecteur] : '',
+    presence: iPresence > -1 ? presenceFromLabel(r[iPresence]) : '',
+    domaine: iDomaine > -1 ? r[iDomaine] : '',
+    probleme: iProbleme > -1 ? r[iProbleme] : '',
+    lien_social: iLienSocial > -1 ? r[iLienSocial] : '',
+    email: iEmail > -1 ? r[iEmail] : '',
+    telephone: iTel > -1 ? r[iTel] : '',
+    ton: iTon > -1 ? r[iTon] : '',
+    unique: iUnique > -1 ? r[iUnique] : '',
+    fonctionnalites: iFonc > -1 ? r[iFonc] : ''
+  })).reverse();
+}
+
+function populateSecteurFilterPr(){
+  const sel = document.getElementById('prSecteurFilter');
+  const current = sel.value;
+  const secteurs = [...new Set(prRows.map(r => r.secteur).filter(Boolean))].sort();
+  sel.innerHTML = '<option value="">Tous les secteurs</option>' +
+    secteurs.map(s => `<option ${s === current ? 'selected' : ''}>${esc(s)}</option>`).join('');
+}
+
+function renderProjets(){
+  populateSecteurFilterPr();
+  document.getElementById('prStatTotal').textContent = prRows.length;
+  const now = new Date(), weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
+  const withDate = prRows.map(r => ({ ...r, _d: new Date(r.date) })).filter(r => !isNaN(r._d));
+  document.getElementById('prStatWeek').textContent = withDate.filter(r => r._d >= weekAgo).length;
+  document.getElementById('prStatSansSite').textContent = prRows.filter(r => r.presence === 'rien').length;
+
+  const tonCounts = {};
+  prRows.forEach(r => { if (r.ton) tonCounts[r.ton] = (tonCounts[r.ton] || 0) + 1; });
+  const topTon = Object.entries(tonCounts).sort((a,b) => b[1]-a[1])[0];
+  document.getElementById('prStatTon').textContent = topTon ? topTon[0] : '—';
+
+  applyPrFilters();
+}
+
+function applyPrFilters(){
+  const q = document.getElementById('prSearch').value.trim().toLowerCase();
+  const secteur = document.getElementById('prSecteurFilter').value;
+  const filtered = prRows.filter(r => {
+    if (secteur && r.secteur !== secteur) return false;
+    if (!q) return true;
+    return [r.nom, r.entreprise, r.email, r.telephone].some(v => (v || '').toLowerCase().includes(q));
+  });
+  document.getElementById('prEmpty').hidden = filtered.length > 0;
+  document.getElementById('prList').innerHTML = filtered.map(prRowHtml).join('');
+}
+
+function prRowHtml(r){
+  const wa = toWaLink(r.telephone);
+  const actions = [];
+  if (r.telephone) actions.push(`<a href="tel:${esc(r.telephone)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.8 2.1Z"/></svg>${esc(r.telephone)}</a>`);
+  if (wa) actions.push(`<a href="${wa}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>`);
+  if (r.email) actions.push(`<a href="mailto:${esc(r.email)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 8 8 5 8-5"/></svg>${esc(r.email)}</a>`);
+
+  const fonc = (r.fonctionnalites || '').split(',').map(s => s.trim()).filter(Boolean);
+  const foncHtml = fonc.length ? `<div class="adm-row-actions" style="margin-top:.3rem;">${fonc.map(f => `<span class="adm-tag" style="margin-bottom:0;">${esc(f)}</span>`).join('')}</div>` : '';
+
+  return `
+    <article class="adm-row">
+      <div class="adm-row-top">
+        <div class="adm-row-id"><span class="adm-row-name">${esc(r.nom) || 'Sans nom'}</span><span class="adm-row-co">${esc(r.entreprise)}</span></div>
+        <span class="adm-row-date">${fmtDate(r.date)}</span>
+      </div>
+      ${r.secteur ? `<span class="adm-tag">${esc(r.secteur)}</span>` : ''}
+      ${r.ton ? `<span class="adm-tag" style="background:var(--cream-2);color:var(--ink-70);">${esc(r.ton)}</span>` : ''}
+      <p class="dm-recap-val" style="font-size:.85rem;font-weight:400;color:var(--ink-70);margin:.5rem 0;">${presenceInfo(r)}</p>
+      <div class="adm-row-actions">${actions.join('')}</div>
+      ${foncHtml}
+      ${r.unique ? `<p class="adm-row-msg">${esc(r.unique)}</p>` : ''}
+    </article>`;
+}
+
+document.getElementById('prSearch').addEventListener('input', applyPrFilters);
+document.getElementById('prSecteurFilter').addEventListener('change', applyPrFilters);
+document.getElementById('prSaveBtn').addEventListener('click', () => {
+  const url = document.getElementById('prCsvInput').value.trim();
+  if (url) localStorage.setItem(PR_LS_KEY, url); else localStorage.removeItem(PR_LS_KEY);
+  loadProjets();
+});
+
+/* ===================================================================
+   ONGLET ANALYTICS
+   =================================================================== */
+const AN_LS_KEY = 'dg_console_an_csv';
+let anRows = [];
+
+function demoAnalyticsRows(){
+  const pages = ['index.html','services.html','tarifs.html','realisations.html','pourquoi.html','a-propos.html','contact.html'];
+  const rows = [];
+  const now = new Date();
+  for (let d = 27; d >= 0; d--){
+    const day = new Date(now); day.setDate(now.getDate() - d);
+    const nb = 6 + Math.round(Math.random() * 14);
+    for (let i = 0; i < nb; i++){
+      const page = pages[Math.floor(Math.random() * (Math.random() < 0.4 ? 1 : pages.length))];
+      rows.push({ date: day.toISOString().slice(0,10), page, device: Math.random() < 0.68 ? 'Mobile' : 'Desktop' });
+    }
+  }
+  return rows;
+}
+const AN_DEMO = demoAnalyticsRows();
+
+async function loadAnalytics(){
+  const url = localStorage.getItem(AN_LS_KEY) || '';
+  document.getElementById('anCsvInput').value = url;
+  document.getElementById('anErrBanner').hidden = true;
+
+  if (!url) {
+    anRows = AN_DEMO;
+    document.getElementById('anDemoBanner').hidden = false;
+    renderAnalytics();
+    return;
+  }
+  document.getElementById('anDemoBanner').hidden = true;
+  try {
+    const data = await fetchCsv(url);
+    anRows = analyticsFromCsv(data);
+    renderAnalytics();
+  } catch (err) {
+    document.getElementById('anErrText').textContent =
+      "Impossible de charger le Sheet de suivi. Détail : " + err.message;
+    document.getElementById('anErrBanner').hidden = false;
+    anRows = AN_DEMO;
+    document.getElementById('anDemoBanner').hidden = false;
+    renderAnalytics();
+  }
+}
+
+function analyticsFromCsv(data){
+  if (!data.length) return [];
+  const headers = data[0].map(h => (h || '').toLowerCase());
+  const find = (...keys) => headers.findIndex(h => keys.some(k => h.includes(k)));
+  const iDate = find('horodateur', 'date', 'timestamp');
+  const iPage = find('page');
+  const iDevice = find('appareil', 'device');
+  return data.slice(1).filter(r => r.some(c => c && c.trim())).map(r => ({
+    date: iDate > -1 ? r[iDate] : '',
+    page: iPage > -1 ? r[iPage] : '',
+    device: iDevice > -1 ? r[iDevice] : ''
+  }));
+}
+
+function renderAnalytics(){
+  document.getElementById('anStatTotal').textContent = anRows.length;
+
+  const now = new Date(), weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
+  const withDate = anRows.map(r => ({ ...r, _d: new Date(r.date) })).filter(r => !isNaN(r._d));
+  document.getElementById('anStatWeek').textContent = withDate.filter(r => r._d >= weekAgo).length;
+
+  const pageCounts = {};
+  anRows.forEach(r => { const p = r.page || '—'; pageCounts[p] = (pageCounts[p] || 0) + 1; });
+  const topPages = Object.entries(pageCounts).sort((a,b) => b[1]-a[1]);
+  document.getElementById('anStatTop').textContent = topPages[0] ? topPages[0][0] : '—';
+
+  const deviceCounts = {};
+  anRows.forEach(r => { const d = r.device || 'Inconnu'; deviceCounts[d] = (deviceCounts[d] || 0) + 1; });
+  const topDevice = Object.entries(deviceCounts).sort((a,b) => b[1]-a[1])[0];
+  document.getElementById('anStatDevice').textContent = topDevice ? topDevice[0] : '—';
+
+  renderChart(withDate);
+  renderTopPages(topPages);
+  renderDevices(deviceCounts, anRows.length);
+}
+
+function renderChart(withDate){
+  const days = [];
+  const now = new Date();
+  for (let i = 13; i >= 0; i--){
+    const d = new Date(now); d.setDate(now.getDate() - i); d.setHours(0,0,0,0);
+    days.push(d);
+  }
+  const counts = days.map(day => {
+    const next = new Date(day); next.setDate(day.getDate() + 1);
+    return withDate.filter(r => r._d >= day && r._d < next).length;
+  });
+  const max = Math.max(1, ...counts);
+  const w = 640, h = 180, padB = 24, padT = 14, barGap = 6;
+  const barW = (w / days.length) - barGap;
+
+  let svg = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">`;
+  counts.forEach((c, i) => {
+    const barH = (c / max) * (h - padB - padT);
+    const x = i * (barW + barGap) + barGap / 2;
+    const y = h - padB - barH;
+    svg += `<rect class="bar" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(barH,1).toFixed(1)}" rx="3"></rect>`;
+    if (c > 0) svg += `<text class="val-label" x="${(x + barW/2).toFixed(1)}" y="${(y - 5).toFixed(1)}" text-anchor="middle">${c}</text>`;
+    if (i % 2 === 0) {
+      const lbl = days[i].toLocaleDateString('fr-FR', { day:'numeric', month:'short' });
+      svg += `<text class="axis-label" x="${(x + barW/2).toFixed(1)}" y="${h - 6}" text-anchor="middle">${lbl}</text>`;
+    }
+  });
+  svg += `</svg>`;
+  document.getElementById('anChart').innerHTML = svg;
+}
+
+function renderTopPages(topPages){
+  const max = topPages.length ? topPages[0][1] : 1;
+  document.getElementById('anTopPages').innerHTML = topPages.slice(0, 6).map(([page, n]) => `
+    <div class="adm-toppage">
+      <span class="adm-toppage-name" title="${esc(page)}">${esc(page)}</span>
+      <span class="adm-toppage-bar"><i style="width:${Math.max(6,(n/max)*100)}%"></i></span>
+      <span class="adm-toppage-n">${n}</span>
+    </div>`).join('') || '<p style="font-size:.85rem;color:var(--ink-45);">Aucune donnée.</p>';
+}
+
+function renderDevices(deviceCounts, total){
+  const icons = {
+    Mobile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>',
+    Desktop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>'
+  };
+  const entries = Object.entries(deviceCounts).sort((a,b) => b[1]-a[1]);
+  document.getElementById('anDevices').innerHTML = entries.map(([name, n]) => {
+    const pct = total ? Math.round((n/total)*100) : 0;
+    return `
+      <div class="adm-device">
+        <span class="adm-device-ic">${icons[name] || icons.Desktop}</span>
+        <span style="flex:1;">
+          <div style="font-size:.85rem;font-weight:500;margin-bottom:.35rem;">${esc(name)}</div>
+          <span class="adm-device-bar"><i style="width:${pct}%"></i></span>
+        </span>
+        <span class="adm-device-pct">${pct}%</span>
+      </div>`;
+  }).join('') || '<p style="font-size:.85rem;color:var(--ink-45);">Aucune donnée.</p>';
+}
+
+document.getElementById('anSaveBtn').addEventListener('click', () => {
+  const url = document.getElementById('anCsvInput').value.trim();
+  if (url) localStorage.setItem(AN_LS_KEY, url); else localStorage.removeItem(AN_LS_KEY);
+  loadAnalytics();
+});
+</script>
+</body>
+</html>
