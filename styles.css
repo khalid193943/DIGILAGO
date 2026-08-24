@@ -82,8 +82,8 @@ table{border-collapse:collapse;}
    espacement, pas de deux cumulés : on retire le padding-top du second bloc. */
 .band-follow{padding-top:0;}
 :focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
-.skip{position:absolute;left:-999px;background:var(--ink);color:#fff;padding:.75rem 1.25rem;z-index:400;font-weight:600;}
-.skip:focus{left:0;top:0;}
+.skip{position:absolute;top:-100px;inset-inline-start:0;background:var(--ink);color:#fff;padding:.75rem 1.25rem;z-index:400;font-weight:600;}
+.skip:focus{top:0;}
 
 /* ---------------- TYPOGRAPHIE ----------------
    Le geste central : les grands titres ne sont PAS en gras.
@@ -1019,7 +1019,7 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 
 /* champ piège anti-robot : invisible pour l'humain, rempli par les robots */
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.hp{position:absolute;top:-9999px;inset-inline-start:0;width:1px;height:1px;overflow:hidden;}
 
 /* ============================================================
    BULLE D'AIDE + NOTIFICATIONS (coin bas de l'écran)
@@ -1107,4 +1107,100 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 @media (prefers-reduced-motion:reduce){
   .wgt-dot{animation:none;}
   .wgt-toast,.wgt-panel{transition:opacity .2s ease;}
+}
+
+/* ============================================================
+   VERSION ARABE — sens de lecture droite-à-gauche
+   Activé par <html dir="rtl" lang="ar">.
+   Seules les règles réellement asymétriques sont inversées :
+   flexbox et grid se retournent tout seuls avec dir="rtl".
+   ============================================================ */
+[dir="rtl"] body,[dir="rtl"] input,[dir="rtl"] textarea,[dir="rtl"] select,[dir="rtl"] button{font-family:'Tajawal','Plus Jakarta Sans',system-ui,sans-serif;}
+[dir="rtl"] .t-hero,[dir="rtl"] .t-sec,[dir="rtl"] .t-sub{letter-spacing:0;}
+[dir="rtl"] .eyebrow{letter-spacing:.02em;}
+
+/* texture de fond du hero : passe à gauche */
+[dir="rtl"] .grid-tex{right:auto;left:0;}
+
+/* fil d'Ariane et textes légaux */
+[dir="rtl"] .legal{text-align:right;}
+
+/* frise chronologique : traits et pastilles inversés */
+[dir="rtl"] .tl-b{border-left:none;border-right:2px solid rgba(22,24,29,.3);padding-left:0;padding-right:1.3rem;}
+[dir="rtl"] .tl-mob .tl-b{border-right:none;padding:1.3rem 1.25rem 1.3rem 0;}
+[dir="rtl"] .tl-dot{left:auto;right:-3px;}
+[dir="rtl"] .tl-stem{left:auto;right:5px;}
+[dir="rtl"] .tl-axis{transform-origin:right center;}
+
+/* accent des chiffres */
+[dir="rtl"] .stat::before{left:auto;right:0;}
+
+/* flèche des cartes secteur */
+[dir="rtl"] .work-art .arrow-btn{left:auto;right:1.15rem;}
+[dir="rtl"] .work-art .arrow-btn svg{transform:scaleX(-1);}
+
+/* listes à puces et coches */
+[dir="rtl"] .vlist div:hover{padding-left:0;padding-right:.6rem;}
+
+/* flèches des boutons : pointent vers la gauche en arabe */
+[dir="rtl"] .btn svg{transform:scaleX(-1);}
+[dir="rtl"] .btn:hover svg{transform:scaleX(-1) translateX(3px);}
+[dir="rtl"] .lnk svg{transform:scaleX(-1);}
+[dir="rtl"] .car-arrow svg{transform:scaleX(-1);}
+
+/* widgets flottants : bulle à gauche, notification à droite */
+[dir="rtl"] .wgt-bubble{right:auto;left:1.3rem;}
+[dir="rtl"] .wgt-panel{right:auto;left:1.3rem;}
+[dir="rtl"] .wgt-dot{right:auto;left:1px;}
+[dir="rtl"] .wgt-toast{left:auto;right:1.3rem;}
+[dir="rtl"] .wgt-opt:hover{transform:translateX(-2px);}
+@media (max-width:600px){
+  [dir="rtl"] .wgt-bubble{right:auto;left:1rem;}
+  [dir="rtl"] .wgt-panel{right:auto;left:1rem;}
+  [dir="rtl"] .wgt-toast{left:4.9rem;right:1rem;}
+}
+
+/* console admin */
+[dir="rtl"] .adm-hdr-tag{border-left:none;border-right:1px solid var(--line);padding-left:0;padding-right:.9rem;}
+
+/* ---------------- SÉLECTEUR DE LANGUE ---------------- */
+.lang{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.5rem .85rem;border:1px solid var(--line-2);border-radius:100px;
+  font-size:.82rem;font-weight:600;color:var(--ink-70);
+  transition:border-color .2s ease,color .2s ease,background .2s ease;
+}
+.lang:hover{border-color:var(--ink);color:var(--ink);background:var(--cream-2);}
+.lang svg{width:15px;height:15px;flex-shrink:0;}
+.hdr.on-photo .lang{border-color:rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.08);}
+.hdr.on-photo .lang:hover{background:rgba(255,255,255,.18);}
+.ft-lang{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.85rem;font-weight:600;color:var(--ink-70);
+}
+.ft-lang:hover{color:var(--ink);}
+.ft-lang svg{width:15px;height:15px;}
+@media (max-width:960px){
+  .lang{padding:.42rem .7rem;font-size:.78rem;}
+  .lang-txt{display:none;}
+}
+/* très petits écrans : le sélecteur passe dans le menu déroulant */
+@media (max-width:400px){
+  .hdr-r .lang{display:none;}
+}
+
+/* bandeau défilant : sens inversé pour la lecture droite-à-gauche */
+[dir="rtl"] .strip-track{animation-name:stripmoveRtl;}
+@keyframes stripmoveRtl{from{transform:translateX(0)}to{transform:translateX(50%)}}
+
+/* le nom de marque et les chiffres restent en lecture gauche-à-droite */
+[dir="rtl"] .logo{direction:ltr;}
+[dir="rtl"] .stat-n,[dir="rtl"] .pr-amt,[dir="rtl"] .adm-stat .n{direction:ltr;text-align:right;}
+[dir="rtl"] .cmp td,[dir="rtl"] .cmp th{text-align:right;}
+[dir="rtl"] .tl-axis{transform-origin:right center;}
+
+/* lien de langue dans le menu déroulant : visible seulement sur très petits écrans */
+.nav-lang{display:none;}
+@media (max-width:400px){
+  .nav-lang{display:block;padding:.75rem .6rem;font-size:.98rem;font-weight:600;color:var(--olive);border-top:1px solid var(--line);margin-top:.4rem;}
 }
