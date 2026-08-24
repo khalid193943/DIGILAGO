@@ -83,7 +83,7 @@
 
         <div class="adm-empty" id="msgEmpty" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h4"/></svg>
-          <p>Aucune demande ne correspond à votre recherche.</p>
+          <p id="msgEmptyTxt">Aucune demande pour l'instant.</p>
         </div>
       </section>
 
@@ -115,7 +115,7 @@
 
         <div class="adm-empty" id="prEmpty" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h4"/></svg>
-          <p>Aucune demande ne correspond à votre recherche.</p>
+          <p id="prEmptyTxt">Aucun projet pour l'instant.</p>
         </div>
       </section>
 
@@ -393,6 +393,9 @@ function applyMsgFilters(){
     return [r.nom, r.entreprise, r.email, r.telephone].some(v => (v || '').toLowerCase().includes(q));
   });
   document.getElementById('msgEmpty').hidden = filtered.length > 0;
+  document.getElementById('msgEmptyTxt').textContent = msgRows.length === 0
+    ? "Aucune demande pour l'instant. Elles apparaîtront ici dès qu'un visiteur remplira le formulaire de contact."
+    : "Aucune demande ne correspond à votre recherche.";
   document.getElementById('msgList').innerHTML = filtered.map(msgRowHtml).join('');
 }
 
@@ -473,6 +476,9 @@ function applyPrFilters(){
     return [r.nom, r.entreprise, r.email, r.telephone].some(v => (v || '').toLowerCase().includes(q));
   });
   document.getElementById('prEmpty').hidden = filtered.length > 0;
+  document.getElementById('prEmptyTxt').textContent = prRows.length === 0
+    ? "Aucun projet pour l'instant. Les demandes du parcours \u00ab\u00a0démarrer\u00a0\u00bb apparaîtront ici."
+    : "Aucun projet ne correspond à votre recherche.";
   document.getElementById('prList').innerHTML = filtered.map(prRowHtml).join('');
 }
 
