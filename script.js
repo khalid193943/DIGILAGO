@@ -17,6 +17,19 @@ if (burger && nav) {
   }));
 }
 
+/* ---------- header transparent superposé à la photo (accueil uniquement) ---------- */
+const heroPhoto = document.querySelector('.hero-photo');
+const hdrEl = document.querySelector('.hdr');
+if (heroPhoto && hdrEl) {
+  const updateHdr = () => {
+    const photoVisible = heroPhoto.offsetParent !== null; // faux si un ancêtre est display:none (ex. onglet inactif dans un aperçu multi-pages)
+    if (photoVisible && window.scrollY <= 40) hdrEl.classList.add('on-photo');
+    else hdrEl.classList.remove('on-photo');
+  };
+  window.addEventListener('scroll', updateHdr, { passive: true });
+  updateHdr();
+}
+
 /* ---------- apparition au scroll ---------- */
 const revealables = document.querySelectorAll('.rv, .stg, .rv-l, .rv-r');
 if (revealables.length) {

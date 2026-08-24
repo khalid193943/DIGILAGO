@@ -149,7 +149,13 @@ C'est le seul qui n'utilise pas encore le mécanisme Google Form ci-dessus. Une 
 
 ## Remplacer les emplacements photo
 
-- `a-propos.html` : un emplacement `.slot` est prêt — remplacez-le par une vraie image dans un sous-dossier `images/`
+**L'image du hero (accueil)** est hébergée sur **Cloudinary** (chargement rapide via leur réseau, rien à envoyer avec le site). Elle est référencée directement dans `index.html`.
+
+Une copie locale est conservée dans `images/hero-office.jpg` en secours&nbsp;: si vous voulez héberger l'image vous-même plutôt que sur Cloudinary, remplacez simplement l'URL par `images/hero-office.jpg` dans `index.html` — une seule ligne à changer.
+
+**Astuce performance Cloudinary** : en ajoutant `f_auto,q_auto/` juste après `/upload/` dans l'URL, Cloudinary sert automatiquement le format le plus léger (WebP/AVIF) selon le navigateur — souvent 50 à 70&nbsp;% de poids en moins. À tester chez vous avant de garder&nbsp;: si votre compte a l'option « strict transformations » activée, ces URL sont bloquées et l'image ne s'affiche plus.
+
+- `a-propos.html` : un emplacement `.slot` est prêt — remplacez-le par une vraie image
 - `realisations.html` : les visuels de secteur sont des compositions vectorielles finies (le site est présentable tel quel) — remplaçables plus tard par de vraies captures de démos, en remplaçant le `<svg>` par une image dans `.work-art`
 
 Compressez toujours vos images avant (TinyPNG ou Squoosh), moins de 200 Ko chacune.
