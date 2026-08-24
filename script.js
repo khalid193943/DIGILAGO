@@ -273,20 +273,37 @@ if (faqs.length) {
 const form = document.getElementById('form');
 const formOk = document.getElementById('formOk');
 if (form && formOk) {
-  form.addEventListener('submit', e => {
+  form.addEventListener('submit', async e => {
     e.preventDefault();
 
-    const fd = new FormData(form);
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(fd).toString()
-    }).catch(() => {});
+    const btn = form.querySelector('button[type="submit"]');
+    const libelle = btn ? btn.innerHTML : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Envoi...'; }
 
-    form.classList.add('f-hide');
-    formOk.classList.add('show');
-    formOk.setAttribute('tabindex', '-1');
-    formOk.focus();
+    const succes = () => {
+      form.classList.add('f-hide');
+      formOk.classList.add('show');
+      formOk.setAttribute('tabindex', '-1');
+      formOk.focus();
+    };
+
+    // en local (fichier ouvert directement), aucun serveur : on montre juste l'écran de confirmation
+    if (location.protocol === 'file:') { succes(); return; }
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+      if (res.ok) { succes(); return; }
+      throw new Error('HTTP ' + res.status);
+    } catch (_) {
+      // L'envoi en arrière-plan a échoué : on bascule sur un envoi classique
+      // du navigateur, qui fonctionne même si l'AJAX est bloqué.
+      if (btn) { btn.disabled = false; btn.innerHTML = libelle; }
+      form.submit();
+    }
   });
 }
 
