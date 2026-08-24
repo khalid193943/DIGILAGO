@@ -1,6 +1,6 @@
 # Digilago — Site web complet
 
-Site statique, **12 pages**, optimisé SEO/performance. Aucun framework, aucune installation : ouvrez `index.html` dans un navigateur pour prévisualiser, ou envoyez tout le dossier chez un hébergeur pour publier.
+Site statique **bilingue français / arabe**, 24 pages, optimisé SEO/performance. Aucun framework, aucune installation : ouvrez `index.html` dans un navigateur pour prévisualiser, ou envoyez tout le dossier chez un hébergeur pour publier.
 
 ---
 
@@ -85,6 +85,51 @@ Le mot de passe **n'est pas dans les fichiers du site** — c'est vous qui le ch
 ⚠️ Cette adresse n'est **volontairement liée nulle part** sur le site public — gardez-la de côté. Le mot de passe n'est pas stocké en clair dans le code (juste son empreinte), donc si vous le perdez, il faudra m'en demander un nouveau plutôt que de le retrouver dans les fichiers.
 
 Depuis l'ajout de la fonction serveur Netlify, c'est une **vraie authentification** : le mot de passe est vérifié côté serveur et n'apparaît jamais dans le code envoyé au navigateur.
+
+---
+
+---
+
+## ⚡ MISE EN LIGNE SUR NETLIFY — À FAIRE DANS CET ORDRE
+
+### 1. Déployer
+Glissez-déposez le dossier sur [app.netlify.com/drop](https://app.netlify.com/drop), ou connectez votre dépôt Git.
+
+### 2. Activer la détection des formulaires ⚠️ ÉTAPE INDISPENSABLE
+Depuis 2024, Netlify **désactive cette option par défaut**. Sans elle, le formulaire de contact ne fonctionne pas.
+
+- **Site configuration → Forms → Enable form detection**
+- Puis **Deploys → Trigger deploy** (l'activation seule ne suffit pas : Netlify doit relire votre HTML)
+
+Vérification : dans **Forms**, vous devez voir deux formulaires — `contact` et `projet`.
+
+### 3. Connecter la console admin
+- **User settings → Applications → New access token** → copiez-le (il ne s'affiche qu'une fois)
+- **Site configuration → Environment variables** :
+
+| Nom | Valeur |
+|---|---|
+| `ADMIN_PASSWORD` | Le mot de passe que vous choisissez |
+| `NETLIFY_ACCESS_TOKEN` | Le jeton copié ci-dessus |
+
+- **Redéployez** à nouveau.
+
+### 4. Recevoir un email à chaque demande
+**Forms → contact → Settings → Form notifications → Add notification → Email notification**
+
+---
+
+## 🔎 SI LE FORMULAIRE NE MARCHE PAS
+
+| Ce que vous observez | Cause | Solution |
+|---|---|---|
+| Redirection vers `/merci.html` en erreur 404 | Ancienne version déployée | Redéployez ce dossier |
+| Redirection vers `/merci.html` qui s'affiche bien | La détection des formulaires est désactivée — l'envoi est passé en mode classique | Étape 2 ci-dessus |
+| Message « Bien reçu, merci ! » sans quitter la page | **Tout fonctionne**, l'envoi est passé normalement | Rien à faire |
+| Rien dans Forms alors que vous avez envoyé | Filtre anti-spam | Regardez l'onglet **Spam** de Netlify |
+| Console admin vide avec « Aucune demande pour l'instant » | Aucun envoi reçu, ou variables non configurées | Étapes 2 et 3 |
+
+**Test en local** : si vous ouvrez les fichiers par double-clic, le formulaire affiche la confirmation mais n'enregistre rien — c'est normal, Netlify Forms n'existe que sur leurs serveurs.
 
 ---
 
