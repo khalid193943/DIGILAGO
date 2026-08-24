@@ -33,6 +33,18 @@
 </head>
 <body class="dm-body">
 
+<!-- Formulaire de détection pour Netlify : invisible pour le visiteur.
+     Netlify le lit au déploiement pour connaître les champs à enregistrer.
+     Le parcours réel est piloté en JavaScript et envoie vers ce même nom. -->
+<form name="projet" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="projet">
+  <input name="bot-field">
+  <input name="entreprise"><input name="nom"><input name="secteur">
+  <input name="presence"><input name="domaine"><input name="probleme">
+  <input name="lien_social"><input name="email"><input name="telephone">
+  <input name="ton"><textarea name="unique"></textarea><input name="fonctionnalites">
+</form>
+
 <div class="dm-top">
   <div class="wrap">
     <a href="index.html" class="dm-back">
@@ -479,38 +491,34 @@ function buildRecap(){
 }
 
 /* ===================================================================
-   ENVOI — vers un Google Form (silencieux), même mécanisme que le
-   formulaire de contact. Tant que GOOGLE_FORM_URL n'est pas rempli,
-   l'écran de confirmation s'affiche normalement sans rien envoyer.
+   ENVOI — vers Netlify Forms (formulaire "projet").
+   Les demandes arrivent directement dans la console admin.
+   En local, l'envoi échoue silencieusement : l'écran de confirmation
+   s'affiche quand même, ce qui permet de tester le parcours.
    =================================================================== */
-const GOOGLE_FORM_URL = ''; // ex: https://docs.google.com/forms/d/e/XXXXXXXX/formResponse
-const GOOGLE_FORM_FIELDS = {
-  entreprise:'', nom:'', secteur:'', presence:'', domaine:'', probleme:'',
-  lien_social:'', email:'', telephone:'', ton:'', unique:'', fonctionnalites:''
-}; // entry.XXXXXXXXX pour chaque
-
 document.getElementById('submitBtn').addEventListener('click', () => {
-  if (GOOGLE_FORM_URL) {
-    const payload = {
-      entreprise: document.getElementById('f_entreprise').value,
-      nom: document.getElementById('f_nom').value,
-      secteur: document.getElementById('f_secteur').value,
-      presence: data.presence,
-      domaine: document.getElementById('f_domaine').value,
-      probleme: data.probleme.join(', '),
-      lien_social: document.getElementById('f_lien_social').value,
-      email: document.getElementById('f_email').value,
-      telephone: document.getElementById('f_tel').value,
-      ton: data.ton || '',
-      unique: document.getElementById('f_unique').value,
-      fonctionnalites: data.fonctionnalites.join(', ')
-    };
-    const fd = new FormData();
-    Object.keys(GOOGLE_FORM_FIELDS).forEach(key => {
-      if (GOOGLE_FORM_FIELDS[key]) fd.append(GOOGLE_FORM_FIELDS[key], payload[key] || '');
-    });
-    fetch(GOOGLE_FORM_URL, { method:'POST', mode:'no-cors', body: fd }).catch(() => {});
-  }
+  const payload = {
+    'form-name': 'projet',
+    entreprise: document.getElementById('f_entreprise').value,
+    nom: document.getElementById('f_nom').value,
+    secteur: document.getElementById('f_secteur').value,
+    presence: data.presence || '',
+    domaine: document.getElementById('f_domaine').value,
+    probleme: data.probleme.join(', '),
+    lien_social: document.getElementById('f_lien_social').value,
+    email: document.getElementById('f_email').value,
+    telephone: document.getElementById('f_tel').value,
+    ton: data.ton || '',
+    unique: document.getElementById('f_unique').value,
+    fonctionnalites: data.fonctionnalites.join(', ')
+  };
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(payload).toString()
+  }).catch(() => {});
+
   next();
 });
 </script>

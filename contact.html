@@ -86,7 +86,9 @@
 
       <div class="rv">
         <div class="form">
-          <form id="form">
+          <form id="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact">
+            <p class="hp"><label>Ne remplissez pas ce champ <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <div class="f-row">
               <div class="f"><label for="n">Votre nom</label>
                 <input type="text" id="n" name="nom" required placeholder="Nom et prénom"></div>
@@ -165,6 +167,7 @@
       <a href="index.html">Retour au site</a>
       <a href="mentions-legales.html">Mentions légales</a>
       <a href="politique-confidentialite.html">Politique de confidentialité</a>
+      <a href="conditions-generales.html">CGV</a>
       <span>El Jadida, Maroc</span>
     </div>
   </div>

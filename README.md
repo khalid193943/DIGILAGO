@@ -60,6 +60,10 @@ Avec un hébergement correct (LWS, Hostinger, o2switch en HTTP/2 + SSL), viser 9
 | `politique-confidentialite.html` | Politique de confidentialité |
 | `404.html` | Page d'erreur personnalisée |
 | **`admin-console-89898zzx.html`** | **Console privée** — messages, projets, analytics |
+| `conditions-generales.html` | Conditions générales de vente |
+| `.htaccess` | Configuration serveur **Apache uniquement** (ignoré par Netlify) |
+| `netlify.toml` | Configuration Netlify (redirections, en-têtes, fonctions) |
+| `netlify/functions/submissions.js` | Fonction serveur qui alimente la console admin |
 | `robots.txt` | Instructions pour les robots d'indexation |
 | `sitemap.xml` | Plan du site pour Google Search Console |
 | `og-image.png` | Vignette de partage sur les réseaux sociaux |
@@ -73,12 +77,14 @@ Avec un hébergement correct (LWS, Hostinger, o2switch en HTTP/2 + SSL), viser 9
 ```
 Adresse   : votredomaine.ma/admin-console-89898zzx.html
 Email     : khalid.lagouiti93@gmail.com
-Mot de passe : 0ms29+Y#g@m0s#M_
+Mot de passe : celui que vous définissez dans la variable ADMIN_PASSWORD sur Netlify
 ```
+
+Le mot de passe **n'est pas dans les fichiers du site** — c'est vous qui le choisissez dans les variables d'environnement Netlify (voir plus bas). Vous pouvez le changer à tout moment sans retoucher au code.
 
 ⚠️ Cette adresse n'est **volontairement liée nulle part** sur le site public — gardez-la de côté. Le mot de passe n'est pas stocké en clair dans le code (juste son empreinte), donc si vous le perdez, il faudra m'en demander un nouveau plutôt que de le retrouver dans les fichiers.
 
-Un site 100% statique ne peut pas faire de vraie authentification serveur : ce login est un frein sérieux contre les visiteurs occasionnels, **pas un coffre-fort**. N'y faites jamais transiter d'informations extrêmement sensibles (mots de passe bancaires, etc.).
+Depuis l'ajout de la fonction serveur Netlify, c'est une **vraie authentification** : le mot de passe est vérifié côté serveur et n'apparaît jamais dans le code envoyé au navigateur.
 
 ---
 
@@ -98,52 +104,51 @@ Vérifiez aussi les **prix** (`tarifs.html`, `index.html`) et les **délais anno
 
 ---
 
-## 🔌 Brancher vos données réelles (3 formulaires Google)
+## 🔌 Comment les demandes arrivent dans votre console
 
-Le site utilise le même principe partout : un **Google Form gratuit** (vous le créez, sans code) relié automatiquement à un **Google Sheet**, que la console admin lit. Trois formulaires distincts, un par source de données.
+**C'est déjà branché, entièrement automatique.** Aucun Google Form, aucun fichier à connecter.
 
-### 1️⃣ Messages (contact.html → onglet "Messages")
+Le site utilise **Netlify Forms** (inclus, gratuit) : chaque envoi depuis `contact.html` ou `demarrer.html` est capturé par Netlify, puis affiché dans votre console admin. Rien à faire de votre côté après la mise en ligne.
 
-Créez un Google Form avec ces champs, dans cet ordre :
-`Votre nom` · `Nom de l'entreprise` · `Secteur d'activité` (liste) · `Téléphone / WhatsApp` · `Email` · `Page Facebook ou site actuel` · `Quelque chose à préciser`
+### Les 3 étapes de configuration (une seule fois, 5 minutes)
 
-### 2️⃣ Projets (demarrer.html → onglet "Projets")
+**1. Publier le site sur Netlify**
+Glissez-déposez le dossier sur [app.netlify.com/drop](https://app.netlify.com/drop), ou connectez votre dépôt Git. Netlify détecte automatiquement les deux formulaires (`contact` et `projet`).
 
-Créez un 2ᵉ Google Form avec ces champs :
-`Nom de votre entreprise` · `Votre nom` · `Secteur d'activité` · `Où en êtes-vous en ligne aujourd'hui ?` (QCM : *Oui, on a un site web* / *Une page Facebook ou LinkedIn* / *Non, aucune présence en ligne*) · `Quelle est l'adresse de votre site ?` · `Le lien de votre page` · `Email` · `Téléphone / WhatsApp` · `Quel ton pour votre marque ?` · `Qu'est-ce qui vous différencie ?` · `Des fonctionnalités en tête ?`
+**2. Créer un jeton d'accès Netlify**
+- En haut à droite de Netlify : **User settings → Applications → Personal access tokens**
+- **New access token**, donnez-lui un nom (ex. « Console Digilago »), copiez le jeton
+- ⚠️ Il ne s'affiche qu'une fois — copiez-le tout de suite
 
-### 3️⃣ Analytics (suivi de pages → onglet "Analytics")
+**3. Ajouter les deux variables d'environnement**
+Sur votre site : **Site configuration → Environment variables → Add a variable**
 
-Créez un 3ᵉ Google Form, plus simple :
-`Page` · `Appareil`
+| Nom | Valeur |
+|---|---|
+| `ADMIN_PASSWORD` | Votre mot de passe de console |
+| `NETLIFY_ACCESS_TOKEN` | Le jeton copié à l'étape 2 |
 
----
+Puis **redéployez** le site (Deploys → Trigger deploy) pour que les variables soient prises en compte.
 
-### Pour chacun des 3 formulaires, les mêmes étapes :
+C'est tout. Votre console affiche désormais les vraies demandes.
 
-**A. Récupérer le lien d'envoi (pour que le site puisse y écrire)**
-1. Ouvrez le formulaire en mode aperçu (icône œil 👁)
-2. Menu **⋮ → "Obtenir un lien prérempli"**
-3. Remplissez chaque champ avec un texte reconnaissable (ex. "NOM" dans le champ nom)
-4. **"Obtenir le lien"** → copiez-le entièrement
+### Pourquoi c'est vraiment sécurisé maintenant
 
-**B. Publier la feuille de réponses (pour que la console admin puisse la lire)**
-1. Onglet **Réponses** du formulaire → icône verte Sheets → créer la feuille liée
-2. Dans le Sheet : **Fichier → Partager → Publier sur le web** → format **CSV** → copiez le lien
+Le mot de passe **n'est plus dans le code du site**. Il vit dans une variable d'environnement Netlify, et la vérification se fait sur leurs serveurs, dans `netlify/functions/submissions.js`. Un visiteur qui inspecte le code source ne trouve rien.
 
-**C. Me transmettre les deux liens**, pour chacun des 3 formulaires (6 liens au total), et je branche tout — quelques minutes de mon côté.
+C'est la différence avec la version précédente : c'est maintenant une **vraie authentification serveur**, pas un simple frein.
 
-Vous pouvez aussi le faire vous-même sans moi :
-- Le lien pré-rempli (A) va dans `GOOGLE_FORM_URL` et `GOOGLE_FORM_FIELDS` en haut de `script.js` (pour les messages) ou dans `demarrer.html` (pour les projets) ou dans `script.js` (`ANALYTICS_FORM_URL`, pour le suivi de pages)
-- Le lien CSV (B) se colle directement dans la console admin, via l'icône réglages de chaque onglet — pas besoin de toucher au code pour ça
+### Recevoir un email à chaque demande
 
-**En attendant**, chaque onglet de la console affiche des exemples clairement indiqués comme tels — rien n'est cassé, le site fonctionne normalement sans ces branchements.
+Dans Netlify : **Forms → [votre formulaire] → Settings → Form notifications → Add notification → Email notification**. Vous recevez un email dès qu'une demande arrive.
 
----
+### Limites du plan gratuit Netlify
 
-## Connecter le formulaire de `contact.html`
+100 soumissions de formulaire par mois. Au-delà, il faut passer au plan payant (19 $/mois) ou lever le plafond. Pour un démarrage, 100 demandes par mois est largement suffisant.
 
-C'est le seul qui n'utilise pas encore le mécanisme Google Form ci-dessus. Une fois le Form #1 créé (section précédente), ouvrez `script.js`, cherchez `GOOGLE_FORM_URL` tout en haut de la section formulaire, et remplissez-le ainsi que les 7 `entry.XXXXXXXXX` dans `GOOGLE_FORM_FIELDS` juste en dessous — le lien prérempli (étape A ci-dessus) vous donne ces identifiants dans son URL.
+### Tester en local
+
+Si vous ouvrez `admin-console-89898zzx.html` directement depuis votre disque (double-clic), la console affiche des **données d'exemple** clairement signalées — pratique pour voir l'interface sans être connecté. Les vraies données n'apparaissent que sur le site publié.
 
 ---
 

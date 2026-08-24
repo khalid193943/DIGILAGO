@@ -481,6 +481,13 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 .pr-amt small{display:block;font-size:.76rem;font-weight:500;color:var(--ink-45);letter-spacing:0;margin-top:.45rem;}
 .pr.best .pr-amt small{color:rgba(255,255,255,.5);}
 .pr ul{margin:1.6rem 0 1.9rem;padding-top:1.6rem;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:.65rem;flex:1;}
+.pr li.pr-grp{
+  font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--olive);margin-top:.85rem;display:block;
+}
+.pr li.pr-grp:first-child{margin-top:0;}
+.pr li.pr-grp::before{content:none;}
+.pr.best li.pr-grp{color:var(--sun);}
 .pr.best ul{border-color:rgba(255,255,255,.16);}
 .pr li{font-size:.88rem;color:var(--ink-70);display:flex;gap:.6rem;align-items:flex-start;line-height:1.5;}
 .pr.best li{color:rgba(255,255,255,.78);}
@@ -1009,3 +1016,94 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 
 /* ---------------- ACCESSIBILITÉ : titre présent pour les lecteurs d'écran et les moteurs, invisible à l'écran ---------------- */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+/* champ piège anti-robot : invisible pour l'humain, rempli par les robots */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+
+/* ============================================================
+   BULLE D'AIDE + NOTIFICATIONS (coin bas de l'écran)
+   ============================================================ */
+
+/* ---- bulle d'aide, en bas à droite ---- */
+.wgt-bubble{
+  position:fixed;right:1.3rem;bottom:1.3rem;z-index:320;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--ink);color:var(--paper);
+  display:grid;place-items:center;cursor:pointer;border:none;
+  box-shadow:0 14px 32px -10px rgba(22,24,29,.55);
+  transition:transform .25s ease,background .25s ease;
+}
+.wgt-bubble:hover{transform:translateY(-3px);background:#2A2D35;}
+.wgt-bubble svg{width:23px;height:23px;}
+.wgt-bubble .ic-close{display:none;}
+.wgt-bubble.open .ic-chat{display:none;}
+.wgt-bubble.open .ic-close{display:block;}
+
+/* petit point doré qui attire l'œil, disparaît une fois ouvert */
+.wgt-dot{
+  position:absolute;top:1px;right:1px;width:13px;height:13px;border-radius:50%;
+  background:var(--sun);border:2.5px solid var(--paper);
+  animation:wgtPulse 2.4s ease-in-out infinite;
+}
+.wgt-bubble.open .wgt-dot{display:none;}
+@keyframes wgtPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.22);opacity:.65}}
+
+/* ---- panneau d'aide ---- */
+.wgt-panel{
+  position:fixed;right:1.3rem;bottom:5.6rem;z-index:320;
+  width:min(320px,calc(100vw - 2.6rem));
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 26px 60px -20px rgba(22,24,29,.35);padding:1.35rem;
+  opacity:0;transform:translateY(12px) scale(.97);pointer-events:none;
+  transition:opacity .25s ease,transform .28s cubic-bezier(.16,1,.3,1);
+}
+.wgt-panel.open{opacity:1;transform:none;pointer-events:auto;}
+.wgt-panel-hi{font-size:1rem;font-weight:600;margin-bottom:.25rem;}
+.wgt-panel-sub{font-size:.85rem;color:var(--ink-45);line-height:1.5;margin-bottom:1.1rem;}
+.wgt-opt{
+  display:flex;align-items:center;gap:.7rem;width:100%;text-align:left;
+  padding:.75rem .9rem;border:1px solid var(--line);border-radius:11px;
+  font-size:.87rem;font-weight:500;color:var(--ink);background:var(--paper);
+  margin-bottom:.5rem;cursor:pointer;
+  transition:border-color .2s ease,background .2s ease,transform .2s ease;
+}
+.wgt-opt:last-of-type{margin-bottom:0;}
+.wgt-opt:hover{border-color:var(--sun);background:var(--sun-soft);transform:translateX(2px);}
+.wgt-opt .ic{width:30px;height:30px;border-radius:8px;margin:0;flex-shrink:0;}
+.wgt-opt .ic svg{width:15px;height:15px;}
+
+/* ---- notification, en bas à gauche ---- */
+.wgt-toast{
+  position:fixed;left:1.3rem;bottom:1.3rem;z-index:310;
+  width:min(300px,calc(100vw - 8rem));
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 18px 44px -18px rgba(22,24,29,.3);
+  padding:.85rem 1rem;display:flex;gap:.75rem;align-items:flex-start;
+  opacity:0;transform:translateY(14px);pointer-events:none;
+  transition:opacity .4s ease,transform .45s cubic-bezier(.16,1,.3,1);
+}
+.wgt-toast.show{opacity:1;transform:none;pointer-events:auto;}
+.wgt-toast-ic{
+  width:30px;height:30px;border-radius:8px;background:var(--sun-soft);
+  display:grid;place-items:center;color:#8A6A12;flex-shrink:0;
+}
+.wgt-toast-ic svg{width:15px;height:15px;}
+.wgt-toast-b{flex:1;min-width:0;}
+.wgt-toast-t{display:block;font-size:.82rem;font-weight:600;margin-bottom:.15rem;}
+.wgt-toast-x{display:block;font-size:.78rem;color:var(--ink-45);line-height:1.45;}
+.wgt-toast-close{
+  background:none;border:none;cursor:pointer;color:var(--ink-25);
+  font-size:1.1rem;line-height:1;padding:0 0 0 .3rem;flex-shrink:0;
+}
+.wgt-toast-close:hover{color:var(--ink);}
+
+@media (max-width:600px){
+  .wgt-bubble{width:52px;height:52px;right:1rem;bottom:1rem;}
+  .wgt-panel{right:1rem;bottom:5rem;}
+  /* la notification s'arrête avant la bulle : jamais de chevauchement */
+  .wgt-toast{left:1rem;right:4.9rem;width:auto;bottom:1rem;}
+}
+@media (prefers-reduced-motion:reduce){
+  .wgt-dot{animation:none;}
+  .wgt-toast,.wgt-panel{transition:opacity .2s ease;}
+}

@@ -266,35 +266,22 @@ if (faqs.length) {
   fetch(ANALYTICS_FORM_URL, { method: 'POST', mode: 'no-cors', body: fd }).catch(() => {});
 })();
 
-/* ---------- formulaire ----------
-   Envoie silencieusement vers un Google Form (qui alimente le Sheet lu
-   par la page admin). Tant que GOOGLE_FORM_URL n'est pas rempli, le
-   formulaire fonctionne comme avant (aucune erreur, juste pas d'envoi). */
-const GOOGLE_FORM_URL = ''; // ex: https://docs.google.com/forms/d/e/XXXXXXXX/formResponse
-const GOOGLE_FORM_FIELDS = {
-  nom: '',        // entry.XXXXXXXXX
-  entreprise: '', // entry.XXXXXXXXX
-  secteur: '',    // entry.XXXXXXXXX
-  telephone: '',  // entry.XXXXXXXXX
-  email: '',      // entry.XXXXXXXXX
-  lien: '',       // entry.XXXXXXXXX
-  message: ''     // entry.XXXXXXXXX
-};
-
+/* ---------- formulaire de contact ----------
+   Envoie vers Netlify Forms : les demandes arrivent dans votre console admin.
+   En local (fichier ouvert directement), l'envoi échoue silencieusement et
+   le message de confirmation s'affiche quand même — c'est normal. */
 const form = document.getElementById('form');
 const formOk = document.getElementById('formOk');
 if (form && formOk) {
   form.addEventListener('submit', e => {
     e.preventDefault();
 
-    if (GOOGLE_FORM_URL) {
-      const fd = new FormData(form);
-      const gData = new FormData();
-      Object.keys(GOOGLE_FORM_FIELDS).forEach(key => {
-        if (GOOGLE_FORM_FIELDS[key]) gData.append(GOOGLE_FORM_FIELDS[key], fd.get(key) || '');
-      });
-      fetch(GOOGLE_FORM_URL, { method: 'POST', mode: 'no-cors', body: gData }).catch(() => {});
-    }
+    const fd = new FormData(form);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(fd).toString()
+    }).catch(() => {});
 
     form.classList.add('f-hide');
     formOk.classList.add('show');
@@ -302,3 +289,113 @@ if (form && formOk) {
     formOk.focus();
   });
 }
+
+/* =========================================================
+   BULLE D'AIDE + NOTIFICATIONS
+   Injectées automatiquement sur toutes les pages qui chargent
+   ce fichier. Volontairement absentes du parcours "démarrer"
+   (pour ne pas distraire) et de la console admin.
+
+   ⚠️ HONNÊTETÉ : les messages ci-dessous ne servent pas à
+   simuler une fausse activité. Ils rappellent des faits vrais,
+   déjà affichés ailleurs sur le site. Ne les remplacez pas par
+   de fausses notifications d'achat : à El Jadida, un client
+   peut vérifier, et la crédibilité perdue ne revient pas.
+   ========================================================= */
+(function widgets(){
+  if (document.body.classList.contains('dm-body')) return;
+  if (document.querySelector('.adm-body')) return;
+
+  /* ---- Messages rotatifs. Modifiables librement, tant qu'ils restent vrais. ---- */
+  const MESSAGES = [
+    { t:'Offre de lancement',   x:"5 999 MAD, prix garanti pendant 3 mois." },
+    { t:'Démo gratuite',        x:"On construit votre site avant que vous payiez." },
+    { t:'Réponse sous 48h',     x:"Votre démo arrive en deux jours ouvrés." },
+    { t:'Tout compris',         x:"Domaine et hébergement offerts la première année." },
+    { t:'Tarif de lancement',   x:"Réservé aux 50 premières entreprises d'El Jadida." }
+  ];
+
+  const WHATSAPP = 'https://wa.me/2126XXXXXXXX';
+  const PREMIER_DELAI = 7000;   // avant la 1re notification
+  const INTERVALLE   = 17000;   // entre deux notifications
+  const DUREE        = 7000;    // temps d'affichage
+
+  /* ---------- bulle + panneau ---------- */
+  const bubble = document.createElement('button');
+  bubble.className = 'wgt-bubble';
+  bubble.setAttribute('aria-label', "Ouvrir l'aide");
+  bubble.setAttribute('aria-expanded', 'false');
+  bubble.innerHTML = `
+    <span class="wgt-dot" aria-hidden="true"></span>
+    <svg class="ic-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-9.1 8.5L4 21l1.4-5A8.5 8.5 0 1 1 21 11.5z"/></svg>
+    <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>`;
+
+  const panel = document.createElement('div');
+  panel.className = 'wgt-panel';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Aide rapide');
+  panel.innerHTML = `
+    <p class="wgt-panel-hi">Bonjour 👋</p>
+    <p class="wgt-panel-sub">Comment peut-on vous aider&nbsp;?</p>
+    <a class="wgt-opt" href="demarrer.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></span>
+      Je veux ma démo gratuite
+    </a>
+    <a class="wgt-opt" href="contact.html">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 8 8 5 8-5"/></svg></span>
+      J'ai une question
+    </a>
+    <a class="wgt-opt" href="${WHATSAPP}" target="_blank" rel="noopener">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-9.1 8.5L4 21l1.4-5A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
+      Écrire sur WhatsApp
+    </a>`;
+
+  /* ---------- notification ---------- */
+  const toast = document.createElement('div');
+  toast.className = 'wgt-toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  toast.innerHTML = `
+    <span class="wgt-toast-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.8.8-5 4.7 1.3 6.8L12 17.3 6 20.6l1.3-6.8-5-4.7 6.8-.8z"/></svg></span>
+    <span class="wgt-toast-b"><span class="wgt-toast-t"></span><span class="wgt-toast-x"></span></span>
+    <button class="wgt-toast-close" aria-label="Fermer la notification">&times;</button>`;
+
+  document.body.append(toast, panel, bubble);
+
+  /* ---------- comportement de la bulle ---------- */
+  function setPanel(open){
+    panel.classList.toggle('open', open);
+    bubble.classList.toggle('open', open);
+    bubble.setAttribute('aria-expanded', String(open));
+    bubble.setAttribute('aria-label', open ? "Fermer l'aide" : "Ouvrir l'aide");
+    if (open) toast.classList.remove('show'); // jamais les deux en même temps
+  }
+  bubble.addEventListener('click', () => setPanel(!panel.classList.contains('open')));
+  document.addEventListener('click', e => {
+    if (panel.classList.contains('open') && !panel.contains(e.target) && !bubble.contains(e.target)) setPanel(false);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setPanel(false); });
+
+  /* ---------- rotation des notifications ---------- */
+  let i = 0, stop = false, timer = null;
+  if (sessionStorage.getItem('dg_toast_off') === '1') stop = true;
+
+  toast.querySelector('.wgt-toast-close').addEventListener('click', () => {
+    stop = true;
+    sessionStorage.setItem('dg_toast_off', '1');
+    toast.classList.remove('show');
+    clearTimeout(timer);
+  });
+
+  function afficher(){
+    if (stop) return;
+    if (panel.classList.contains('open')) { timer = setTimeout(afficher, INTERVALLE); return; }
+    const m = MESSAGES[i % MESSAGES.length]; i++;
+    toast.querySelector('.wgt-toast-t').textContent = m.t;
+    toast.querySelector('.wgt-toast-x').textContent = m.x;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), DUREE);
+    timer = setTimeout(afficher, INTERVALLE);
+  }
+  timer = setTimeout(afficher, PREMIER_DELAI);
+})();

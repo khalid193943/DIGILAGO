@@ -1,0 +1,28 @@
+# =========================================================
+# DIGILAGO — configuration Netlify
+# =========================================================
+
+[build]
+  # Site statique : rien à compiler, on publie le dossier tel quel.
+  publish = "."
+  functions = "netlify/functions"
+
+# La console admin ne doit jamais être indexée par les moteurs.
+[[headers]]
+  for = "/admin-console-89898zzx.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+
+# En-têtes de sécurité de base sur tout le site.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+
+# Page d'erreur personnalisée.
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404

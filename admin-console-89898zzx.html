@@ -48,7 +48,7 @@
     <div class="wrap">
       <button class="adm-tab on" data-tab="messages">Messages</button>
       <button class="adm-tab" data-tab="projets">Projets</button>
-      <button class="adm-tab" data-tab="analytics">Analytics</button>
+      <button class="adm-tab" data-tab="analytics">Statistiques</button>
     </div>
   </nav>
 
@@ -60,20 +60,11 @@
 
         <div class="adm-banner" id="msgDemoBanner" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
-          <span><b>Ceci sont des exemples.</b> Connectez votre Google Sheet ci-dessous pour voir vos vraies demandes.</span>
+          <span><b>Mode démonstration.</b> Ces données sont des exemples — la console affichera vos vraies demandes une fois le site publié sur Netlify.</span>
         </div>
         <div class="adm-banner adm-banner-err" id="msgErrBanner" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
           <span id="msgErrText"></span>
-        </div>
-
-        <div class="adm-settings">
-          <h3>Source des messages</h3>
-          <p>Sheet relié au formulaire de contact, publié sur le web au format CSV.</p>
-          <div class="row">
-            <input type="text" id="msgCsvInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
-            <button class="btn btn-sun" id="msgSaveBtn">Enregistrer</button>
-          </div>
         </div>
 
         <div class="adm-stats">
@@ -101,20 +92,11 @@
 
         <div class="adm-banner" id="prDemoBanner" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
-          <span><b>Ceci sont des exemples.</b> Connectez le Sheet du parcours "démarrer" ci-dessous pour voir vos vraies demandes.</span>
+          <span><b>Mode démonstration.</b> Ces données sont des exemples — vos vraies demandes apparaîtront une fois le site publié.</span>
         </div>
         <div class="adm-banner adm-banner-err" id="prErrBanner" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
           <span id="prErrText"></span>
-        </div>
-
-        <div class="adm-settings">
-          <h3>Source des projets</h3>
-          <p>Sheet relié au Google Form du parcours <code>demarrer.html</code>, publié sur le web au format CSV.</p>
-          <div class="row">
-            <input type="text" id="prCsvInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
-            <button class="btn btn-sun" id="prSaveBtn">Enregistrer</button>
-          </div>
         </div>
 
         <div class="adm-stats">
@@ -142,41 +124,32 @@
 
         <div class="adm-banner" id="anDemoBanner" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
-          <span><b>Ceci sont des exemples.</b> Connectez votre Sheet de suivi ci-dessous pour voir votre vrai trafic.</span>
+          <span><b>Mode démonstration.</b> Ces statistiques sont calculées sur des exemples — elles refléteront vos vraies demandes une fois le site publié.</span>
         </div>
         <div class="adm-banner adm-banner-err" id="anErrBanner" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
           <span id="anErrText"></span>
         </div>
 
-        <div class="adm-settings">
-          <h3>Source du trafic</h3>
-          <p>Sheet alimenté par le suivi de pages, publié sur le web au format CSV.</p>
-          <div class="row">
-            <input type="text" id="anCsvInput" placeholder="https://docs.google.com/spreadsheets/d/.../pub?output=csv">
-            <button class="btn btn-sun" id="anSaveBtn">Enregistrer</button>
-          </div>
-        </div>
-
         <div class="adm-stats">
-          <div class="adm-stat"><div class="n" id="anStatTotal">–</div><div class="l">Vues totales</div></div>
+          <div class="adm-stat"><div class="n" id="anStatTotal">–</div><div class="l">Demandes au total</div></div>
           <div class="adm-stat"><div class="n" id="anStatWeek">–</div><div class="l">7 derniers jours</div></div>
-          <div class="adm-stat"><div class="n" id="anStatTop">–</div><div class="l">Page la plus visitée</div></div>
-          <div class="adm-stat"><div class="n" id="anStatDevice">–</div><div class="l">Appareil dominant</div></div>
+          <div class="adm-stat"><div class="n" id="anStatTop">–</div><div class="l">Secteur le plus demandé</div></div>
+          <div class="adm-stat"><div class="n" id="anStatDevice">–</div><div class="l">Origine dominante</div></div>
         </div>
 
         <div class="adm-chart-card">
-          <h3>Vues des 14 derniers jours</h3>
+          <h3>Demandes des 14 derniers jours</h3>
           <div class="adm-chart" id="anChart"></div>
         </div>
 
         <div class="adm-2col">
           <div class="adm-card">
-            <h3>Pages les plus visitées</h3>
+            <h3>Secteurs les plus demandés</h3>
             <div id="anTopPages"></div>
           </div>
           <div class="adm-card">
-            <h3>Répartition par appareil</h3>
+            <h3>Origine des demandes</h3>
             <div id="anDevices"></div>
           </div>
         </div>
@@ -188,49 +161,155 @@
 
 <script>
 /* ===================================================================
-   ACCÈS — email + mot de passe vérifiés côté client (hachage SHA-256).
-   Un site 100% statique ne peut pas faire d'authentification serveur ;
-   ceci empêche la lecture directe du mot de passe dans le code source,
-   mais reste un frein, pas un vrai coffre-fort. Ne rien y mettre de
-   sensible au-delà de ce que ces pages affichent déjà.
-   =================================================================== */
-const ADMIN_EMAIL = 'khalid.lagouiti93@gmail.com';
-const ADMIN_HASH  = '27f7cc1d4f92f79ede399ced6bf7cdbc35a7949f014914b2e0ad4042bf3f4f65';
+   ACCÈS — vérifié par la fonction serveur Netlify.
+   Le mot de passe n'est PAS dans ce fichier : il vit dans la variable
+   d'environnement ADMIN_PASSWORD sur Netlify, et n'est jamais envoyé
+   au navigateur. C'est une vraie authentification serveur.
 
-async function sha256(str){
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-}
+   Repli local : si la fonction n'est pas joignable (fichier ouvert
+   directement, hors Netlify), on bascule sur des données d'exemple
+   pour pouvoir travailler sur l'interface.
+   =================================================================== */
+const API = '/.netlify/functions/submissions';
+const ADMIN_EMAIL = 'khalid.lagouiti93@gmail.com';
+
+let SESSION_PW = '';   // gardé en mémoire le temps de la session
+let MODE_DEMO = false; // vrai si la fonction serveur est injoignable
 
 const gate = document.getElementById('gate');
 const app = document.getElementById('adminApp');
 
+/* Appelle la fonction serveur. Renvoie {ok, submissions} ou {ok:false, raison} */
+async function fetchSubmissions(password){
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password })
+    });
+    if (res.status === 401) return { ok:false, raison:'mdp' };
+    if (!res.ok) {
+      let msg = 'Erreur serveur ' + res.status;
+      try { const j = await res.json(); if (j.error) msg = j.error; } catch(_){}
+      return { ok:false, raison:'serveur', message: msg };
+    }
+    const data = await res.json();
+    return { ok:true, submissions: data.submissions || [] };
+  } catch (_) {
+    return { ok:false, raison:'injoignable' };
+  }
+}
+
 function openApp(){
   gate.style.display = 'none';
   app.hidden = false;
-  loadMessages();
-  loadProjets();
-  loadAnalytics();
+  rafraichirTout();
 }
-if (sessionStorage.getItem('dg_console_ok') === '1') openApp();
 
 document.getElementById('loginBtn').addEventListener('click', tryLogin);
 document.getElementById('loginPw').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
 async function tryLogin(){
   const email = document.getElementById('loginEmail').value.trim().toLowerCase();
   const pw = document.getElementById('loginPw').value;
-  const hash = await sha256(email + ':' + pw);
-  if (email === ADMIN_EMAIL.toLowerCase() && hash === ADMIN_HASH) {
-    sessionStorage.setItem('dg_console_ok', '1');
+  const err = document.getElementById('loginErr');
+  const btn = document.getElementById('loginBtn');
+
+  if (email !== ADMIN_EMAIL.toLowerCase()) {
+    err.textContent = 'Email ou mot de passe incorrect.';
+    return;
+  }
+
+  err.textContent = 'Vérification...';
+  btn.disabled = true;
+  const r = await fetchSubmissions(pw);
+  btn.disabled = false;
+
+  if (r.ok) {
+    SESSION_PW = pw; MODE_DEMO = false;
+    sessionStorage.setItem('dg_pw', pw);
+    err.textContent = '';
     openApp();
+  } else if (r.raison === 'mdp') {
+    err.textContent = 'Email ou mot de passe incorrect.';
+  } else if (r.raison === 'injoignable' && location.protocol === 'file:') {
+    // uniquement en local (fichier ouvert directement) : mode démonstration
+    SESSION_PW = pw; MODE_DEMO = true;
+    sessionStorage.setItem('dg_pw', pw);
+    err.textContent = '';
+    openApp();
+  } else if (r.raison === 'injoignable') {
+    err.textContent = "Serveur injoignable. Vérifiez que le site est bien publié sur Netlify.";
   } else {
-    document.getElementById('loginErr').textContent = 'Email ou mot de passe incorrect.';
+    err.textContent = r.message || 'Erreur de connexion au serveur.';
   }
 }
+
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  sessionStorage.removeItem('dg_console_ok');
+  sessionStorage.removeItem('dg_pw');
+  SESSION_PW = '';
   location.reload();
 });
+
+/* reprise de session */
+(async () => {
+  const saved = sessionStorage.getItem('dg_pw');
+  if (!saved) return;
+  const r = await fetchSubmissions(saved);
+  if (r.ok) { SESSION_PW = saved; MODE_DEMO = false; openApp(); }
+  else if (r.raison === 'injoignable' && location.protocol === 'file:') { SESSION_PW = saved; MODE_DEMO = true; openApp(); }
+  else sessionStorage.removeItem('dg_pw');
+})();
+
+/* ===================================================================
+   CHARGEMENT CENTRAL — une seule requête alimente les trois onglets
+   =================================================================== */
+let SUBS = [];
+
+async function rafraichirTout(){
+  if (MODE_DEMO) {
+    SUBS = [];
+    afficherBandeauDemo(true);
+    renderMessages(); renderProjets(); renderAnalytics();
+    return;
+  }
+  const r = await fetchSubmissions(SESSION_PW);
+  if (r.ok) {
+    SUBS = r.submissions;
+    afficherBandeauDemo(false);
+  } else {
+    SUBS = [];
+    afficherBandeauDemo(true, r.message);
+  }
+  renderMessages(); renderProjets(); renderAnalytics();
+}
+
+function afficherBandeauDemo(actif, message){
+  ['msgDemoBanner','prDemoBanner','anDemoBanner'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.hidden = !actif;
+  });
+  if (message) {
+    ['msgErrText','prErrText','anErrText'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.textContent = message;
+    });
+    ['msgErrBanner','prErrBanner','anErrBanner'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.hidden = false;
+    });
+  } else {
+    ['msgErrBanner','prErrBanner','anErrBanner'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.hidden = true;
+    });
+  }
+}
+
+/* filtre les soumissions par nom de formulaire */
+function subsDe(nomFormulaire){
+  return SUBS
+    .filter(s => s.formulaire === nomFormulaire)
+    .map(s => ({ ...s.donnees, date: s.date }))
+    .sort((a,b) => new Date(b.date) - new Date(a.date));
+}
 
 /* ===================================================================
    ONGLETS
@@ -243,9 +322,10 @@ document.querySelectorAll('.adm-tab').forEach(btn => {
 });
 
 document.getElementById('refreshBtn').addEventListener('click', (e) => {
-  e.currentTarget.classList.add('spin');
-  Promise.all([loadMessages(), loadProjets(), loadAnalytics()]).then(() =>
-    setTimeout(() => e.currentTarget.classList.remove('spin'), 700));
+  const btn = e.currentTarget;
+  btn.classList.add('spin');
+  Promise.resolve(rafraichirTout()).then(() =>
+    setTimeout(() => btn.classList.remove('spin'), 700));
 });
 
 /* ===================================================================
@@ -253,97 +333,17 @@ document.getElementById('refreshBtn').addEventListener('click', (e) => {
    =================================================================== */
 function esc(s){ const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 
-function parseCsv(text){
-  const rows = [];
-  let row = [], field = '', inQuotes = false;
-  for (let i = 0; i < text.length; i++){
-    const c = text[i], next = text[i + 1];
-    if (inQuotes){
-      if (c === '"' && next === '"'){ field += '"'; i++; }
-      else if (c === '"'){ inQuotes = false; }
-      else { field += c; }
-    } else {
-      if (c === '"'){ inQuotes = true; }
-      else if (c === ','){ row.push(field); field = ''; }
-      else if (c === '\r'){ /* ignoré */ }
-      else if (c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
-      else { field += c; }
-    }
-  }
-  if (field.length || row.length){ row.push(field); rows.push(row); }
-  return rows.filter(r => r.some(c => c !== ''));
-}
 
-async function fetchCsv(url){
-  const res = await fetch(url, { cache: 'no-store' });
-  if (!res.ok) throw new Error('HTTP ' + res.status);
-  return parseCsv(await res.text());
-}
 
 /* ===================================================================
    ONGLET MESSAGES
    =================================================================== */
-const MSG_LS_KEY = 'dg_console_msg_csv';
-let msgRows = [];
-
 const MSG_DEMO = [
-  { date:'2026-08-20 10:12', nom:'Yasmine El Amrani', entreprise:'École Al Amal', secteur:'École privée', telephone:'0661234567', email:'contact@alamal-ecole.ma', lien:'facebook.com/ecolealamal', message:"On a une page Facebook mais elle n'est plus à jour depuis longtemps. On veut surtout être trouvables sur Google avant la rentrée." },
-  { date:'2026-08-19 16:45', nom:'Karim Benjelloun', entreprise:'Clinique Dentaire Sourire', secteur:'Clinique / cabinet médical', telephone:'0662345678', email:'k.benjelloun@gmail.com', lien:'', message:'Besoin surtout d\u2019un système de prise de rendez-vous en ligne.' },
-  { date:'2026-08-19 09:03', nom:'Sanae Idrissi', entreprise:'Restaurant La Sqala', secteur:'Restaurant / café', telephone:'0663456789', email:'sanae.idrissi@outlook.com', lien:'facebook.com/lasqala.ej', message:'' },
-  { date:'2026-08-17 14:20', nom:'Omar Tazi', entreprise:'Boutique Tazi Textile', secteur:'Commerce / boutique', telephone:'0664567890', email:'omartazi@gmail.com', lien:'', message:'On vend surtout en boutique mais on aimerait montrer le catalogue en ligne.' },
-  { date:'2026-08-15 11:37', nom:'Hicham Alaoui', entreprise:'Riad Dar Doukkala', secteur:'Hôtel / riad', telephone:'0665678901', email:'contact@dardoukkala.ma', lien:'instagram.com/dardoukkala', message:"On reçoit beaucoup de réservations via Booking, on aimerait réduire la commission en captant plus de réservations directes." }
+  { date:'2026-08-20T10:12:00Z', nom:'Yasmine El Amrani', entreprise:'École Al Amal', secteur:'École privée', telephone:'0661234567', email:'contact@alamal-ecole.ma', lien:'facebook.com/ecolealamal', message:"On a une page Facebook mais elle n'est plus à jour depuis longtemps." },
+  { date:'2026-08-19T16:45:00Z', nom:'Karim Benjelloun', entreprise:'Clinique Dentaire Sourire', secteur:'Clinique / cabinet médical', telephone:'0662345678', email:'k.benjelloun@gmail.com', lien:'', message:"Besoin surtout d'un système de prise de rendez-vous en ligne." },
+  { date:'2026-08-17T14:20:00Z', nom:'Omar Tazi', entreprise:'Boutique Tazi Textile', secteur:'Commerce / boutique', telephone:'0664567890', email:'omartazi@gmail.com', lien:'', message:'On aimerait montrer le catalogue en ligne.' }
 ];
-
-async function loadMessages(){
-  const url = localStorage.getItem(MSG_LS_KEY) || '';
-  document.getElementById('msgCsvInput').value = url;
-  document.getElementById('msgErrBanner').hidden = true;
-
-  if (!url) {
-    msgRows = MSG_DEMO;
-    document.getElementById('msgDemoBanner').hidden = false;
-    renderMessages();
-    return;
-  }
-  document.getElementById('msgDemoBanner').hidden = true;
-  try {
-    const data = await fetchCsv(url);
-    msgRows = messagesFromCsv(data);
-    renderMessages();
-  } catch (err) {
-    document.getElementById('msgErrText').textContent =
-      "Impossible de charger le Sheet (vérifiez qu'il est publié en CSV). Détail : " + err.message;
-    document.getElementById('msgErrBanner').hidden = false;
-    msgRows = MSG_DEMO;
-    document.getElementById('msgDemoBanner').hidden = false;
-    renderMessages();
-  }
-}
-
-function messagesFromCsv(data){
-  if (!data.length) return [];
-  const headers = data[0].map(h => (h || '').toLowerCase());
-  const find = (...keys) => headers.findIndex(h => keys.some(k => h.includes(k)));
-  const iDate = find('horodateur', 'date', 'timestamp');
-  const iNomEntreprise = find('entreprise');
-  const iNom = headers.findIndex((h, idx) => h.includes('nom') && idx !== iNomEntreprise);
-  const iSecteur = find('secteur');
-  const iTel = find('téléphone', 'telephone', 'whatsapp');
-  const iEmail = find('email', 'e-mail');
-  const iLien = find('facebook', 'lien', 'site');
-  const iMsg = find('préciser', 'precise', 'message');
-
-  return data.slice(1).filter(r => r.some(c => c && c.trim())).map(r => ({
-    date: iDate > -1 ? r[iDate] : '',
-    nom: iNom > -1 ? r[iNom] : '',
-    entreprise: iNomEntreprise > -1 ? r[iNomEntreprise] : '',
-    secteur: iSecteur > -1 ? r[iSecteur] : '',
-    telephone: iTel > -1 ? r[iTel] : '',
-    email: iEmail > -1 ? r[iEmail] : '',
-    lien: iLien > -1 ? r[iLien] : '',
-    message: iMsg > -1 ? r[iMsg] : ''
-  })).reverse();
-}
+let msgRows = [];
 
 function toWaLink(phone){
   let d = (phone || '').replace(/\D/g, '');
@@ -369,6 +369,7 @@ function populateSectorFilter(){
 }
 
 function renderMessages(){
+  msgRows = MODE_DEMO ? MSG_DEMO : subsDe('contact');
   populateSectorFilter();
   document.getElementById('msgStatTotal').textContent = msgRows.length;
   const now = new Date(), weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
@@ -416,25 +417,15 @@ function msgRowHtml(r){
 
 document.getElementById('msgSearch').addEventListener('input', applyMsgFilters);
 document.getElementById('msgSectorFilter').addEventListener('change', applyMsgFilters);
-document.getElementById('msgSaveBtn').addEventListener('click', () => {
-  const url = document.getElementById('msgCsvInput').value.trim();
-  if (url) localStorage.setItem(MSG_LS_KEY, url); else localStorage.removeItem(MSG_LS_KEY);
-  loadMessages();
-});
 
 /* ===================================================================
    ONGLET PROJETS (parcours démarrer.html)
    =================================================================== */
-const PR_LS_KEY = 'dg_console_pr_csv';
-let prRows = [];
-
 const PR_DEMO = [
-  { date:'2026-08-21 15:40', entreprise:'Auto École Atlas', nom:'Rachid Amine', secteur:'Autre', presence:'site', domaine:'www.autoecoleatlas.ma', probleme:'Trop ancien, Introuvable sur Google', lien_social:'', email:'rachid.amine@gmail.com', telephone:'0633334444', ton:'Professionnel et rassurant', unique:'Seule auto-école du quartier avec simulateur de conduite.', fonctionnalites:'Prise de rendez-vous' },
-  { date:'2026-08-20 11:05', entreprise:'Boulangerie Nour', nom:'Fatima Zahra', secteur:'Commerce / boutique', presence:'social', domaine:'', probleme:'', lien_social:'facebook.com/boulangerienour', email:'nour@example.ma', telephone:'0611112222', ton:'Chaleureux et familial', unique:'Pain traditionnel au levain, cuit au feu de bois.', fonctionnalites:'' },
-  { date:'2026-08-19 09:30', entreprise:'Clinique Dentaire Sourire', nom:'Karim Benjelloun', secteur:'Clinique / cabinet médical', presence:'rien', domaine:'', probleme:'', lien_social:'', email:'k.benjelloun@gmail.com', telephone:'0662345678', ton:'Élégant et premium', unique:'', fonctionnalites:'Prise de rendez-vous, Espace client' },
-  { date:'2026-08-18 17:12', entreprise:'Riad Dar Doukkala', nom:'Hicham Alaoui', secteur:'Hôtel / riad', presence:'site', domaine:'www.dardoukkala.ma', probleme:'Pas adapté au mobile', lien_social:'', email:'contact@dardoukkala.ma', telephone:'0665678901', ton:'Élégant et premium', unique:'Vue sur les remparts, cuisine faite maison.', fonctionnalites:'Version arabe, Chat WhatsApp intégré' },
-  { date:'2026-08-17 08:50', entreprise:'École Al Amal', nom:'Yasmine El Amrani', secteur:'École privée', presence:'social', domaine:'', probleme:'', lien_social:'facebook.com/ecolealamal', email:'contact@alamal-ecole.ma', telephone:'0661234567', ton:'Professionnel et rassurant', unique:'Programme bilingue dès la maternelle.', fonctionnalites:'Espace client, Newsletter' }
+  { date:'2026-08-21T15:40:00Z', entreprise:'Auto École Atlas', nom:'Rachid Amine', secteur:'Autre', presence:'site', domaine:'www.autoecoleatlas.ma', probleme:'Trop ancien, Introuvable sur Google', lien_social:'', email:'rachid.amine@gmail.com', telephone:'0633334444', ton:'Professionnel et rassurant', unique:'Seule auto-école du quartier avec simulateur.', fonctionnalites:'Prise de rendez-vous' },
+  { date:'2026-08-19T09:30:00Z', entreprise:'Clinique Dentaire Sourire', nom:'Karim Benjelloun', secteur:'Clinique / cabinet médical', presence:'rien', domaine:'', probleme:'', lien_social:'', email:'k.benjelloun@gmail.com', telephone:'0662345678', ton:'Élégant et premium', unique:'', fonctionnalites:'Prise de rendez-vous, Espace client' }
 ];
+let prRows = [];
 
 function presenceInfo(r){
   if (r.presence === 'site') {
@@ -447,74 +438,6 @@ function presenceInfo(r){
   return esc(r.presence) || '—';
 }
 
-async function loadProjets(){
-  const url = localStorage.getItem(PR_LS_KEY) || '';
-  document.getElementById('prCsvInput').value = url;
-  document.getElementById('prErrBanner').hidden = true;
-
-  if (!url) {
-    prRows = PR_DEMO;
-    document.getElementById('prDemoBanner').hidden = false;
-    renderProjets();
-    return;
-  }
-  document.getElementById('prDemoBanner').hidden = true;
-  try {
-    const data = await fetchCsv(url);
-    prRows = projetsFromCsv(data);
-    renderProjets();
-  } catch (err) {
-    document.getElementById('prErrText').textContent =
-      "Impossible de charger le Sheet (vérifiez qu'il est publié en CSV). Détail : " + err.message;
-    document.getElementById('prErrBanner').hidden = false;
-    prRows = PR_DEMO;
-    document.getElementById('prDemoBanner').hidden = false;
-    renderProjets();
-  }
-}
-
-function projetsFromCsv(data){
-  if (!data.length) return [];
-  const headers = data[0].map(h => (h || '').toLowerCase());
-  const find = (...keys) => headers.findIndex(h => keys.some(k => h.includes(k)));
-  const iDate = find('horodateur', 'date', 'timestamp');
-  const iEntreprise = find('entreprise');
-  const iNom = headers.findIndex((h, idx) => h.includes('nom') && idx !== iEntreprise);
-  const iSecteur = find('secteur');
-  const iPresence = find('présence', 'presence', 'ligne aujourd');
-  const iDomaine = find('domaine', 'adresse');
-  const iProbleme = find('va pas', 'gêne', 'probl');
-  const iLienSocial = find('lien de votre page', 'facebook', 'linkedin');
-  const iEmail = find('email', 'e-mail');
-  const iTel = find('téléphone', 'telephone', 'whatsapp');
-  const iTon = find('ton');
-  const iUnique = find('différencie', 'unique');
-  const iFonc = find('fonctionnalité', 'fonctionnalite');
-
-  const presenceFromLabel = (v) => {
-    v = (v || '').toLowerCase();
-    if (v.includes('facebook') || v.includes('linkedin')) return 'social';
-    if (v.includes('aucune') || v.includes('non,')) return 'rien';
-    if (v.includes('site')) return 'site';
-    return v;
-  };
-
-  return data.slice(1).filter(r => r.some(c => c && c.trim())).map(r => ({
-    date: iDate > -1 ? r[iDate] : '',
-    entreprise: iEntreprise > -1 ? r[iEntreprise] : '',
-    nom: iNom > -1 ? r[iNom] : '',
-    secteur: iSecteur > -1 ? r[iSecteur] : '',
-    presence: iPresence > -1 ? presenceFromLabel(r[iPresence]) : '',
-    domaine: iDomaine > -1 ? r[iDomaine] : '',
-    probleme: iProbleme > -1 ? r[iProbleme] : '',
-    lien_social: iLienSocial > -1 ? r[iLienSocial] : '',
-    email: iEmail > -1 ? r[iEmail] : '',
-    telephone: iTel > -1 ? r[iTel] : '',
-    ton: iTon > -1 ? r[iTon] : '',
-    unique: iUnique > -1 ? r[iUnique] : '',
-    fonctionnalites: iFonc > -1 ? r[iFonc] : ''
-  })).reverse();
-}
 
 function populateSecteurFilterPr(){
   const sel = document.getElementById('prSecteurFilter');
@@ -525,6 +448,7 @@ function populateSecteurFilterPr(){
 }
 
 function renderProjets(){
+  prRows = MODE_DEMO ? PR_DEMO : subsDe('projet');
   populateSecteurFilterPr();
   document.getElementById('prStatTotal').textContent = prRows.length;
   const now = new Date(), weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
@@ -579,97 +503,41 @@ function prRowHtml(r){
 
 document.getElementById('prSearch').addEventListener('input', applyPrFilters);
 document.getElementById('prSecteurFilter').addEventListener('change', applyPrFilters);
-document.getElementById('prSaveBtn').addEventListener('click', () => {
-  const url = document.getElementById('prCsvInput').value.trim();
-  if (url) localStorage.setItem(PR_LS_KEY, url); else localStorage.removeItem(PR_LS_KEY);
-  loadProjets();
-});
 
 /* ===================================================================
    ONGLET ANALYTICS
    =================================================================== */
-const AN_LS_KEY = 'dg_console_an_csv';
-let anRows = [];
-
-function demoAnalyticsRows(){
-  const pages = ['index.html','services.html','tarifs.html','realisations.html','pourquoi.html','a-propos.html','contact.html'];
-  const rows = [];
-  const now = new Date();
-  for (let d = 27; d >= 0; d--){
-    const day = new Date(now); day.setDate(now.getDate() - d);
-    const nb = 6 + Math.round(Math.random() * 14);
-    for (let i = 0; i < nb; i++){
-      const page = pages[Math.floor(Math.random() * (Math.random() < 0.4 ? 1 : pages.length))];
-      rows.push({ date: day.toISOString().slice(0,10), page, device: Math.random() < 0.68 ? 'Mobile' : 'Desktop' });
-    }
-  }
-  return rows;
-}
-const AN_DEMO = demoAnalyticsRows();
-
-async function loadAnalytics(){
-  const url = localStorage.getItem(AN_LS_KEY) || '';
-  document.getElementById('anCsvInput').value = url;
-  document.getElementById('anErrBanner').hidden = true;
-
-  if (!url) {
-    anRows = AN_DEMO;
-    document.getElementById('anDemoBanner').hidden = false;
-    renderAnalytics();
-    return;
-  }
-  document.getElementById('anDemoBanner').hidden = true;
-  try {
-    const data = await fetchCsv(url);
-    anRows = analyticsFromCsv(data);
-    renderAnalytics();
-  } catch (err) {
-    document.getElementById('anErrText').textContent =
-      "Impossible de charger le Sheet de suivi. Détail : " + err.message;
-    document.getElementById('anErrBanner').hidden = false;
-    anRows = AN_DEMO;
-    document.getElementById('anDemoBanner').hidden = false;
-    renderAnalytics();
-  }
-}
-
-function analyticsFromCsv(data){
-  if (!data.length) return [];
-  const headers = data[0].map(h => (h || '').toLowerCase());
-  const find = (...keys) => headers.findIndex(h => keys.some(k => h.includes(k)));
-  const iDate = find('horodateur', 'date', 'timestamp');
-  const iPage = find('page');
-  const iDevice = find('appareil', 'device');
-  return data.slice(1).filter(r => r.some(c => c && c.trim())).map(r => ({
-    date: iDate > -1 ? r[iDate] : '',
-    page: iPage > -1 ? r[iPage] : '',
-    device: iDevice > -1 ? r[iDevice] : ''
-  }));
-}
-
+/* ===================================================================
+   ONGLET STATISTIQUES — calculé à partir des vraies demandes reçues
+   =================================================================== */
 function renderAnalytics(){
-  document.getElementById('anStatTotal').textContent = anRows.length;
+  const contacts = MODE_DEMO ? MSG_DEMO : subsDe('contact');
+  const projets  = MODE_DEMO ? PR_DEMO  : subsDe('projet');
+  const toutes   = [...contacts, ...projets];
+
+  document.getElementById('anStatTotal').textContent = toutes.length;
 
   const now = new Date(), weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7);
-  const withDate = anRows.map(r => ({ ...r, _d: new Date(r.date) })).filter(r => !isNaN(r._d));
-  document.getElementById('anStatWeek').textContent = withDate.filter(r => r._d >= weekAgo).length;
+  const avecDate = toutes.map(r => ({ ...r, _d: new Date(r.date) })).filter(r => !isNaN(r._d));
+  document.getElementById('anStatWeek').textContent = avecDate.filter(r => r._d >= weekAgo).length;
 
-  const pageCounts = {};
-  anRows.forEach(r => { const p = r.page || '—'; pageCounts[p] = (pageCounts[p] || 0) + 1; });
-  const topPages = Object.entries(pageCounts).sort((a,b) => b[1]-a[1]);
-  document.getElementById('anStatTop').textContent = topPages[0] ? topPages[0][0] : '—';
+  // secteur le plus demandé
+  const parSecteur = {};
+  toutes.forEach(r => { if (r.secteur) parSecteur[r.secteur] = (parSecteur[r.secteur]||0)+1; });
+  const topSecteur = Object.entries(parSecteur).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById('anStatTop').textContent = topSecteur ? topSecteur[0] : '—';
 
-  const deviceCounts = {};
-  anRows.forEach(r => { const d = r.device || 'Inconnu'; deviceCounts[d] = (deviceCounts[d] || 0) + 1; });
-  const topDevice = Object.entries(deviceCounts).sort((a,b) => b[1]-a[1])[0];
-  document.getElementById('anStatDevice').textContent = topDevice ? topDevice[0] : '—';
+  // origine dominante
+  document.getElementById('anStatDevice').textContent =
+    projets.length > contacts.length ? 'Parcours démarrer'
+    : contacts.length > 0 ? 'Formulaire contact' : '—';
 
-  renderChart(withDate);
-  renderTopPages(topPages);
-  renderDevices(deviceCounts, anRows.length);
+  renderChart(avecDate);
+  renderTopPages(Object.entries(parSecteur).sort((a,b)=>b[1]-a[1]));
+  renderOrigines(contacts.length, projets.length);
 }
 
-function renderChart(withDate){
+function renderChart(avecDate){
   const days = [];
   const now = new Date();
   for (let i = 13; i >= 0; i--){
@@ -678,7 +546,7 @@ function renderChart(withDate){
   }
   const counts = days.map(day => {
     const next = new Date(day); next.setDate(day.getDate() + 1);
-    return withDate.filter(r => r._d >= day && r._d < next).length;
+    return avecDate.filter(r => r._d >= day && r._d < next).length;
   });
   const max = Math.max(1, ...counts);
   const w = 640, h = 180, padB = 24, padT = 14, barGap = 6;
@@ -700,41 +568,37 @@ function renderChart(withDate){
   document.getElementById('anChart').innerHTML = svg;
 }
 
-function renderTopPages(topPages){
-  const max = topPages.length ? topPages[0][1] : 1;
-  document.getElementById('anTopPages').innerHTML = topPages.slice(0, 6).map(([page, n]) => `
+function renderTopPages(parSecteur){
+  const max = parSecteur.length ? parSecteur[0][1] : 1;
+  document.getElementById('anTopPages').innerHTML = parSecteur.slice(0, 6).map(([nom, n]) => `
     <div class="adm-toppage">
-      <span class="adm-toppage-name" title="${esc(page)}">${esc(page)}</span>
+      <span class="adm-toppage-name" title="${esc(nom)}">${esc(nom)}</span>
       <span class="adm-toppage-bar"><i style="width:${Math.max(6,(n/max)*100)}%"></i></span>
       <span class="adm-toppage-n">${n}</span>
-    </div>`).join('') || '<p style="font-size:.85rem;color:var(--ink-45);">Aucune donnée.</p>';
+    </div>`).join('') || '<p style="font-size:.85rem;color:var(--ink-45);">Aucune demande pour l\'instant.</p>';
 }
 
-function renderDevices(deviceCounts, total){
-  const icons = {
-    Mobile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>',
-    Desktop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>'
+function renderOrigines(nbContact, nbProjet){
+  const total = nbContact + nbProjet;
+  const icones = {
+    'Formulaire contact': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 8 8 5 8-5"/></svg>',
+    'Parcours démarrer': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>'
   };
-  const entries = Object.entries(deviceCounts).sort((a,b) => b[1]-a[1]);
-  document.getElementById('anDevices').innerHTML = entries.map(([name, n]) => {
+  const lignes = [['Parcours démarrer', nbProjet], ['Formulaire contact', nbContact]];
+  document.getElementById('anDevices').innerHTML = lignes.map(([nom, n]) => {
     const pct = total ? Math.round((n/total)*100) : 0;
     return `
       <div class="adm-device">
-        <span class="adm-device-ic">${icons[name] || icons.Desktop}</span>
+        <span class="adm-device-ic">${icones[nom]}</span>
         <span style="flex:1;">
-          <div style="font-size:.85rem;font-weight:500;margin-bottom:.35rem;">${esc(name)}</div>
+          <div style="font-size:.85rem;font-weight:500;margin-bottom:.35rem;">${esc(nom)}</div>
           <span class="adm-device-bar"><i style="width:${pct}%"></i></span>
         </span>
         <span class="adm-device-pct">${pct}%</span>
       </div>`;
-  }).join('') || '<p style="font-size:.85rem;color:var(--ink-45);">Aucune donnée.</p>';
+  }).join('');
 }
 
-document.getElementById('anSaveBtn').addEventListener('click', () => {
-  const url = document.getElementById('anCsvInput').value.trim();
-  if (url) localStorage.setItem(AN_LS_KEY, url); else localStorage.removeItem(AN_LS_KEY);
-  loadAnalytics();
-});
 </script>
 </body>
 </html>
