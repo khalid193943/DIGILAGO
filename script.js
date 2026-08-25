@@ -299,10 +299,19 @@ if (form && formOk) {
       if (res.ok) { succes(); return; }
       throw new Error('HTTP ' + res.status);
     } catch (_) {
-      // L'envoi en arrière-plan a échoué : on bascule sur un envoi classique
-      // du navigateur, qui fonctionne même si l'AJAX est bloqué.
+      // L'envoi a échoué. On ne redirige pas et on n'affiche pas de fausse
+      // confirmation : on le dit honnêtement et on donne un moyen direct
+      // de joindre l'entreprise, pour que le visiteur ne soit jamais bloqué.
       if (btn) { btn.disabled = false; btn.innerHTML = libelle; }
-      form.submit();
+      const errBox = document.getElementById('formErr');
+      if (errBox) {
+        form.classList.add('f-hide');
+        errBox.classList.add('show');
+        errBox.setAttribute('tabindex', '-1');
+        errBox.focus();
+      } else {
+        succes(); // sécurité : pas de bloc d'erreur sur cette page
+      }
     }
   });
 }

@@ -90,7 +90,7 @@
 
       <div class="rv">
         <div class="form">
-          <form id="form" name="contact" method="POST" action="/ar/merci.html" data-netlify="true" netlify-honeypot="bot-field">
+          <form id="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="contact">
             <p class="hp"><label>لا تملأ هذه الخانة<input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <div class="f-row">
@@ -136,6 +136,17 @@
             <p>ندرس شركتك ونرسل لك رابط نموذجك خلال 48 ساعة عمل.</p>
           </div>
         </div>
+          <div class="f-ok f-err" id="formErr">
+            <div class="ic" style="background:#FBE8E4;color:#B7442E;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <h3>لم يتم الإرسال</h3>
+            <p>مشكل تقني منعنا من استلام رسالتك. راسلنا مباشرة، ونجيبك فوراً.</p>
+            <p style="margin-top:1.4rem;display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;">
+              <a href="https://wa.me/2126XXXXXXXX" class="btn btn-sun" target="_blank" rel="noopener">مراسلة على واتساب</a>
+              <a href="mailto:contact@digilago.ma" class="btn btn-line">إرسال بريد إلكتروني</a>
+            </p>
+          </div>
       </div>
     </div>
   </div>

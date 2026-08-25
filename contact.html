@@ -87,7 +87,7 @@
 
       <div class="rv">
         <div class="form">
-          <form id="form" name="contact" method="POST" action="/merci.html" data-netlify="true" netlify-honeypot="bot-field">
+          <form id="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="contact">
             <p class="hp"><label>Ne remplissez pas ce champ <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
             <div class="f-row">
@@ -134,6 +134,17 @@
             <p>On étudie votre entreprise et on vous envoie le lien de votre démo sous 48 heures ouvrées. Pensez à vérifier vos spams — et à très vite.</p>
           </div>
         </div>
+          <div class="f-ok f-err" id="formErr">
+            <div class="ic" style="background:#FBE8E4;color:#B7442E;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+            </div>
+            <h3>L'envoi n'a pas abouti</h3>
+            <p>Un problème technique nous empêche de recevoir votre message. Écrivez-nous directement, on vous répond tout de suite.</p>
+            <p style="margin-top:1.4rem;display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;">
+              <a href="https://wa.me/2126XXXXXXXX" class="btn btn-sun" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+              <a href="mailto:contact@digilago.ma" class="btn btn-line">Envoyer un email</a>
+            </p>
+          </div>
       </div>
     </div>
   </div>

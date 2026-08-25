@@ -1204,3 +1204,7 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 @media (max-width:400px){
   .nav-lang{display:block;padding:.75rem .6rem;font-size:.98rem;font-weight:600;color:var(--olive);border-top:1px solid var(--line);margin-top:.4rem;}
 }
+
+/* bloc affiché quand l'envoi du formulaire échoue */
+.f-err{display:none;}
+.f-err.show{display:block;}
