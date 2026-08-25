@@ -861,7 +861,7 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 @media (max-width:960px){
   .contact-hero-g{grid-template-columns:1fr;}
 }
-@media (max-width:960px){
+@media (max-width:1150px){
   .nav{
     position:fixed;inset:70px 0 auto;background:var(--paper);border-bottom:1px solid var(--line);
     flex-direction:column;align-items:stretch;padding:1rem var(--gut) 1.5rem;gap:.15rem;
@@ -1180,7 +1180,7 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 }
 .ft-lang:hover{color:var(--ink);}
 .ft-lang svg{width:15px;height:15px;}
-@media (max-width:960px){
+@media (max-width:1150px){
   .lang{padding:.42rem .7rem;font-size:.78rem;}
   .lang-txt{display:none;}
 }
@@ -1216,3 +1216,27 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
   color:#A8501F;background:#FBEADF;border-radius:100px;
   padding:.24rem .7rem;margin-bottom:.7rem;
 }
+
+/* ---------------- RÉCAPITULATIF FINAL : « vous vouliez quoi d'autre ? » ---------------- */
+.recap-g{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;margin-top:clamp(2rem,1.2rem + 2vw,3rem);}
+.recap-i{
+  display:flex;align-items:center;gap:.75rem;
+  padding:.95rem 1.15rem;border-radius:12px;
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.12);
+  font-size:.9rem;font-weight:500;color:rgba(255,255,255,.92);
+  transition:background .25s ease,border-color .25s ease,transform .25s ease;
+}
+.recap-i:hover{background:rgba(255,255,255,.1);border-color:rgba(255,199,44,.5);transform:translateY(-2px);}
+.recap-i span{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  background:var(--sun);color:var(--ink);display:grid;place-items:center;
+  font-size:.8rem;font-weight:800;
+}
+.recap-punch{
+  text-align:center;margin-top:clamp(2.2rem,1.4rem + 2vw,3.2rem);
+  font-size:clamp(1.35rem,1.1rem + 1.1vw,1.9rem);font-weight:400;
+  letter-spacing:-.02em;line-height:1.35;color:#fff;
+}
+.recap-punch em{font-style:normal;color:var(--sun);}
+@media (max-width:860px){.recap-g{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.recap-g{grid-template-columns:1fr;}}
