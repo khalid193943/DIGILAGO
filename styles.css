@@ -1240,3 +1240,28 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 .recap-punch em{font-style:normal;color:var(--sun);}
 @media (max-width:860px){.recap-g{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:560px){.recap-g{grid-template-columns:1fr;}}
+
+/* ---------------- PRÉSENTATION DE L'AGENCE (haut de l'accueil) ---------------- */
+.agence-g{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,1rem + 3.2vw,4.5rem);align-items:center;}
+.agence-pts{display:flex;flex-direction:column;gap:1.35rem;margin-top:2rem;}
+.agence-pt{display:flex;gap:.95rem;align-items:flex-start;}
+.agence-pt .ic{width:38px;height:38px;margin:0;flex-shrink:0;border-radius:10px;}
+.agence-pt .ic svg{width:17px;height:17px;}
+.agence-pt h3{font-size:1rem;font-weight:600;margin-bottom:.2rem;}
+.agence-pt p{font-size:.89rem;color:var(--ink-70);line-height:1.55;max-width:44ch;}
+
+.savoir{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:clamp(1.5rem,1rem + 1.4vw,2.2rem);}
+.savoir-t{font-size:.74rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--olive);margin-bottom:1.1rem;}
+.savoir-g{display:flex;flex-wrap:wrap;gap:.5rem;}
+.savoir-g span{
+  font-size:.82rem;font-weight:500;color:var(--ink-70);
+  padding:.48rem .9rem;border:1px solid var(--line);border-radius:100px;background:var(--cream);
+  transition:border-color .2s ease,color .2s ease;
+}
+.savoir-g span:hover{border-color:var(--sun);color:var(--ink);}
+.savoir-sep{height:1px;background:var(--line);margin:1.5rem 0;}
+.savoir-line{display:flex;align-items:center;gap:.65rem;font-size:.86rem;color:var(--ink-70);margin-bottom:.65rem;}
+.savoir-line:last-child{margin-bottom:0;}
+.savoir-line b{color:var(--ink);font-weight:600;}
+.savoir-line svg{width:16px;height:16px;color:var(--olive);flex-shrink:0;}
+@media (max-width:900px){.agence-g{grid-template-columns:1fr;}}
