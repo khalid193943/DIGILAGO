@@ -45,16 +45,26 @@ exports.handler = async (event) => {
 
   // --- récupération des soumissions auprès de l'API Netlify ---
   try {
-    const url = `https://api.netlify.com/api/v1/sites/${SITE_ID}/submissions?per_page=300`;
-    const res = await fetch(url, { headers: { Authorization: `Bearer ${TOKEN}` } });
+    const auth = { headers: { Authorization: `Bearer ${TOKEN}` } };
 
+    const res = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/submissions?per_page=300`, auth);
     if (!res.ok) {
       return json(502, { error: `L'API Netlify a répondu ${res.status}. Vérifiez le jeton d'accès.` });
     }
-
     const raw = await res.json();
 
-    // on ne renvoie que le nécessaire, mis à plat
+    // Diagnostic : quels formulaires Netlify a-t-il détectés ?
+    // Si la liste est vide, c'est que la détection est désactivée
+    // ou que le déploiement ne contenait pas les formulaires.
+    let formulaires = [];
+    let spam = 0;
+    try {
+      const rf = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/forms`, auth);
+      if (rf.ok) formulaires = (await rf.json()).map(f => f.name);
+      const rs = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/submissions?state=spam&per_page=100`, auth);
+      if (rs.ok) spam = (await rs.json()).length;
+    } catch (_) { /* diagnostic optionnel : on continue sans */ }
+
     const submissions = raw.map(s => ({
       id: s.id,
       formulaire: s.form_name || '',
@@ -62,7 +72,7 @@ exports.handler = async (event) => {
       donnees: s.data || {}
     }));
 
-    return json(200, { submissions });
+    return json(200, { submissions, formulaires, spam });
   } catch (err) {
     return json(502, { error: 'Impossible de contacter l\'API Netlify : ' + err.message });
   }

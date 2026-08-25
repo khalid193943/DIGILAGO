@@ -58,6 +58,11 @@
       <!-- ===== ONGLET MESSAGES ===== -->
       <section class="adm-panel" data-panel="messages">
 
+        <div class="adm-banner" id="diagBanner" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span id="diagText"></span>
+        </div>
+
         <div class="adm-banner" id="msgDemoBanner" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
           <span><b>Mode démonstration.</b> Ces données sont des exemples — la console affichera vos vraies demandes une fois le site publié sur Netlify.</span>
@@ -194,7 +199,8 @@ async function fetchSubmissions(password){
       return { ok:false, raison:'serveur', message: msg };
     }
     const data = await res.json();
-    return { ok:true, submissions: data.submissions || [] };
+    return { ok:true, submissions: data.submissions || [],
+             formulaires: data.formulaires || [], spam: data.spam || 0 };
   } catch (_) {
     return { ok:false, raison:'injoignable' };
   }
@@ -276,12 +282,49 @@ async function rafraichirTout(){
   const r = await fetchSubmissions(SESSION_PW);
   if (r.ok) {
     SUBS = r.submissions;
+    afficherDiagnostic(r);
     afficherBandeauDemo(false);
   } else {
     SUBS = [];
     afficherBandeauDemo(true, r.message);
   }
   renderMessages(); renderProjets(); renderAnalytics();
+}
+
+/* Diagnostic : dit clairement pourquoi la console est vide, s'il y a une raison */
+function afficherDiagnostic(r){
+  const box = document.getElementById('diagBanner');
+  const txt = document.getElementById('diagText');
+  if (!box || !txt) return;
+
+  if (!r.formulaires || r.formulaires.length === 0) {
+    txt.innerHTML = "<b>Netlify n'a détecté aucun formulaire.</b> C'est pour cela qu'aucune demande n'arrive. "
+      + "Activez <i>Site configuration → Forms → Enable form detection</i>, puis relancez un déploiement "
+      + "(<i>Deploys → Trigger deploy</i>).";
+    box.hidden = false;
+    box.classList.add('adm-banner-err');
+    return;
+  }
+
+  if (SUBS.length === 0 && r.spam > 0) {
+    txt.innerHTML = "<b>" + r.spam + " demande(s) classée(s) en spam par Netlify.</b> "
+      + "Elles n'apparaissent pas ici. Vérifiez l'onglet <i>Spam</i> dans Netlify → Forms — "
+      + "les envois de test avec des données inventées y atterrissent souvent.";
+    box.hidden = false;
+    box.classList.remove('adm-banner-err');
+    return;
+  }
+
+  if (SUBS.length === 0) {
+    txt.innerHTML = "<b>Tout est bien configuré</b> — formulaires détectés : "
+      + r.formulaires.map(f => '<code>' + esc(f) + '</code>').join(', ')
+      + ". Aucune demande reçue pour l'instant : envoyez le formulaire depuis votre site pour tester.";
+    box.hidden = false;
+    box.classList.remove('adm-banner-err');
+    return;
+  }
+
+  box.hidden = true;
 }
 
 function afficherBandeauDemo(actif, message){

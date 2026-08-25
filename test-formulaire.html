@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test formulaire Netlify</title>
+<meta name="robots" content="noindex">
+<style>
+  body{font-family:system-ui,sans-serif;box-sizing:border-box;max-width:640px;margin:0 auto;padding:2.5rem 1.5rem;line-height:1.6;color:#16181D;}
+  h1{font-size:1.5rem;margin-bottom:.4rem;}
+  .lead{color:#5a5f6a;margin-bottom:2rem;}
+  label{display:block;font-weight:600;font-size:.9rem;margin:1.1rem 0 .35rem;}
+  input{width:100%;box-sizing:border-box;padding:.7rem .9rem;border:1.5px solid #d8d5cd;border-radius:8px;font-size:1rem;font-family:inherit;}
+  button{margin-top:1.5rem;padding:.85rem 1.6rem;background:#16181D;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;}
+  .box{background:#FDF8ED;border:1px solid #ecd9a8;border-radius:10px;padding:1.1rem 1.3rem;margin-top:2.5rem;font-size:.92rem;}
+  .box b{display:block;margin-bottom:.4rem;}
+  ol{padding-left:1.2rem;margin:.5rem 0 0;}
+  li{margin-bottom:.5rem;}
+  code{background:#efece4;padding:.1rem .35rem;border-radius:4px;font-size:.88em;}
+</style>
+</head>
+<body>
+
+<h1>Test du formulaire Netlify</h1>
+<p class="lead">Page volontairement minimale : aucun script, aucun style du site. Elle sert uniquement à savoir si Netlify capture bien les envois.</p>
+
+<!-- Formulaire natif, sans JavaScript : la méthode la plus fiable pour Netlify -->
+<form name="test-diagnostic" method="POST" data-netlify="true" action="/merci.html">
+  <input type="hidden" name="form-name" value="test-diagnostic">
+
+  <label for="t1">Votre nom</label>
+  <input type="text" id="t1" name="nom" required>
+
+  <label for="t2">Un message court</label>
+  <input type="text" id="t2" name="message" value="Test de diagnostic" required>
+
+  <button type="submit">Envoyer le test</button>
+</form>
+
+<div class="box">
+  <b>Comment lire le résultat</b>
+  <ol>
+    <li><b>Vous arrivez sur la page « Merci »</b> et le test apparaît dans <code>Netlify → Forms → test-diagnostic</code> :<br>
+        ✅ La détection fonctionne. Le problème vient d'ailleurs — dites-le moi.</li>
+    <li><b>Vous arrivez sur la page « Merci »</b> mais <b>rien</b> dans Netlify → Forms :<br>
+        ❌ La détection est désactivée. Activez-la puis redéployez.</li>
+    <li><b>Vous obtenez une erreur 404</b> :<br>
+        ❌ Le déploiement ne contient pas la dernière version des fichiers.</li>
+  </ol>
+</div>
+
+<p style="margin-top:2rem;font-size:.9rem;"><a href="index.html" style="color:#7E8A52;">← Retour au site</a></p>
+
+</body>
+</html>
