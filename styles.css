@@ -1365,3 +1365,23 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
   font-size:.72rem;font-weight:800;
 }
 @media (max-width:860px){.temoins-g{grid-template-columns:1fr;}}
+
+/* ---------------- TRAVAIL À DISTANCE (partout au Maroc) ---------------- */
+.dist{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(1.8rem,1rem + 2.6vw,3.6rem);align-items:center;}
+.dist-villes{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.4rem;}
+.dist-villes span{
+  font-size:.82rem;font-weight:500;color:var(--ink-70);
+  padding:.42rem .9rem;border:1px solid var(--line);border-radius:100px;background:var(--paper);
+}
+.dist-villes span.base{background:var(--sun);border-color:var(--sun);color:var(--ink);font-weight:700;}
+.dist-g{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.dist-c{
+  background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:1.15rem 1.25rem;
+}
+.dist-c .ic{width:32px;height:32px;margin:0 0 .7rem;border-radius:9px;}
+.dist-c .ic svg{width:15px;height:15px;}
+.dist-c h3{font-size:.94rem;font-weight:600;margin-bottom:.28rem;}
+.dist-c p{font-size:.84rem;color:var(--ink-70);line-height:1.5;}
+@media (max-width:860px){.dist{grid-template-columns:1fr;}}
+@media (max-width:520px){.dist-g{grid-template-columns:1fr;}}
