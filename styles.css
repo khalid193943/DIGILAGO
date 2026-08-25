@@ -1265,3 +1265,103 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 .savoir-line b{color:var(--ink);font-weight:600;}
 .savoir-line svg{width:16px;height:16px;color:var(--olive);flex-shrink:0;}
 @media (max-width:900px){.agence-g{grid-template-columns:1fr;}}
+
+/* ---------------- PROMESSES CHIFFRÉES (bande sombre) ---------------- */
+.promesses{padding:clamp(2.6rem,1.8rem + 2.6vw,4.2rem) 0;background:var(--ink);position:relative;overflow:hidden;}
+.promesses::before{
+  content:'';position:absolute;top:-40%;inset-inline-end:-6%;
+  width:min(420px,44vw);aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,199,44,.14),transparent 68%);pointer-events:none;
+}
+.promesses-t{
+  text-align:center;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--sun);margin-bottom:clamp(1.8rem,1.2rem + 1.6vw,2.6rem);position:relative;
+}
+.prom-g{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.6rem,1rem + 2vw,3rem);position:relative;}
+.prom{text-align:center;padding:0 .5rem;position:relative;}
+.prom + .prom::before{
+  content:'';position:absolute;inset-block:12%;inset-inline-start:calc(-1 * clamp(.8rem,.5rem + 1vw,1.5rem));
+  width:1px;background:rgba(255,255,255,.14);
+}
+.prom-n{
+  font-size:clamp(2.8rem,2rem + 3vw,4.4rem);font-weight:400;letter-spacing:-.05em;
+  line-height:1;color:var(--sun);direction:ltr;
+}
+.prom p{
+  font-size:.9rem;color:rgba(255,255,255,.66);line-height:1.5;
+  margin:.9rem auto 0;max-width:24ch;
+}
+.prom p b{color:#fff;font-weight:600;}
+@media (max-width:760px){
+  .prom-g{grid-template-columns:1fr;gap:2.2rem;}
+  .prom + .prom::before{inset-block:auto;inset-inline:22%;top:-1.1rem;width:auto;height:1px;}
+}
+
+/* ---------------- WIDGET D'AVIS ANIMÉ (aperçu produit) ---------------- */
+.avis-frame{
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 24px 60px -32px rgba(22,24,29,.28);overflow:hidden;
+}
+.avis-head{
+  display:flex;align-items:center;gap:.85rem;
+  padding:1.1rem 1.3rem;border-bottom:1px solid var(--line);background:var(--cream);
+}
+.avis-logo{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:var(--sun);color:var(--ink);display:grid;place-items:center;
+  font-weight:800;font-size:1rem;
+}
+.avis-head-b{flex:1;min-width:0;}
+.avis-head-n{font-size:.92rem;font-weight:600;line-height:1.2;}
+.avis-head-s{display:flex;align-items:center;gap:.35rem;font-size:.78rem;color:var(--ink-45);margin-top:.2rem;}
+.avis-head-s b{color:var(--ink);font-weight:700;}
+.avis-stars{display:inline-flex;gap:1px;}
+.avis-stars svg{width:12px;height:12px;color:var(--sun);}
+
+/* défilement vertical automatique */
+.avis-visor{height:clamp(380px,32vw,580px);overflow:hidden;position:relative;}
+.avis-visor::before,.avis-visor::after{
+  content:'';position:absolute;left:0;right:0;height:44px;z-index:2;pointer-events:none;
+}
+.avis-visor::before{top:0;background:linear-gradient(var(--paper),transparent);}
+.avis-visor::after{bottom:0;background:linear-gradient(transparent,var(--paper));}
+.avis-track{display:flex;flex-direction:column;animation:avisScroll 26s linear infinite;}
+.avis-frame:hover .avis-track{animation-play-state:paused;}
+@keyframes avisScroll{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@media (prefers-reduced-motion:reduce){.avis-track{animation:none;}.avis-visor{overflow-y:auto;}}
+
+.avis-c{padding:1.15rem 1.3rem;border-bottom:1px solid var(--line);}
+.avis-c-top{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem;}
+.avis-av{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  display:grid;place-items:center;font-size:.82rem;font-weight:700;color:var(--ink);
+}
+.avis-c-n{font-size:.86rem;font-weight:600;line-height:1.2;}
+.avis-c-d{font-size:.72rem;color:var(--ink-25);margin-top:.1rem;}
+.avis-c p{font-size:.85rem;color:var(--ink-70);line-height:1.55;}
+.avis-note{
+  display:flex;align-items:flex-start;gap:.6rem;
+  margin-top:1rem;font-size:.8rem;color:var(--ink-45);line-height:1.5;
+}
+.avis-note svg{width:15px;height:15px;flex-shrink:0;margin-top:.12rem;color:var(--olive);}
+
+/* ---------------- PREMIÈRES RÉFÉRENCES (avis Digilago) ---------------- */
+.temoins-g{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,1rem + 3vw,4rem);align-items:center;}
+.temoins-vide{
+  background:var(--paper);border:1.5px dashed var(--line-2);border-radius:var(--r);
+  padding:clamp(1.8rem,1.2rem + 1.6vw,2.6rem);text-align:center;
+}
+.temoins-vide .ic{width:46px;height:46px;margin:0 auto 1.1rem;border-radius:12px;}
+.temoins-vide .ic svg{width:20px;height:20px;}
+.temoins-vide h3{font-size:1.12rem;font-weight:600;margin-bottom:.5rem;}
+.temoins-vide p{font-size:.89rem;color:var(--ink-70);line-height:1.6;max-width:34ch;margin:0 auto;}
+.temoins-pts{display:flex;flex-direction:column;gap:1.1rem;margin-top:1.9rem;}
+.temoins-pt{display:flex;gap:.8rem;align-items:flex-start;}
+.temoins-pt p{font-size:.92rem;color:var(--ink-70);line-height:1.55;margin:0;}
+.temoins-pt b{color:var(--ink);font-weight:600;}
+.temoins-pt span{
+  width:24px;height:24px;border-radius:50%;flex-shrink:0;margin-top:.1rem;
+  background:var(--sun);color:var(--ink);display:grid;place-items:center;
+  font-size:.72rem;font-weight:800;
+}
+@media (max-width:860px){.temoins-g{grid-template-columns:1fr;}}
