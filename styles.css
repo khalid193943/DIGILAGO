@@ -1208,3 +1208,11 @@ h1,h2,h3,h4{font-weight:400;line-height:1.05;letter-spacing:-.032em;}
 /* bloc affiché quand l'envoi du formulaire échoue */
 .f-err{display:none;}
 .f-err.show{display:block;}
+
+/* demande filtrée par Netlify : visible, mais clairement signalée */
+.adm-row.est-spam{border-color:#E8C9B4;background:#FEFAF6;}
+.adm-spam{
+  display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.02em;
+  color:#A8501F;background:#FBEADF;border-radius:100px;
+  padding:.24rem .7rem;margin-bottom:.7rem;
+}

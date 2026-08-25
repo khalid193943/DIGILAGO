@@ -53,26 +53,40 @@ exports.handler = async (event) => {
     }
     const raw = await res.json();
 
-    // Diagnostic : quels formulaires Netlify a-t-il détectés ?
-    // Si la liste est vide, c'est que la détection est désactivée
-    // ou que le déploiement ne contenait pas les formulaires.
+    // Diagnostic + récupération des demandes classées en spam.
+    // Netlify filtre parfois de vraies demandes : on les récupère aussi
+    // pour que rien ne soit perdu, en les marquant clairement.
     let formulaires = [];
-    let spam = 0;
+    let spamSubs = [];
     try {
       const rf = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/forms`, auth);
       if (rf.ok) formulaires = (await rf.json()).map(f => f.name);
+
       const rs = await fetch(`https://api.netlify.com/api/v1/sites/${SITE_ID}/submissions?state=spam&per_page=100`, auth);
-      if (rs.ok) spam = (await rs.json()).length;
+      if (rs.ok) {
+        spamSubs = (await rs.json()).map(s => ({
+          id: s.id,
+          formulaire: s.form_name || '',
+          date: s.created_at || '',
+          donnees: s.data || {},
+          spam: true
+        }));
+      }
     } catch (_) { /* diagnostic optionnel : on continue sans */ }
 
     const submissions = raw.map(s => ({
       id: s.id,
       formulaire: s.form_name || '',
       date: s.created_at || '',
-      donnees: s.data || {}
+      donnees: s.data || {},
+      spam: false
     }));
 
-    return json(200, { submissions, formulaires, spam });
+    return json(200, {
+      submissions: submissions.concat(spamSubs),
+      formulaires,
+      spam: spamSubs.length
+    });
   } catch (err) {
     return json(502, { error: 'Impossible de contacter l\'API Netlify : ' + err.message });
   }

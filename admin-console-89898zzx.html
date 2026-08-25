@@ -306,10 +306,10 @@ function afficherDiagnostic(r){
     return;
   }
 
-  if (SUBS.length === 0 && r.spam > 0) {
-    txt.innerHTML = "<b>" + r.spam + " demande(s) classée(s) en spam par Netlify.</b> "
-      + "Elles n'apparaissent pas ici. Vérifiez l'onglet <i>Spam</i> dans Netlify → Forms — "
-      + "les envois de test avec des données inventées y atterrissent souvent.";
+  if (r.spam > 0) {
+    txt.innerHTML = "<b>" + r.spam + " demande(s) classée(s) en spam par Netlify</b> — elles sont "
+      + "affichées ci-dessous avec une mention. Si ce sont de vraies demandes, ouvrez "
+      + "<i>Netlify → Forms → Spam</i> et cliquez <i>Not spam</i> : le filtre apprendra à ne plus les bloquer.";
     box.hidden = false;
     box.classList.remove('adm-banner-err');
     return;
@@ -350,7 +350,7 @@ function afficherBandeauDemo(actif, message){
 function subsDe(nomFormulaire){
   return SUBS
     .filter(s => s.formulaire === nomFormulaire)
-    .map(s => ({ ...s.donnees, date: s.date }))
+    .map(s => ({ ...s.donnees, date: s.date, _spam: !!s.spam }))
     .sort((a,b) => new Date(b.date) - new Date(a.date));
 }
 
@@ -450,7 +450,8 @@ function msgRowHtml(r){
   if (r.email) actions.push(`<a href="mailto:${esc(r.email)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 8 8 5 8-5"/></svg>${esc(r.email)}</a>`);
   if (r.lien) actions.push(`<a href="${esc(toLink(r.lien))}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>Lien</a>`);
   return `
-    <article class="adm-row">
+    <article class="adm-row${r._spam ? ' est-spam' : ''}">
+      ${r._spam ? '<span class="adm-spam">Classé en spam par Netlify</span>' : ''}
       <div class="adm-row-top">
         <div class="adm-row-id"><span class="adm-row-name">${esc(r.nom) || 'Sans nom'}</span><span class="adm-row-co">${esc(r.entreprise)}</span></div>
         <span class="adm-row-date">${fmtDate(r.date)}</span>
@@ -536,7 +537,8 @@ function prRowHtml(r){
   const foncHtml = fonc.length ? `<div class="adm-row-actions" style="margin-top:.3rem;">${fonc.map(f => `<span class="adm-tag" style="margin-bottom:0;">${esc(f)}</span>`).join('')}</div>` : '';
 
   return `
-    <article class="adm-row">
+    <article class="adm-row${r._spam ? ' est-spam' : ''}">
+      ${r._spam ? '<span class="adm-spam">Classé en spam par Netlify</span>' : ''}
       <div class="adm-row-top">
         <div class="adm-row-id"><span class="adm-row-name">${esc(r.nom) || 'Sans nom'}</span><span class="adm-row-co">${esc(r.entreprise)}</span></div>
         <span class="adm-row-date">${fmtDate(r.date)}</span>
