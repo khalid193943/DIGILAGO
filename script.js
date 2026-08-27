@@ -363,11 +363,11 @@ if (form && formOk) {
   panel.innerHTML = `
     <p class="wgt-panel-hi">Bonjour 👋</p>
     <p class="wgt-panel-sub">Comment peut-on vous aider&nbsp;?</p>
-    <a class="wgt-opt" href="demarrer.html">
+    <a class="wgt-opt" href="/demarrer.html">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></span>
       Je veux ma démo gratuite
     </a>
-    <a class="wgt-opt" href="contact.html">
+    <a class="wgt-opt" href="/contact.html">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 8 8 5 8-5"/></svg></span>
       J'ai une question
     </a>
