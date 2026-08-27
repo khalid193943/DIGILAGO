@@ -46,8 +46,15 @@
 
   <nav class="adm-tabs">
     <div class="wrap">
+      <span class="adm-tab-grp">Ce que je reçois</span>
       <button class="adm-tab on" data-tab="messages">Messages</button>
-      <button class="adm-tab" data-tab="projets">Projets</button>
+      <button class="adm-tab" data-tab="projets">Demandes de démo</button>
+      <span class="adm-tab-sep"></span>
+      <span class="adm-tab-grp">Mon travail</span>
+      <button class="adm-tab" data-tab="prospection">Prospection</button>
+      <button class="adm-tab" data-tab="atelier">Mes projets</button>
+      <button class="adm-tab" data-tab="notes">Notes</button>
+      <span class="adm-tab-sep"></span>
       <button class="adm-tab" data-tab="analytics">Statistiques</button>
     </div>
   </nav>
@@ -125,6 +132,130 @@
       </section>
 
       <!-- ===== ONGLET ANALYTICS ===== -->
+      
+      <!-- ============ MES PROJETS ============ -->
+      <section class="adm-panel" data-panel="prospection" hidden>
+        <div class="adm-stats">
+          <div class="adm-stat"><div class="n" id="prospTotal">0</div><div class="l">Écoles recensées</div></div>
+          <div class="adm-stat"><div class="n" id="prospSansSite">0</div><div class="l">Sans site web</div></div>
+          <div class="adm-stat"><div class="n" id="prospAContacter">0</div><div class="l">À contacter</div></div>
+          <div class="adm-stat"><div class="n" id="prospConverties">0</div><div class="l">Devenues projets</div></div>
+        </div>
+
+        <div class="at-head">
+          <div class="adm-toolbar" style="margin:0;flex:1;">
+            <input type="search" id="psRech" placeholder="Rechercher une école, une ville...">
+            <select id="psVille"><option value="">Toutes les villes</option></select>
+            <select id="psPrio">
+              <option value="">Toutes priorités</option>
+              <option value="haute">Priorité haute</option>
+              <option value="moyenne">Priorité moyenne</option>
+              <option value="basse">Priorité basse</option>
+            </select>
+            <select id="psStatut">
+              <option value="">Tous les statuts</option>
+              <option value="nouveau">Nouveau</option>
+              <option value="ecarte">Écarté</option>
+              <option value="converti">Devenu projet</option>
+            </select>
+          </div>
+          <button class="btn btn-sun" id="psImporter">+ Importer</button>
+        </div>
+
+        <div class="ps-actions" id="psActions" hidden>
+          <span id="psNbSel">0 sélectionnée(s)</span>
+          <button class="btn btn-line" id="psToutSel">Tout sélectionner</button>
+          <button class="btn btn-line" id="psEcarter">Écarter</button>
+          <button class="btn btn-line danger" id="psSupprimer">Supprimer</button>
+        </div>
+
+        <div class="ps-tbl-w">
+          <table class="ps-tbl" id="psTable">
+            <thead>
+              <tr>
+                <th style="width:34px;"><input type="checkbox" id="psCocheTout" aria-label="Tout cocher"></th>
+                <th>École</th><th>Ville</th><th>Téléphone</th>
+                <th>Site</th><th>Google</th><th>Priorité</th><th>Statut</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="psCorps"></tbody>
+          </table>
+        </div>
+
+        <div class="adm-empty" id="psVide" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 21V12h6v9"/></svg>
+          <p id="psVideTxt">Aucune école recensée.<br>Cliquez sur <b>Importer</b> et collez le contenu copié depuis l'extension.</p>
+        </div>
+
+        <p class="ps-note">
+          Ces données restent dans ce navigateur. Pensez à les exporter régulièrement.
+          <button class="lien-inline" id="psExporter">Exporter en CSV</button>
+        </p>
+      </section>
+
+      <section class="adm-panel" data-panel="atelier" hidden>
+        <div class="adm-stats">
+          <div class="adm-stat"><div class="n" id="atEnCours">0</div><div class="l">Projets en cours</div></div>
+          <div class="adm-stat"><div class="n" id="atAttente">0</div><div class="l">En attente de contenu</div></div>
+          <div class="adm-stat"><div class="n" id="atLigne">0</div><div class="l">Sites en ligne</div></div>
+          <div class="adm-stat"><div class="n" id="atCa">0</div><div class="l">Signé (MAD)</div></div>
+        </div>
+
+        <div class="at-head">
+          <div class="adm-toolbar" style="margin:0;flex:1;">
+            <input type="search" id="pjRech" placeholder="Rechercher une école...">
+            <select id="pjFiltre">
+              <option value="">Tous les statuts</option>
+              <option value="contacter">À contacter</option>
+              <option value="demo">Démo envoyée</option>
+              <option value="relance">Relancé</option>
+              <option value="interesse">Intéressé</option>
+              <option value="accepte">Devis accepté</option>
+              <option value="contenu">Contenu en attente</option>
+              <option value="construction">En construction</option>
+              <option value="validation">En validation</option>
+              <option value="ligne">En ligne</option>
+              <option value="sans">Sans suite</option>
+            </select>
+          </div>
+          <button class="btn btn-sun" id="pjNouveau">+ Nouveau projet</button>
+        </div>
+
+        <div class="at-g" id="pjListe"></div>
+
+        <div class="adm-empty" id="pjVide" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-6 9 6v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 21V12h6v9"/></svg>
+          <p id="pjVideTxt">Aucun projet. Cliquez sur « Nouveau projet » pour commencer.</p>
+        </div>
+
+        <p style="margin-top:1.6rem;display:flex;gap:.7rem;flex-wrap:wrap;">
+          <button class="btn btn-line" id="pjExport">Exporter mes projets</button>
+          <label class="btn btn-line" style="cursor:pointer;margin:0;">
+            Importer<input type="file" id="pjImport" accept=".json" hidden>
+          </label>
+        </p>
+      </section>
+
+      <!-- ============ NOTES ============ -->
+      <section class="adm-panel" data-panel="notes" hidden>
+        <div class="adm-banner" style="background:var(--cream);border-color:var(--line);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+          <span>Vos notes libres : idées, rappels, retours d'appels. Les notes liées à un projet se saisissent dans sa fiche.</span>
+        </div>
+
+        <div style="margin-bottom:1.4rem;">
+          <textarea id="ntTexte" rows="3" placeholder="Écrire une note…"
+            style="width:100%;padding:.8rem .95rem;border:1px solid var(--line-2);border-radius:10px;font-family:inherit;font-size:.9rem;resize:vertical;"></textarea>
+          <button class="btn btn-sun" id="ntAjouter" style="margin-top:.6rem;">Ajouter la note</button>
+        </div>
+
+        <div id="ntListe"></div>
+        <div class="adm-empty" id="ntVide" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/></svg>
+          <p>Aucune note pour l'instant.</p>
+        </div>
+      </section>
+
       <section class="adm-panel" data-panel="analytics" hidden>
 
         <div class="adm-banner" id="anDemoBanner" hidden>
@@ -164,7 +295,121 @@
   </main>
 </div>
 
+
+<!-- ============ FICHE PROJET ============ -->
+<div class="adm-modal" id="pjModal" hidden>
+  <div class="adm-modal-box">
+    <button class="adm-icon-btn adm-modal-x" id="pjFermer" aria-label="Fermer">&times;</button>
+    <h2 id="pjTitre">Nouveau projet</h2>
+
+    <p class="pf-sec">Identité</p>
+    <div class="pf-g">
+      <label>Nom de l'école<input type="text" id="pjNom" placeholder="Groupe Scolaire Ange Bleu"></label>
+      <label>Ville<input type="text" id="pjVille" placeholder="El Jadida"></label>
+      <label>Téléphone<input type="tel" id="pjTel" placeholder="05 23 XX XX XX"></label>
+      <label>Email<input type="email" id="pjEmail" placeholder="contact@ecole.ma"></label>
+      <label>Personne à contacter<input type="text" id="pjContact" placeholder="Mme la directrice"></label>
+      <label>Type de projet
+        <select id="pjEtat"><option value="NEW">Site neuf</option><option value="RENEW">Refonte</option></select>
+      </label>
+      <label>Nom de domaine<input type="text" id="pjDomaine" placeholder="laisser vide si aucun"></label>
+      <label>Ancien site<input type="url" id="pjAncien" placeholder="si refonte"></label>
+    </div>
+
+    <p class="pf-sec">Profil et périmètre</p>
+    <div class="pf-g">
+      <label>Profil d'établissement
+        <select id="pjProfil">
+          <option value="">—</option>
+          <option value="A">A · Petite enfance (0-6 ans)</option>
+          <option value="B">B · Préscolaire + Primaire (3-12)</option>
+          <option value="C">C · Primaire → Lycée (6-18)</option>
+          <option value="D">D · Cursus complet (3-18)</option>
+          <option value="E">E · Enseignement supérieur</option>
+        </select>
+      </label>
+      <label>Pages prévues<input type="text" id="pjPages" readonly style="background:var(--cream);"></label>
+      <label>Prix convenu (MAD)<input type="number" id="pjPrix" value="5999"></label>
+      <label>Paiement
+        <select id="pjPaye"><option value="NON">Rien reçu</option><option value="ACOMPTE">Acompte reçu</option><option value="TOTAL">Payé en totalité</option></select>
+      </label>
+      <label class="pf-full">Statut
+        <select id="pjStatut">
+          <option value="contacter">À contacter</option>
+          <option value="demo">Démo envoyée</option>
+          <option value="relance">Relancé</option>
+          <option value="interesse">Intéressé</option>
+          <option value="accepte">Devis accepté</option>
+          <option value="contenu">Contenu en attente</option>
+          <option value="construction">En construction</option>
+          <option value="validation">En validation</option>
+          <option value="ligne">En ligne</option>
+          <option value="sans">Sans suite</option>
+        </select>
+      </label>
+    </div>
+
+    <p class="pf-sec">Contenu reçu de l'école</p>
+    <div class="chk" id="pjChecklist"></div>
+
+    <p class="pf-sec">Tâches</p>
+    <div id="pjTaches"></div>
+    <div class="tache-add">
+      <input type="text" id="pjTacheTxt" placeholder="Ajouter une tâche…">
+      <button class="btn btn-line" id="pjTacheAdd">Ajouter</button>
+    </div>
+
+    <p class="pf-sec">Notes du projet</p>
+    <textarea id="pjNotes" rows="4" placeholder="Appels, décisions, points à surveiller…"></textarea>
+
+    <div style="display:flex;gap:.7rem;margin-top:1.4rem;">
+      <button class="btn btn-sun" id="pjEnregistrer" style="flex:1;">Enregistrer</button>
+      <button class="btn btn-line danger" id="pjSupprimer">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="adm-modal" id="psModal" hidden>
+  <div class="adm-modal-box" style="max-width:760px;">
+    <button class="adm-modal-x" id="psFermer" aria-label="Fermer">&times;</button>
+    <h2>Importer des écoles</h2>
+    <p class="adm-modal-sous">Dans l'extension Digilago, cliquez sur <b>« Copier pour Sheets »</b>, puis collez ci-dessous. Les doublons sont ignorés automatiquement.</p>
+
+    <textarea id="psColle" rows="9" placeholder="Collez ici le contenu copié depuis l'extension…"
+      style="width:100%;padding:.85rem;border:1px solid var(--line-2);border-radius:10px;font-family:ui-monospace,monospace;font-size:.78rem;resize:vertical;"></textarea>
+
+    <div id="psApercu" class="ps-apercu" hidden></div>
+
+    <div style="display:flex;gap:.7rem;margin-top:1.1rem;">
+      <button class="btn btn-sun" id="psValider" style="flex:1;">Analyser et importer</button>
+      <button class="btn btn-line" id="psAnnuler">Annuler</button>
+    </div>
+  </div>
+</div>
+
 <script>
+/* ===================================================================
+   RACCOURCIS — définis en premier : tout le reste du fichier s'en sert.
+   =================================================================== */
+const $ = (id) => document.getElementById(id);
+
+/* Message court en bas de l'écran. */
+let dgMinuteur = null;
+function dire(txt, erreur){
+  let z = document.getElementById('psFlash');
+  if (!z) {
+    z = document.createElement('div');
+    z.id = 'psFlash'; z.className = 'ps-flash';
+    document.body.appendChild(z);
+  }
+  z.textContent = txt;
+  z.classList.toggle('err', !!erreur);
+  z.classList.add('on');
+  clearTimeout(dgMinuteur);
+  dgMinuteur = setTimeout(() => z.classList.remove('on'), 4000);
+}
+
 /* ===================================================================
    ACCÈS — vérifié par la fonction serveur Netlify.
    Le mot de passe n'est PAS dans ce fichier : il vit dans la variable
@@ -649,6 +894,559 @@ function renderOrigines(nbContact, nbProjet){
       </div>`;
   }).join('');
 }
+
+
+/* =====================================================================
+   ESPACE DE TRAVAIL — vos projets, vos tâches, vos notes.
+   Stocké dans votre navigateur uniquement (localStorage).
+   Exportez régulièrement : changer d'ordinateur = perdre la liste.
+   ===================================================================== */
+
+const CLE_AT = 'dg_atelier';
+let ATELIER = { projets: [], notes: [] };
+let pjOuvert = null;
+
+/* profil -> nombre de pages (voir la structure définie pour chaque type) */
+const PAGES_PROFIL = { A:11, B:14, C:16, D:18, E:15 };
+
+const ST_LBL = {
+  contacter:'À contacter', demo:'Démo envoyée', relance:'Relancé', interesse:'Intéressé',
+  accepte:'Devis accepté', contenu:'Contenu en attente', construction:'En construction',
+  validation:'En validation', ligne:'En ligne', sans:'Sans suite'
+};
+const ST_SIGNE = ['accepte','contenu','construction','validation','ligne'];
+
+/* les 12 éléments indispensables + 8 utiles */
+const CONTENU = [
+  ['photos_bat','Photos du bâtiment',1], ['photos_classes','Photos des classes',1],
+  ['photos_serv','Photos des services (cantine, bus)',1], ['logo','Logo en bonne qualité',1],
+  ['couleurs','Couleurs officielles',1], ['coord','Coordonnées complètes',1],
+  ['cycles','Cycles et tranches d\'âge',1], ['langues','Langues enseignées',1],
+  ['effectif','Effectif par classe',1], ['services','Services proposés',1],
+  ['tarifs','Tarifs',1], ['inscription','Procédure d\'inscription',1],
+  ['mot_dir','Mot du directeur',0], ['resultats','Résultats et taux de réussite',0],
+  ['equipe','Équipe pédagogique',0], ['temoignages','Témoignages de parents',0],
+  ['calendrier','Calendrier scolaire',0], ['reglement','Règlement intérieur',0],
+  ['video','Vidéo de visite',0], ['reseaux','Réseaux sociaux',0]
+];
+
+function chargerAtelier(){
+  try { const d = localStorage.getItem(CLE_AT); if (d) ATELIER = JSON.parse(d); }
+  catch(_) {}
+  ATELIER.projets ||= []; ATELIER.notes ||= [];
+}
+function sauverAtelier(){
+  try { localStorage.setItem(CLE_AT, JSON.stringify(ATELIER)); }
+  catch(_) { dire("Sauvegarde impossible : espace du navigateur saturé.", true); }
+}
+
+/* avancement : part des 12 éléments indispensables reçus */
+function avancement(p){
+  const oblig = CONTENU.filter(c => c[2]);
+  const faits = oblig.filter(c => (p.contenu||{})[c[0]]).length;
+  return Math.round(100 * faits / oblig.length);
+}
+function prioProjet(p){
+  if (p.domaine) return 1;
+  if (p.etat === 'RENEW') return 3;
+  return 2;
+}
+
+/* ---------- affichage de la liste ---------- */
+function afficherProjets(){
+  const q = ($('pjRech').value || '').trim().toLowerCase();
+  const f = $('pjFiltre').value;
+
+  const vus = ATELIER.projets
+    .filter(p => !q || (p.nom + ' ' + (p.ville||'')).toLowerCase().includes(q))
+    .filter(p => !f || p.statut === f)
+    .sort((a,b) => prioProjet(a) - prioProjet(b) || (a.nom||'').localeCompare(b.nom||''));
+
+  $('atEnCours').textContent = ATELIER.projets.filter(p => !['ligne','sans'].includes(p.statut)).length;
+  $('atAttente').textContent = ATELIER.projets.filter(p => p.statut === 'contenu').length;
+  $('atLigne').textContent   = ATELIER.projets.filter(p => p.statut === 'ligne').length;
+  $('atCa').textContent = ATELIER.projets
+    .filter(p => ST_SIGNE.includes(p.statut))
+    .reduce((s,p) => s + (parseInt(p.prix,10) || 0), 0).toLocaleString('fr-FR');
+
+  $('pjListe').innerHTML = vus.map(p => {
+    const av = avancement(p);
+    const tot = (p.taches||[]).length;
+    const fts = (p.taches||[]).filter(t => t.fait).length;
+    const m = [];
+    if (p.profil) m.push(`Profil ${esc(p.profil)} · ${PAGES_PROFIL[p.profil]||'?'} pages`);
+    if (p.etat === 'RENEW') m.push('Refonte');
+    if (p.domaine) m.push(esc(p.domaine));
+    if (tot) m.push(`${fts}/${tot} tâches`);
+    return `
+      <article class="pj p${prioProjet(p)}" data-id="${esc(p.id)}">
+        <div class="pj-h">
+          <div>
+            <div class="pj-n">${esc(p.nom || 'Sans nom')}</div>
+            <div class="pj-v">${esc(p.ville || 'ville non renseignée')}</div>
+          </div>
+          <span class="st-b st-${esc(p.statut)}">${ST_LBL[p.statut] || ''}</span>
+        </div>
+        ${m.length ? `<div class="pj-meta">${m.map(x => `<span>${x}</span>`).join('')}</div>` : ''}
+        <div class="pj-bar"><i style="width:${av}%"></i></div>
+        <div class="pj-pct"><span>Contenu reçu</span><span>${av}%</span></div>
+      </article>`;
+  }).join('');
+
+  $('pjListe').querySelectorAll('.pj').forEach(el =>
+    el.addEventListener('click', () => ouvrirProjet(el.dataset.id)));
+
+  $('pjVide').hidden = vus.length > 0;
+  $('pjVideTxt').textContent = ATELIER.projets.length === 0
+    ? "Aucun projet. Cliquez sur « Nouveau projet » pour commencer."
+    : "Aucun projet ne correspond à ce filtre.";
+}
+
+['pjRech','pjFiltre'].forEach(id => {
+  $(id).addEventListener('input', afficherProjets);
+  $(id).addEventListener('change', afficherProjets);
+});
+
+/* ---------- fiche projet ---------- */
+function ouvrirProjet(id){
+  pjOuvert = id ? ATELIER.projets.find(p => p.id === id) : {
+    id: 'p' + Date.now(), nom:'', ville:'', tel:'', email:'', contact:'',
+    etat:'NEW', domaine:'', ancien:'', profil:'', prix:5999, paye:'NON',
+    statut:'contacter', contenu:{}, taches:[], notes:'', cree:new Date().toISOString()
+  };
+  const p = pjOuvert;
+
+  $('pjTitre').textContent = id ? p.nom || 'Projet' : 'Nouveau projet';
+  $('pjNom').value = p.nom || ''; $('pjVille').value = p.ville || '';
+  $('pjTel').value = p.tel || ''; $('pjEmail').value = p.email || '';
+  $('pjContact').value = p.contact || ''; $('pjEtat').value = p.etat || 'NEW';
+  $('pjDomaine').value = p.domaine || ''; $('pjAncien').value = p.ancien || '';
+  $('pjProfil').value = p.profil || ''; $('pjPrix').value = p.prix ?? 5999;
+  $('pjPaye').value = p.paye || 'NON'; $('pjStatut').value = p.statut || 'contacter';
+  $('pjNotes').value = p.notes || '';
+  majPages();
+
+  $('pjChecklist').innerHTML = CONTENU.map(([k, lbl, ob]) => `
+    <label class="${(p.contenu||{})[k] ? 'fait' : ''}">
+      <input type="checkbox" data-c="${k}" ${(p.contenu||{})[k] ? 'checked' : ''}>
+      <span>${esc(lbl)}</span>
+      ${ob ? '<span class="oblig">indispensable</span>' : ''}
+    </label>`).join('');
+  $('pjChecklist').querySelectorAll('input').forEach(i =>
+    i.addEventListener('change', () => {
+      i.closest('label').classList.toggle('fait', i.checked);
+    }));
+
+  afficherTaches();
+  $('pjSupprimer').style.display = id ? '' : 'none';
+  $('pjModal').hidden = false;
+}
+
+function majPages(){
+  const pr = $('pjProfil').value;
+  $('pjPages').value = pr ? `${PAGES_PROFIL[pr]} pages` : '—';
+}
+$('pjProfil').addEventListener('change', majPages);
+
+function afficherTaches(){
+  const t = pjOuvert.taches || [];
+  $('pjTaches').innerHTML = t.length ? t.map((x,i) => `
+    <div class="tache ${x.fait ? 'fait' : ''}">
+      <input type="checkbox" data-t="${i}" ${x.fait ? 'checked' : ''}>
+      <span>${esc(x.txt)}</span>
+      <button data-del="${i}" aria-label="Supprimer">&times;</button>
+    </div>`).join('')
+    : '<p style="font-size:.83rem;color:var(--ink-45);">Aucune tâche pour ce projet.</p>';
+
+  $('pjTaches').querySelectorAll('input[data-t]').forEach(i =>
+    i.addEventListener('change', () => {
+      pjOuvert.taches[+i.dataset.t].fait = i.checked; afficherTaches();
+    }));
+  $('pjTaches').querySelectorAll('button[data-del]').forEach(b =>
+    b.addEventListener('click', () => {
+      pjOuvert.taches.splice(+b.dataset.del, 1); afficherTaches();
+    }));
+}
+
+$('pjTacheAdd').addEventListener('click', () => {
+  const v = $('pjTacheTxt').value.trim();
+  if (!v) return;
+  (pjOuvert.taches ||= []).push({ txt: v, fait: false });
+  $('pjTacheTxt').value = ''; afficherTaches();
+});
+$('pjTacheTxt').addEventListener('keydown', e => { if (e.key === 'Enter') $('pjTacheAdd').click(); });
+
+$('pjNouveau').addEventListener('click', () => ouvrirProjet(null));
+$('pjFermer').addEventListener('click', () => { $('pjModal').hidden = true; });
+$('pjModal').addEventListener('click', e => { if (e.target.id === 'pjModal') $('pjModal').hidden = true; });
+
+$('pjEnregistrer').addEventListener('click', () => {
+  const p = pjOuvert;
+  if (!$('pjNom').value.trim()) { dire("Le nom de l'école est nécessaire.", true); return; }
+  p.nom = $('pjNom').value.trim(); p.ville = $('pjVille').value.trim();
+  p.tel = $('pjTel').value.trim(); p.email = $('pjEmail').value.trim();
+  p.contact = $('pjContact').value.trim(); p.etat = $('pjEtat').value;
+  p.domaine = $('pjDomaine').value.trim(); p.ancien = $('pjAncien').value.trim();
+  p.profil = $('pjProfil').value; p.prix = parseInt($('pjPrix').value, 10) || 0;
+  p.paye = $('pjPaye').value; p.statut = $('pjStatut').value;
+  p.notes = $('pjNotes').value;
+  p.contenu = {};
+  $('pjChecklist').querySelectorAll('input').forEach(i => { if (i.checked) p.contenu[i.dataset.c] = 1; });
+
+  if (!ATELIER.projets.some(x => x.id === p.id)) ATELIER.projets.push(p);
+  sauverAtelier(); afficherProjets();
+  $('pjModal').hidden = true;
+  dire('Projet enregistré.');
+});
+
+$('pjSupprimer').addEventListener('click', () => {
+  if (!pjOuvert || !confirm(`Supprimer définitivement « ${pjOuvert.nom} » ?`)) return;
+  ATELIER.projets = ATELIER.projets.filter(x => x.id !== pjOuvert.id);
+  sauverAtelier(); afficherProjets();
+  $('pjModal').hidden = true;
+  dire('Projet supprimé.');
+});
+
+/* ---------- sauvegarde et restauration ---------- */
+$('pjExport').addEventListener('click', () => {
+  if (!ATELIER.projets.length && !ATELIER.notes.length) { dire('Rien à exporter.', true); return; }
+  const url = URL.createObjectURL(new Blob([JSON.stringify(ATELIER, null, 2)],
+    { type:'application/json' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = `digilago-atelier-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  dire('Sauvegarde téléchargée. Conservez-la : ces données ne vivent que dans ce navigateur.');
+});
+
+$('pjImport').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      if (!d.projets) throw new Error('fichier non reconnu');
+      if (!confirm(`Importer ${d.projets.length} projet(s) et ${(d.notes||[]).length} note(s) ? Vos données actuelles seront remplacées.`)) return;
+      ATELIER = { projets: d.projets || [], notes: d.notes || [] };
+      sauverAtelier(); afficherProjets(); afficherNotes();
+      dire('Sauvegarde restaurée.');
+    } catch (err) { dire('Fichier illisible : ' + err.message, true); }
+  };
+  r.readAsText(f); e.target.value = '';
+});
+
+/* ---------- notes libres ---------- */
+function afficherNotes(){
+  const n = ATELIER.notes || [];
+  $('ntListe').innerHTML = n.map((x,i) => `
+    <div class="note">
+      <div class="note-h">
+        <span class="note-d">${new Date(x.date).toLocaleString('fr-FR',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})}</span>
+        <button data-n="${i}" aria-label="Supprimer">&times;</button>
+      </div>
+      <p>${esc(x.txt)}</p>
+    </div>`).join('');
+  $('ntListe').querySelectorAll('button[data-n]').forEach(b =>
+    b.addEventListener('click', () => {
+      if (!confirm('Supprimer cette note ?')) return;
+      ATELIER.notes.splice(+b.dataset.n, 1); sauverAtelier(); afficherNotes();
+    }));
+  $('ntVide').hidden = n.length > 0;
+}
+
+$('ntAjouter').addEventListener('click', () => {
+  const v = $('ntTexte').value.trim();
+  if (!v) { dire('Écrivez quelque chose.', true); return; }
+  (ATELIER.notes ||= []).unshift({ txt: v, date: new Date().toISOString() });
+  $('ntTexte').value = ''; sauverAtelier(); afficherNotes();
+  dire('Note ajoutée.');
+});
+
+
+/* =====================================================================
+   PROSPECTION — les écoles importées depuis l'extension.
+   Stockées dans ce navigateur uniquement (localStorage).
+   Pensez à exporter : un nettoyage du navigateur effacerait tout.
+   ===================================================================== */
+
+const PS_CLE = 'dg_prospection';
+let PROSPECTS = [];
+let PS_SEL = new Set();
+
+const psLire = () => { try { return JSON.parse(localStorage.getItem(PS_CLE) || '[]'); } catch(_) { return []; } };
+const psEcrire = () => localStorage.setItem(PS_CLE, JSON.stringify(PROSPECTS));
+
+/* même reconnaissance que dans l'extension : accents neutralisés */
+const psPlat = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+                        .toLowerCase().replace(/[^a-z0-9]/g,'');
+const psId  = (nom, ville) => psPlat(nom) + '|' + psPlat(ville);
+const psTel = (t) => { const d = String(t||'').replace(/\D/g,''); return d.length < 9 ? '' : d.slice(-9); };
+
+const PS_LIB = { nouveau:'Nouveau', ecarte:'Écarté', converti:'Devenu projet' };
+
+/* ---------- import ---------- */
+
+$('psImporter').addEventListener('click', () => {
+  $('psColle').value = ''; $('psApercu').hidden = true; $('psModal').hidden = false; $('psColle').focus();
+});
+['psFermer','psAnnuler'].forEach(id => $(id).addEventListener('click', () => { $('psModal').hidden = true; }));
+$('psModal').addEventListener('click', e => { if (e.target.id === 'psModal') $('psModal').hidden = true; });
+
+/* Analyse un collage tabulé ou en points-virgules. La première ligne
+   sert d'en-tête : on retrouve les colonnes par leur nom, dans n'importe quel ordre. */
+function psAnalyser(txt){
+  const lignes = txt.trim().split(/\r?\n/).filter(l => l.trim());
+  if (lignes.length < 2) return { erreur: "Il faut au moins une ligne d'en-tête et une école." };
+
+  const sep = (lignes[0].match(/\t/g) || []).length >= 2 ? '\t' : ';';
+  const decoupe = (l) => l.split(sep).map(c => c.trim().replace(/^"|"$/g, ''));
+  const entete = decoupe(lignes[0]).map(psPlat);
+
+  const trouver = (...noms) => {
+    for (const n of noms) { const i = entete.indexOf(psPlat(n)); if (i !== -1) return i; }
+    return -1;
+  };
+  const iNom = trouver('École','Ecole','nom','School');
+  if (iNom === -1) return { erreur: "Colonne « École » introuvable. Utilisez le bouton « Copier pour Sheets » de l'extension." };
+
+  const idx = {
+    nom: iNom,
+    ville: trouver('Ville'), tel: trouver('Téléphone','Telephone','tel'),
+    email: trouver('Email'), site: trouver('Site web','siteweb','site'),
+    fb: trouver('Facebook'), note: trouver('Note'), avis: trouver('Avis'),
+    prio: trouver('Priorité','Priorite'), maps: trouver('Lien Maps','lienmaps')
+  };
+
+  const out = [];
+  for (const l of lignes.slice(1)) {
+    const c = decoupe(l);
+    const nom = (c[idx.nom] || '').trim();
+    if (!nom) continue;
+    const site = idx.site >= 0 ? (c[idx.site] || '').trim() : '';
+    const social = /facebook|instagram|blogspot/i.test(site);
+    out.push({
+      nom,
+      ville:    idx.ville >= 0 ? (c[idx.ville] || '').trim() : '',
+      telephone:idx.tel   >= 0 ? (c[idx.tel]   || '').trim() : '',
+      email:    idx.email >= 0 ? (c[idx.email] || '').trim() : '',
+      siteWeb:  social ? '' : site,
+      pageFacebook: social ? site : (idx.fb >= 0 ? (c[idx.fb] || '').trim() : ''),
+      note:     idx.note  >= 0 ? (c[idx.note]  || '').trim() : '',
+      avis:     idx.avis  >= 0 ? (parseInt(c[idx.avis], 10) || 0) : 0,
+      lienMaps: idx.maps  >= 0 ? (c[idx.maps]  || '').trim() : ''
+    });
+  }
+  return out.length ? { ecoles: out } : { erreur: "Aucune école lisible dans ce collage." };
+}
+
+/* Une école sans site est votre meilleure cible. Une page Facebook
+   seule vaut mieux que rien, mais reste un prospect intéressant. */
+function psPriorite(e){
+  if (!e.siteWeb && !e.pageFacebook) return 'haute';
+  if (!e.siteWeb) return 'moyenne';
+  return 'basse';
+}
+
+$('psValider').addEventListener('click', () => {
+  const r = psAnalyser($('psColle').value);
+  const box = $('psApercu');
+  if (r.erreur) { box.innerHTML = '<span class="err">' + esc(r.erreur) + '</span>'; box.hidden = false; return; }
+
+  let ajout = 0, connu = 0;
+  for (const e of r.ecoles) {
+    const id = psId(e.nom, e.ville), tel = psTel(e.telephone);
+    let deja = PROSPECTS.find(x => psId(x.nom, x.ville) === id);
+    if (!deja && tel) deja = PROSPECTS.find(x => psTel(x.telephone) === tel);
+    if (!deja) deja = PROSPECTS.find(x => psPlat(x.nom) === psPlat(e.nom) && (!x.ville || !e.ville));
+
+    if (deja) {
+      ['ville','telephone','email','siteWeb','pageFacebook','note','lienMaps']
+        .forEach(k => { if (!deja[k] && e[k]) deja[k] = e[k]; });
+      if (!deja.avis && e.avis) deja.avis = e.avis;
+      deja.priorite = psPriorite(deja);
+      connu++;
+    } else {
+      PROSPECTS.push({ id, ...e, priorite: psPriorite(e), statut:'nouveau', notes:'',
+                       ajoutee: new Date().toISOString() });
+      ajout++;
+    }
+  }
+  psEcrire(); psAfficher();
+  box.innerHTML = `<b>${ajout}</b> école(s) importée(s)` +
+    (connu ? `, <b>${connu}</b> déjà connue(s) et complétée(s).` : '.') +
+    ` Total : <b>${PROSPECTS.length}</b>.`;
+  box.hidden = false;
+  setTimeout(() => { $('psModal').hidden = true; }, 1800);
+});
+
+/* ---------- affichage ---------- */
+
+function psFiltrees(){
+  const q  = $('psRech').value.trim().toLowerCase();
+  const fv = $('psVille').value, fp = $('psPrio').value, fs = $('psStatut').value;
+  const ordre = { haute:0, moyenne:1, basse:2 };
+  return PROSPECTS
+    .filter(e => !q  || (e.nom + ' ' + (e.ville||'')).toLowerCase().includes(q))
+    .filter(e => !fv || e.ville === fv)
+    .filter(e => !fp || e.priorite === fp)
+    .filter(e => !fs || e.statut === fs)
+    .sort((a,b) => (ordre[a.priorite] - ordre[b.priorite]) || (b.avis||0) - (a.avis||0));
+}
+
+function psAfficher(){
+  $('prospTotal').textContent      = PROSPECTS.length;
+  $('prospSansSite').textContent   = PROSPECTS.filter(e => !e.siteWeb).length;
+  $('prospAContacter').textContent = PROSPECTS.filter(e => e.statut === 'nouveau').length;
+  $('prospConverties').textContent = PROSPECTS.filter(e => e.statut === 'converti').length;
+
+  const villes = [...new Set(PROSPECTS.map(e => e.ville).filter(Boolean))].sort();
+  const sel = $('psVille'), avant = sel.value;
+  sel.innerHTML = '<option value="">Toutes les villes</option>' +
+    villes.map(v => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  sel.value = avant;
+
+  const vues = psFiltrees();
+  $('psCorps').innerHTML = vues.map(e => {
+    const site = e.siteWeb
+      ? `<a href="${esc(e.siteWeb)}" target="_blank" rel="noopener">site ↗</a>`
+      : (e.pageFacebook ? `<a href="${esc(e.pageFacebook)}" target="_blank" rel="noopener">Facebook ↗</a>`
+                        : '<span style="color:#B7442E;font-weight:600;">aucun</span>');
+    const google = e.avis ? `${esc(e.note || '–')} ★ · ${e.avis}` : '—';
+    return `
+      <tr data-id="${esc(e.id)}" class="${PS_SEL.has(e.id)?'sel':''} ${e.statut==='ecarte'?'ecarte':''}">
+        <td><input type="checkbox" class="ps-c" ${PS_SEL.has(e.id)?'checked':''} aria-label="Sélectionner"></td>
+        <td><div class="ps-nom">${esc(e.nom)}${e.notes?`<small>${esc(e.notes)}</small>`:''}</div></td>
+        <td>${esc(e.ville || '—')}</td>
+        <td>${e.telephone ? `<a href="tel:${esc(e.telephone.replace(/\s/g,''))}">${esc(e.telephone)}</a>` : '—'}</td>
+        <td>${site}</td>
+        <td>${google}</td>
+        <td><span class="ps-p ${e.priorite}">${e.priorite}</span></td>
+        <td><span class="ps-s ${e.statut}">${PS_LIB[e.statut]}</span></td>
+        <td><div class="ps-act">
+          ${e.lienMaps ? `<button data-a="maps">Maps</button>` : ''}
+          <button data-a="note">Note</button>
+          ${e.statut !== 'converti' ? `<button data-a="projet" class="go">→ Projet</button>` : ''}
+        </div></td>
+      </tr>`;
+  }).join('');
+
+  const rien = vues.length === 0;
+  $('psTable').style.display = rien ? 'none' : '';
+  $('psVide').hidden = !rien;
+  $('psVideTxt').innerHTML = PROSPECTS.length === 0
+    ? "Aucune école recensée.<br>Cliquez sur <b>Importer</b> et collez le contenu copié depuis l'extension."
+    : "Aucune école ne correspond à ces filtres.";
+
+  $('psActions').hidden = PS_SEL.size === 0;
+  $('psNbSel').textContent = `${PS_SEL.size} sélectionnée(s)`;
+  $('psCocheTout').checked = vues.length > 0 && vues.every(e => PS_SEL.has(e.id));
+}
+
+['psRech','psVille','psPrio','psStatut'].forEach(id => {
+  $(id).addEventListener('input', psAfficher);
+  $(id).addEventListener('change', psAfficher);
+});
+
+/* ---------- sélection et actions ---------- */
+
+$('psCorps').addEventListener('change', e => {
+  const c = e.target.closest('.ps-c'); if (!c) return;
+  const id = c.closest('tr').dataset.id;
+  c.checked ? PS_SEL.add(id) : PS_SEL.delete(id);
+  psAfficher();
+});
+
+$('psCocheTout').addEventListener('change', e => {
+  const vues = psFiltrees();
+  if (e.target.checked) vues.forEach(x => PS_SEL.add(x.id));
+  else vues.forEach(x => PS_SEL.delete(x.id));
+  psAfficher();
+});
+
+$('psToutSel').addEventListener('click', () => { psFiltrees().forEach(x => PS_SEL.add(x.id)); psAfficher(); });
+
+$('psEcarter').addEventListener('click', () => {
+  PROSPECTS.forEach(e => { if (PS_SEL.has(e.id) && e.statut !== 'converti') e.statut = 'ecarte'; });
+  PS_SEL.clear(); psEcrire(); psAfficher(); dire('Écoles écartées.');
+});
+
+$('psSupprimer').addEventListener('click', () => {
+  const n = PS_SEL.size;
+  if (!confirm(`Supprimer définitivement ${n} école(s) ?`)) return;
+  PROSPECTS = PROSPECTS.filter(e => !PS_SEL.has(e.id));
+  PS_SEL.clear(); psEcrire(); psAfficher(); dire(`${n} école(s) supprimée(s).`);
+});
+
+$('psCorps').addEventListener('click', e => {
+  const b = e.target.closest('[data-a]'); if (!b) return;
+  const id = b.closest('tr').dataset.id;
+  const ec = PROSPECTS.find(x => x.id === id); if (!ec) return;
+
+  if (b.dataset.a === 'maps') { window.open(ec.lienMaps, '_blank', 'noopener'); return; }
+
+  if (b.dataset.a === 'note') {
+    const t = prompt(`Note sur ${ec.nom} :`, ec.notes || '');
+    if (t !== null) { ec.notes = t.trim(); psEcrire(); psAfficher(); }
+    return;
+  }
+
+  if (b.dataset.a === 'projet') {
+    // bascule vers l'atelier, sans ressaisir quoi que ce soit
+    const existe = ATELIER.projets.some(p => psPlat(p.nom) === psPlat(ec.nom));
+    if (existe) { dire('Un projet existe déjà pour cette école.', true); return; }
+
+    // mêmes noms de champs que le formulaire de projet
+    ATELIER.projets.push({
+      id: 'p' + Date.now() + Math.random().toString(36).slice(2, 6),
+      nom: ec.nom,
+      ville: ec.ville || '',
+      tel: ec.telephone || '',
+      email: ec.email || '',
+      contact: '',
+      etat: ec.siteWeb ? 'RENEW' : 'NEW',
+      domaine: '',
+      ancien: ec.siteWeb || '',
+      profil: '',
+      prix: 5999,
+      paye: 'non',
+      statut: 'contacter',
+      contenu: {},
+      notes: ec.notes ? ('Depuis la prospection : ' + ec.notes) : '',
+      cree: new Date().toISOString()
+    });
+    sauverAtelier();
+    afficherProjets();
+
+    ec.statut = 'converti'; psEcrire(); psAfficher();
+    dire(`« ${ec.nom} » ajoutée à vos projets.`);
+  }
+});
+
+/* ---------- export ---------- */
+
+$('psExporter').addEventListener('click', () => {
+  const liste = psFiltrees();
+  if (!liste.length) { dire('Rien à exporter.', true); return; }
+  const cols = [['nom','École'],['ville','Ville'],['telephone','Téléphone'],['email','Email'],
+                ['siteWeb','Site web'],['pageFacebook','Facebook'],['note','Note'],['avis','Avis'],
+                ['priorite','Priorité'],['statut','Statut'],['notes','Notes'],['lienMaps','Lien Maps']];
+  const cell = v => `"${String(v == null ? '' : v).replace(/"/g,'""')}"`;
+  const csv = '\uFEFF' + cols.map(c => cell(c[1])).join(';') + '\n' +
+    liste.map(e => cols.map(c => cell(e[c[0]])).join(';')).join('\n');
+  const url = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+  const a = document.createElement('a');
+  a.href = url; a.download = `prospection-${new Date().toISOString().slice(0,10)}.csv`; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  dire(`${liste.length} école(s) exportée(s).`);
+});
+
+PROSPECTS = psLire();
+PROSPECTS.forEach(e => { if (!e.priorite) e.priorite = psPriorite(e); });
+psAfficher();
+
+/* ---------- démarrage ---------- */
+chargerAtelier();
+afficherProjets();
+afficherNotes();
 
 </script>
 </body>
