@@ -1079,3 +1079,30 @@ h1,h2,h3,h4{font-family:var(--police-titre);font-weight:600;line-height:1.08;let
 }
 .loi svg{width:22px;height:22px;flex-shrink:0;margin-top:.15rem;color:var(--bleu);}
 .loi b{color:var(--encre);}
+
+/* =========================================================
+   DÉCORATIONS DISPERSÉES — chaque section a sa touche
+   ========================================================= */
+
+/* positions : toujours en dehors du texte */
+/* Les décorations vivent STRICTEMENT dans les marges extérieures.
+   Largeur fixe de 84px + 12px de garde = 96px de marge nécessaire,
+   soit un écran d'au moins 1460px (marge de sécurité incluse).
+   En dessous, la marge n'existe pas : on ne les affiche pas. */
+.deco-abs{width:84px;opacity:.9;z-index:0;display:none;}
+
+@media (min-width:1460px){
+  .deco-abs{display:block;}
+  .p-hd,.p-bd,.p-md{inset-inline-end:calc((100vw - var(--large)) / 2 - 96px);}
+  .p-hg,.p-bg,.p-mg{inset-inline-start:calc((100vw - var(--large)) / 2 - 96px);}
+  .p-hd,.p-hg{top:6%;}
+  .p-bd,.p-bg{bottom:6%;}
+  .p-md,.p-mg{top:42%;}
+}
+
+/* les grandes illustrations de fond restent, elles, à toutes les tailles */
+.ciel-nuage{z-index:0;}
+
+@media (prefers-reduced-motion:reduce){
+  .fl-a,.fl-b,.fl-c,.tourne-l,.balance{animation:none;}
+}
