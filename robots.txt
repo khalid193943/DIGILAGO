@@ -1,5 +1,93 @@
+# =========================================================
+# DIGILAGO — robots.txt
+#
+# Les moteurs de recherche sont les bienvenus.
+# Les aspirateurs de site ne le sont pas.
+#
+# ⚠️ Ce fichier est une CONSIGNE, pas une barrière.
+# Les robots honnêtes (Google, Bing) la respectent.
+# Un aspirateur peut l'ignorer — d'où le blocage serveur
+# dans .htaccess et dans la fonction Netlify.
+# =========================================================
+
+# ---------- moteurs de recherche : accès normal ----------
 User-agent: *
 Allow: /
 Disallow: /admin-console-89898zzx.html
+Disallow: /test-formulaire.html
+Disallow: /demos/
+
+# ---------- aspirateurs de site ----------
+User-agent: HTTrack
+Disallow: /
+
+User-agent: WebCopier
+Disallow: /
+
+User-agent: WebZIP
+Disallow: /
+
+User-agent: SiteSucker
+Disallow: /
+
+User-agent: Teleport
+Disallow: /
+
+User-agent: TeleportPro
+Disallow: /
+
+User-agent: Offline Explorer
+Disallow: /
+
+User-agent: WebReaper
+Disallow: /
+
+User-agent: WebStripper
+Disallow: /
+
+User-agent: WebWhacker
+Disallow: /
+
+User-agent: WebAuto
+Disallow: /
+
+User-agent: Wget
+Disallow: /
+
+User-agent: curl
+Disallow: /
+
+User-agent: libwww-perl
+Disallow: /
+
+User-agent: BlackWidow
+Disallow: /
+
+User-agent: SuperBot
+Disallow: /
+
+User-agent: NetAnts
+Disallow: /
+
+User-agent: Xenu
+Disallow: /
+
+User-agent: EmailCollector
+Disallow: /
+
+User-agent: EmailSiphon
+Disallow: /
+
+User-agent: ExtractorPro
+Disallow: /
+
+# ---------- robots d'entraînement d'IA ----------
+# Retirez ces blocs si vous souhaitez au contraire
+# apparaître dans les réponses des assistants.
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
 
 Sitemap: https://digilago.ma/sitemap.xml

@@ -6,6 +6,7 @@
   # Site statique : rien à compiler, on publie le dossier tel quel.
   publish = "."
   functions = "netlify/functions"
+  edge_functions = "netlify/edge-functions"
 
 # La console admin ne doit jamais être indexée par les moteurs.
 [[headers]]
@@ -24,3 +25,21 @@
 # Netlify sert automatiquement 404.html quand aucune page ne correspond.
 # Pas de règle /* ici : elle pourrait interférer avec la route de la
 # fonction serveur (/.netlify/functions/submissions).
+
+# ---------------------------------------------------------
+# Blocage des aspirateurs de site.
+# .htaccess ne fonctionne pas sur Netlify : c'est cette
+# fonction de périphérie qui fait le travail.
+# ---------------------------------------------------------
+[[edge_functions]]
+  function = "anti-aspirateur"
+  path = "/*"
+
+# ---------------------------------------------------------
+# En-têtes de sécurité supplémentaires
+# ---------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+    Cross-Origin-Opener-Policy = "same-origin"
