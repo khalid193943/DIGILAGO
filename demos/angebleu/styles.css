@@ -628,6 +628,7 @@ h1,h2,h3,h4{font-family:var(--police-titre);font-weight:600;line-height:1.08;let
 
 /* le bouton d'inscription se raccourcit sur les petits écrans */
 .btn-tx-court{display:none;}
+.hdr-d .btn{white-space:nowrap;}
 @media (max-width:420px){
   .btn-tx-long{display:none;}
   .btn-tx-court{display:inline;}
@@ -861,3 +862,220 @@ h1,h2,h3,h4{font-family:var(--police-titre);font-weight:600;line-height:1.08;let
 .cal-d{font-size:.76rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--or);margin-bottom:.35rem;}
 .cal-c h3{font-size:1.02rem;margin-bottom:.3rem;}
 .cal-c p{font-size:.88rem;color:var(--encre-70);}
+
+/* =========================================================
+   MENU — libellés courts, seuil relevé
+   ========================================================= */
+@media (max-width:1380px){
+  .nav{
+    position:fixed;inset:78px 0 auto;background:var(--papier);
+    flex-direction:column;align-items:stretch;gap:0;
+    padding:1rem clamp(1.1rem,.6rem + 2vw,2rem) 1.6rem;
+    border-bottom:1px solid var(--trait);
+    transform:translateY(-120%);transition:transform .35s cubic-bezier(.16,1,.3,1);
+    max-height:calc(100vh - 78px);overflow-y:auto;
+  }
+  .nav.ouvert{transform:translateY(0);}
+  .nav > a{padding:.85rem .6rem;font-size:1rem;border-bottom:1px solid var(--trait);border-radius:0;}
+  .burger{display:block;}
+}
+.nav > a{white-space:nowrap;}
+
+/* =========================================================
+   L'ANGE QUI VOLE — signature de la frise 1986 → 2026
+   ========================================================= */
+.frise{padding-top:2.6rem;}
+.frise-ange{
+  position:absolute;top:0;inset-inline-start:0;
+  width:clamp(46px,6vw,68px);
+  transform:translateX(-50%);
+  transition:inset-inline-start 2.6s cubic-bezier(.34,1.02,.4,1);
+  z-index:3;
+}
+.frise.vue .frise-ange{inset-inline-start:100%;}
+.frise-ange svg{width:100%;height:auto;animation:aileBat 2.2s ease-in-out infinite;}
+@keyframes aileBat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+
+.frise-etapes{display:flex;justify-content:space-between;margin-top:1.8rem;gap:.6rem;}
+.frise-e{flex:1;text-align:center;position:relative;padding-top:1.6rem;}
+.frise-e::before{
+  content:'';position:absolute;top:0;inset-inline-start:50%;transform:translateX(-50%);
+  width:13px;height:13px;border-radius:50%;background:var(--bleu-ciel);
+  border:3px solid var(--papier);box-shadow:0 0 0 2px var(--bleu);
+}
+.frise-e.fort::before{background:var(--or);box-shadow:0 0 0 2px var(--or);}
+.frise-e b{display:block;font-family:var(--police-titre);font-weight:700;font-size:1.05rem;color:var(--bleu-nuit);}
+.frise-e span{display:block;font-size:.78rem;color:var(--encre-45);line-height:1.4;margin-top:.15rem;}
+@media (max-width:700px){
+  .frise-etapes{flex-wrap:wrap;gap:1.4rem;}
+  .frise-e{flex:0 0 calc(50% - .7rem);}
+}
+
+/* =========================================================
+   POURQUOI NOUS — révélation ligne par ligne
+   ========================================================= */
+.pq-i{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+.pq-i.vue{opacity:1;transform:none;}
+.pq-n{transition:transform .5s cubic-bezier(.34,1.3,.5,1),color .4s;display:inline-block;}
+.pq-i.vue .pq-n{animation:nBond .7s cubic-bezier(.34,1.4,.5,1) .15s both;}
+@keyframes nBond{0%{transform:scale(.5);opacity:0}60%{transform:scale(1.14)}100%{transform:scale(1);opacity:1}}
+.pq-p{overflow:hidden;}
+.pq-i.vue .pq-p img{animation:pZoom .9s cubic-bezier(.16,1,.3,1) both;}
+@keyframes pZoom{from{transform:scale(1.24);opacity:0}to{transform:scale(1);opacity:1}}
+.pq-i:hover .pq-n{color:#fff;transform:scale(1.08);}
+@media (prefers-reduced-motion:reduce){
+  .pq-i{opacity:1;transform:none;}
+  .pq-i.vue .pq-n,.pq-i.vue .pq-p img{animation:none;}
+}
+
+/* =========================================================
+   AVIS QUI DÉFILENT
+   ========================================================= */
+.avis-piste{overflow:hidden;position:relative;padding:.6rem 0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);}
+.avis-defile{display:flex;gap:var(--gap);width:max-content;animation:avisGlisse 46s linear infinite;}
+.avis-piste:hover .avis-defile{animation-play-state:paused;}
+.avis-piste + .avis-piste .avis-defile{animation-duration:56s;animation-direction:reverse;}
+
+@keyframes avisGlisse{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .avis-defile{animation:none;flex-wrap:wrap;width:auto;justify-content:center;}
+}
+
+.avis-c{
+  width:clamp(280px,30vw,368px);flex-shrink:0;
+  background:var(--papier);border:1px solid var(--trait);border-radius:var(--r-carte);
+  padding:1.5rem 1.6rem;display:flex;flex-direction:column;gap:.9rem;
+}
+.avis-et{display:flex;gap:2px;}
+.avis-et svg{width:15px;height:15px;color:var(--or);}
+.avis-c p{font-size:.93rem;line-height:1.62;color:var(--encre-70);flex:1;}
+.avis-p{display:flex;align-items:center;gap:.75rem;}
+.avis-av{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  display:grid;place-items:center;font-weight:800;font-size:.98rem;color:var(--bleu-encre);
+}
+.avis-n b{display:block;font-size:.9rem;font-weight:700;line-height:1.2;}
+.avis-n span{font-size:.78rem;color:var(--encre-45);}
+
+.avis-note-demo{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--or-clair);border:1px solid rgba(242,180,65,.55);border-radius:var(--r-pilule);
+  padding:.42rem 1rem;font-size:.8rem;font-weight:700;color:#8A6A12;margin-bottom:1.4rem;
+}
+.avis-note-demo svg{width:15px;height:15px;}
+
+/* =========================================================
+   FAQ AVEC ILLUSTRATION
+   ========================================================= */
+.faq-g{display:grid;grid-template-columns:.82fr 1.18fr;gap:var(--gap-l);align-items:start;}
+@media (max-width:900px){.faq-g{grid-template-columns:1fr;}}
+.faq-vis{position:sticky;top:110px;}
+.faq-photo{
+  border-radius:var(--r-carte);overflow:hidden;aspect-ratio:4/5;background:var(--bleu-ciel);
+  position:relative;
+}
+.faq-photo img{width:100%;height:100%;object-fit:cover;}
+.faq-bulle{
+  position:absolute;inset-inline:1rem;bottom:1rem;
+  background:var(--papier);border-radius:16px;padding:1rem 1.2rem;
+  box-shadow:0 18px 40px -20px rgba(0,58,107,.4);
+}
+.faq-bulle b{display:block;font-size:.94rem;font-weight:700;margin-bottom:.2rem;}
+.faq-bulle span{font-size:.83rem;color:var(--encre-70);line-height:1.5;}
+.faq-aide{margin-top:1.2rem;}
+@media (max-width:900px){.faq-vis{position:static;}.faq-photo{aspect-ratio:16/10;}}
+
+/* =========================================================
+   ANNIVERSAIRE — bande vivante
+   ========================================================= */
+.anniv{
+  position:relative;overflow:hidden;border-radius:var(--r-carte);
+  background:linear-gradient(135deg,var(--bleu-nuit),var(--bleu));
+  color:#fff;padding:clamp(2.2rem,1.5rem + 3vw,4rem);
+}
+.anniv::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(242,180,65,.3), transparent 26%),
+    radial-gradient(circle at 88% 74%, rgba(244,160,153,.24), transparent 30%);
+}
+.anniv > *{position:relative;z-index:2;}
+.anniv-g{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--gap-l);align-items:center;}
+@media (max-width:860px){.anniv-g{grid-template-columns:1fr;text-align:center;}}
+
+.anniv-40{
+  font-family:var(--police-titre);font-weight:700;line-height:.86;
+  font-size:clamp(5rem,3rem + 13vw,13rem);letter-spacing:-.05em;
+  color:transparent;-webkit-text-stroke:3px rgba(255,255,255,.5);
+  display:block;text-align:center;
+}
+.anniv-sous{
+  display:block;text-align:center;margin-top:.4rem;
+  font-size:.86rem;font-weight:800;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--or);
+}
+.anniv h2{color:#fff;}
+.anniv p{color:rgba(255,255,255,.82);}
+.anniv-l{display:flex;flex-direction:column;gap:.9rem;margin-top:1.6rem;}
+.anniv-i{display:flex;align-items:flex-start;gap:.8rem;font-size:.92rem;color:rgba(255,255,255,.86);line-height:1.55;}
+.anniv-i svg{width:20px;height:20px;flex-shrink:0;margin-top:.15rem;color:var(--or);}
+
+.confetti{position:absolute;pointer-events:none;border-radius:2px;opacity:.75;}
+@keyframes tombe{
+  0%{transform:translateY(-24px) rotate(0);opacity:0}
+  12%{opacity:.8}
+  100%{transform:translateY(320px) rotate(420deg);opacity:0}
+}
+@media (prefers-reduced-motion:reduce){.confetti{display:none;}}
+
+/* =========================================================
+   JOURNÉE — version simple et illustrée
+   ========================================================= */
+.jour-s{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);}
+@media (max-width:900px){.jour-s{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.jour-s{grid-template-columns:1fr;}}
+.jour-c{
+  text-align:center;padding:clamp(1.5rem,1.2rem + 1vw,2.1rem) 1.2rem;
+  border-radius:var(--r-carte);background:var(--papier);border:1px solid var(--trait);
+  transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s,border-color .3s;
+}
+.jour-c:hover{transform:translateY(-6px);box-shadow:0 24px 50px -28px rgba(0,58,107,.3);border-color:transparent;}
+.jour-ic{
+  width:72px;height:72px;margin:0 auto 1.2rem;border-radius:22px;
+  display:grid;place-items:center;background:var(--bleu-ciel);color:var(--bleu);
+}
+.jour-c:nth-child(2) .jour-ic{background:var(--or-clair);color:#8A6A12;}
+.jour-c:nth-child(3) .jour-ic{background:#EFF5E6;color:#5C7A38;}
+.jour-c:nth-child(4) .jour-ic{background:#FBEDEA;color:#B7574C;}
+.jour-ic svg{width:34px;height:34px;}
+.jour-c h3{font-size:1.06rem;margin-bottom:.35rem;}
+.jour-c p{font-size:.88rem;color:var(--encre-70);line-height:1.55;}
+.jour-t{
+  display:inline-block;margin-top:.9rem;font-size:.76rem;font-weight:800;
+  letter-spacing:.05em;color:var(--encre-45);
+}
+
+/* =========================================================
+   CRÈCHE
+   ========================================================= */
+.creche-g{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);}
+@media (max-width:900px){.creche-g{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.creche-g{grid-template-columns:1fr;}}
+.creche-c{
+  padding:clamp(1.4rem,1.1rem + 1vw,1.9rem);border-radius:18px;
+  background:var(--papier);border:1px solid var(--trait);height:100%;
+}
+.creche-c .ic{width:56px;height:56px;border-radius:17px;margin-bottom:1.1rem;}
+.creche-c .ic svg{width:25px;height:25px;}
+.creche-c h3{font-size:1.02rem;margin-bottom:.4rem;}
+.creche-c p{font-size:.88rem;color:var(--encre-70);line-height:1.58;}
+
+.loi{
+  display:flex;gap:1rem;align-items:flex-start;
+  background:var(--bleu-ciel);border-radius:16px;padding:1.2rem 1.4rem;
+  font-size:.88rem;color:var(--encre-70);line-height:1.6;
+}
+.loi svg{width:22px;height:22px;flex-shrink:0;margin-top:.15rem;color:var(--bleu);}
+.loi b{color:var(--encre);}

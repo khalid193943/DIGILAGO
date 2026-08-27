@@ -96,6 +96,51 @@ if (compteurs.length) {
   }
 }
 
+
+/* ---------- « Pourquoi nous » : chaque ligne se révèle à son tour ---------- */
+const lignes = document.querySelectorAll('.pq-i');
+if (lignes.length) {
+  if (REDUIT || !('IntersectionObserver' in window)) {
+    lignes.forEach(l => l.classList.add('vue'));
+  } else {
+    const obsL = new IntersectionObserver((entrees) => {
+      entrees.forEach(e => {
+        if (!e.isIntersecting) return;
+        // petit décalage selon la position, pour un effet en cascade
+        const i = [...lignes].indexOf(e.target);
+        setTimeout(() => e.target.classList.add('vue'), (i % 3) * 110);
+        obsL.unobserve(e.target);
+      });
+    }, { threshold: 0.35, rootMargin: '0px 0px -40px 0px' });
+    lignes.forEach(l => obsL.observe(l));
+  }
+}
+
+/* ---------- Anniversaire : quelques confettis, une seule fois ---------- */
+const anniv = document.getElementById('anniv');
+if (anniv && !REDUIT && 'IntersectionObserver' in window) {
+  const COULEURS = ['#F2B441', '#F4A099', '#A8C08C', '#B0AEDB', '#FFFFFF'];
+  const obsA = new IntersectionObserver((entrees) => {
+    entrees.forEach(e => {
+      if (!e.isIntersecting) return;
+      for (let i = 0; i < 22; i++) {
+        const c = document.createElement('span');
+        c.className = 'confetti';
+        const taille = 6 + Math.random() * 7;
+        c.style.cssText =
+          `width:${taille}px;height:${taille * (Math.random() > .5 ? 1 : 2.2)}px;` +
+          `background:${COULEURS[i % COULEURS.length]};` +
+          `left:${Math.random() * 100}%;top:-20px;` +
+          `animation:tombe ${2.6 + Math.random() * 2.4}s ease-in ${Math.random() * 1.8}s forwards;`;
+        anniv.appendChild(c);
+        setTimeout(() => c.remove(), 9000);
+      }
+      obsA.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  obsA.observe(anniv);
+}
+
 /* ---------- formulaires ----------
    Envoi vers Netlify Forms. En cas d'échec, on le dit
    honnêtement plutôt que d'afficher une fausse confirmation. */
