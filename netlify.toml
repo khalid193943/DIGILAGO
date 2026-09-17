@@ -22,6 +22,40 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
 
+# ---------------------------------------------------------
+# Anciennes adresses (site v1) → sections de la nouvelle page
+# d'accueil. Redirections permanentes : Google transfère le
+# référencement acquis et les anciens liens continuent de marcher.
+# ---------------------------------------------------------
+[[redirects]]
+  from = "/pourquoi.html"
+  to = "/#presence"
+  status = 301
+[[redirects]]
+  from = "/services.html"
+  to = "/#services"
+  status = 301
+[[redirects]]
+  from = "/realisations.html"
+  to = "/#realisations"
+  status = 301
+[[redirects]]
+  from = "/tarifs.html"
+  to = "/#tarifs"
+  status = 301
+[[redirects]]
+  from = "/a-propos.html"
+  to = "/#agence"
+  status = 301
+[[redirects]]
+  from = "/contact.html"
+  to = "/#contact"
+  status = 301
+[[redirects]]
+  from = "/demarrer.html"
+  to = "/#demarrer"
+  status = 301
+
 # Netlify sert automatiquement 404.html quand aucune page ne correspond.
 # Pas de règle /* ici : elle pourrait interférer avec la route de la
 # fonction serveur (/.netlify/functions/submissions).

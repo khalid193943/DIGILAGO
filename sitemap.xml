@@ -2,145 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://digilago.ma/</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/"/>
+    <lastmod>2026-09-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/</loc>
     <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/"/>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/index.html"/>
   </url>
-  <url>
-    <loc>https://digilago.ma/pourquoi.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/pourquoi.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/pourquoi.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/pourquoi.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/pourquoi.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/pourquoi.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/pourquoi.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/pourquoi.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/services.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/services.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/services.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/services.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/services.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/services.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/services.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/services.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/realisations.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/realisations.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/realisations.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/realisations.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/realisations.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/realisations.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/realisations.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/realisations.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/tarifs.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/tarifs.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/tarifs.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/tarifs.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/tarifs.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/tarifs.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/tarifs.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/tarifs.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/a-propos.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/a-propos.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/a-propos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/a-propos.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/a-propos.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/a-propos.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/a-propos.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/a-propos.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/demarrer.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/demarrer.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/demarrer.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/demarrer.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/demarrer.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/demarrer.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/demarrer.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/demarrer.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/contact.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/contact.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/ar/contact.html</loc>
-    <xhtml:link rel="alternate" hreflang="fr-MA" href="https://digilago.ma/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="ar-MA" href="https://digilago.ma/ar/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://digilago.ma/contact.html"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/mentions-legales.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/politique-confidentialite.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  <url>
-    <loc>https://digilago.ma/conditions-generales.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
+  <url><loc>https://digilago.ma/mentions-legales.html</loc><lastmod>2026-09-17</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://digilago.ma/politique-confidentialite.html</loc><lastmod>2026-09-17</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://digilago.ma/conditions-generales.html</loc><lastmod>2026-09-17</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://digilago.ma/ar/pourquoi.html</loc><lastmod>2026-09-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://digilago.ma/ar/services.html</loc><lastmod>2026-09-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://digilago.ma/ar/realisations.html</loc><lastmod>2026-09-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://digilago.ma/ar/tarifs.html</loc><lastmod>2026-09-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://digilago.ma/ar/a-propos.html</loc><lastmod>2026-09-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://digilago.ma/ar/demarrer.html</loc><lastmod>2026-09-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://digilago.ma/ar/contact.html</loc><lastmod>2026-09-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
